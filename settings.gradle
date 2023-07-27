@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "wcapp"
+rootProject.name = "wellconnect"
 include ':app'

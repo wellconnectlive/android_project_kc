@@ -1,4 +1,4 @@
-package live.welllconnect.wcapp
+package live.wellconnect.wellconnect
 
 import org.junit.Test
 

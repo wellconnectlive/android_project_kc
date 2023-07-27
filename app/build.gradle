@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'live.welllconnect.wcapp'
+    namespace 'live.wellconnect.wellconnect'
     compileSdk 33
 
     defaultConfig {
-        applicationId "live.welllconnect.wcapp"
+        applicationId "live.wellconnect.wellconnect"
         minSdk 24
         targetSdk 33
         versionCode 1
