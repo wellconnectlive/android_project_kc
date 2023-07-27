@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "73583484631",
+    "project_id": "welconnect",
+    "storage_bucket": "welconnect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73583484631:android:1e85446e1eaa37c68b1a92",
+        "android_client_info": {
+          "package_name": "live.wellconnect.wellconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73583484631-fap1dvbkeponv4svod4bn8bvgtr86or3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNlKPG3EXwcsmzMtOZCb6OYd0B46L87ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73583484631-fap1dvbkeponv4svod4bn8bvgtr86or3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
