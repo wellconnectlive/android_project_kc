@@ -20,4 +20,12 @@ class SignInViewModel: ViewModel() {
     fun resetState() {
         _state.update { SignInState() }
     }
+
+    fun registerState() {
+        _state.update {
+            it.copy(
+                registerState = true
+            )
+        }
+    }
 }

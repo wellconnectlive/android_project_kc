@@ -1,5 +1,6 @@
 
 package live.wellconnect.wellconnect.presentation
+import android.util.Log
 import androidx.compose.foundation.Image
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialogDefaults.shape
@@ -28,6 +30,7 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 
 import androidx.compose.runtime.Composable
@@ -54,6 +57,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 
@@ -63,7 +67,8 @@ import androidx.compose.ui.text.font.FontWeight
 @Composable
 fun SignInScreen(
     state: SignInState,
-    onSignInClick: () -> Unit
+    onSignInClick: () -> Unit,
+    onRegisterClick : () -> Unit,
 ) {
 
     var textValue by remember { mutableStateOf(TextFieldValue()) }
@@ -77,6 +82,7 @@ fun SignInScreen(
             ).show()
         }
     }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -124,25 +130,34 @@ fun SignInScreen(
             }
             Spacer(modifier = Modifier.height(30.dp))
 
-            Text("¿No tienes una cuenta? ¡Regístrate!")
-            Text("Recuperar contraseña",
+            TextButton(
+                onClick = onRegisterClick,
+            ){
+                Text("¿No tienes una cuenta? ¡Regístrate!")
+            }
+            Text("Recuperar contraseña",  // button que dispara la acción rcuperar contaseña
             fontWeight = FontWeight.Bold)
 
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun SignInScreen_Preview() {
-    SignInScreen(SignInState(true,null)){}
-
+    SignInScreen(SignInState(true,null),
+                    onSignInClick =  {},
+                    onRegisterClick = {},
+    )
 }
 @Composable
 fun Logo() {
     Image(
         painter = painterResource(id = R.drawable.logonuevo),
         contentDescription = "Logo de la aplicación",
-        modifier = Modifier.size(138.dp).background(Color.Transparent)
+        modifier = Modifier
+            .size(138.dp)
+            .background(Color.Transparent)
     )
 }
 @Preview(showBackground = true)
@@ -193,7 +208,10 @@ fun CustomTextFieldLogin(
             .width(300.dp)
             .fillMaxWidth()
             .padding(16.dp)
-            .shadow(6.dp, shape = MaterialTheme.shapes.medium) // Aplica una sombra de 4dp alrededor del TextField
+            .shadow(
+                6.dp,
+                shape = MaterialTheme.shapes.medium
+            ) // Aplica una sombra de 4dp alrededor del TextField
             .background(Color.White, shape = MaterialTheme.shapes.medium) // Establece el fondo blanco y las esquinas redondeadas
 
     ) {

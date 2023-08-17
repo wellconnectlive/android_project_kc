@@ -2,6 +2,7 @@ package live.wellconnect.wellconnect
 
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -11,11 +12,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
@@ -23,16 +21,28 @@ import live.wellconnect.wellconnect.presentation.sign_in.GoogleAuthUiClient
 import live.wellconnect.wellconnect.ui.theme.WellconnectTheme
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import live.wellconnect.wellconnect.presentation.SignInScreen
 import live.wellconnect.wellconnect.presentation.SignInViewModel
+import androidx.activity.viewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
+import live.wellconnect.wellconnect.presentation.SignInScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreen
+import live.wellconnect.wellconnect.presentation.register_example.Register
+import live.wellconnect.wellconnect.presentation.register_example.RegisterScreen
+import live.wellconnect.wellconnect.presentation.register_example.RegisterViewModel
+import live.wellconnect.wellconnect.presentation.register_example.RegisterViewModel_ex
 
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val registerViewModelEx : RegisterViewModel_ex by viewModels()
+    private val registerViewModel: RegisterViewModel by viewModels()
+//    private lateinit var auth : FirebaseAuth
 
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -52,6 +62,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         val navController = rememberNavController()
                         NavHost(navController = navController, startDestination = "sign_in") {
+
                             composable("sign_in") {
                                 val viewModel = viewModel<SignInViewModel>()
                                 val state by viewModel.state.collectAsStateWithLifecycle()
@@ -76,7 +87,8 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
 
-                                LaunchedEffect(key1 = state.isSignInSuccessful) {
+
+                                LaunchedEffect(key1 = state.isSignInSuccessful, key2 = state.registerState) {
                                     if(state.isSignInSuccessful) {
                                         Toast.makeText(
                                             applicationContext,
@@ -85,6 +97,16 @@ class MainActivity : ComponentActivity() {
                                         ).show()
 
                                         navController.navigate("profile")
+                                        viewModel.resetState()
+                                    }
+                                    if(state.registerState) {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Register",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+
+                                        navController.navigate("register")
                                         viewModel.resetState()
                                     }
                                 }
@@ -100,9 +122,15 @@ class MainActivity : ComponentActivity() {
                                                 ).build()
                                             )
                                         }
+                                    },
+                                    onRegisterClick = {
+                                        Log.i("PUSH_REG", "PRESIONA DESDE REG")
+                                        navController.navigate("register")
                                     }
                                 )
                             }
+
+
                             composable("profile") {
                                 ProfileScreen(
                                     userData = googleAuthUiClient.getSignedInUser(),
@@ -119,6 +147,10 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                 )
+                            }
+
+                            composable("register") {
+                                RegisterScreen(registerViewModel)
                             }
                         }
                     }
