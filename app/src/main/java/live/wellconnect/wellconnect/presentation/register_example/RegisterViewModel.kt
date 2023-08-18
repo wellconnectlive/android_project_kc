@@ -38,15 +38,8 @@ class RegisterViewModel @Inject constructor(
             userRegister.password
         ).addOnCompleteListener{ task ->
             if (task.isSuccessful) {
-                Log.i("REGISTER", "No se ha conseguido autenticar al usuario, intentelo nuevamente")
-                db.collection("users").document(userRegister.email).set(
-                    hashMapOf(
-                        "email" to userRegister.email,
-                        "password" to userRegister.password,
-                        "name" to userRegister.name,
-                    )
-                )
-                //repository.loadUser(userRegister)
+                Log.i("REGISTER", "Usuario autenticado con éxito")
+                repository.loadUser(userRegister)
             } else {
                 Log.i("ERROR", "No se ha conseguido autenticar al usuario, intentelo nuevamente")
                 // todo debe de ir un alert de error, chequear con las states

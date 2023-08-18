@@ -13,11 +13,17 @@ class DataRepositoryImpl @Inject constructor(
     private val localStorage : DataDAO
 ) : DataRepository {
 
-
+    private val db = FirebaseFirestore.getInstance()
 
     override suspend fun insertUser(user: UserModel) = localStorage.insertNew(user.toUserDAO())
 
     override fun loadUser(user : UserRegister) {
-
+        db.collection("users").document(user.email).set(
+            hashMapOf(
+                "email" to user.email,
+                "password" to user.password,
+                "name" to user.name,
+            )
+        )
     }
 }
