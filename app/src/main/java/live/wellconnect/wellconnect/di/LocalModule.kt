@@ -31,5 +31,5 @@ object LocalModule {
 
     // providers de firebase
     @Provides
-    fun getCollectionFireBase() = Firebase.firestore.collection("usuarios")
+    fun getCollectionFireBase() = Firebase.firestore.collection("users")
 }
