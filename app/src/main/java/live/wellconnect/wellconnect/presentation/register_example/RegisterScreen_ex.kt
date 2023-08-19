@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import live.wellconnect.wellconnect.domain.Gender
 import live.wellconnect.wellconnect.domain.UserModel
 
 
@@ -157,7 +158,7 @@ fun Register(viewModel: RegisterViewModel_ex) {
         values.add(postalCode.text)
 
         if(!checkUser(values)){
-            val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(), values[3].toString(), values[4].toString(), values[5].toString(), values[6].toString(), values[7].toString(), values[8].toString(), values[9].toString(), values[10].toString())
+            val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(), values[3].toString(), Gender.FEMALE, values[5].toString(), values[6].toString(), values[7].toString(), values[8].toString(), values[9].toString(), values[10].toString(), values[11].toString())
             GetButton(viewModel, user)
         }
 

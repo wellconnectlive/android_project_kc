@@ -2,12 +2,13 @@ package live.wellconnect.wellconnect.domain
 
 import java.util.Date
 
+// add photo attibute
 data class UserModel(
     val id : String,
     val name : String,
     val lastNameFather : String,
     val lastNameMother : String,
-    //val gender : Gender,
+    val gender : Gender,
     //val gender : String,
     val dni : String,
     val address : String,

@@ -26,6 +26,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialogDefaults.shape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -51,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import live.wellconnect.wellconnect.R
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -64,14 +66,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.font.FontWeight
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
     state: SignInState,
     onSignInClick: () -> Unit,
     onRegisterClick : () -> Unit,
+    viewModel: SignInViewModel
 ) {
 
     var textValue by remember { mutableStateOf(TextFieldValue()) }
+    var email by remember { mutableStateOf(TextFieldValue()) }
+    var password by remember { mutableStateOf(TextFieldValue()) }
     val context = LocalContext.current
     LaunchedEffect(key1 = state.signInError) {
         state.signInError?.let { error ->
@@ -108,18 +114,34 @@ fun SignInScreen(
             Logo()
             LogoName()
 
-            CustomTextFieldLogin(
-                value = textValue,
-                onValueChange = { textValue = it },
-                hint = "DNI"
+            TextField(
+                value = email,
+                onValueChange = { email = it },
+                modifier = Modifier
+                    .alpha(0.8F)
+                    .background(Color.White),
+                placeholder = { Text(text = "Email") }
+            )
+            TextField(
+                value = password,
+                onValueChange = { password = it },
+                modifier = Modifier
+                    .alpha(0.8F)
+                    .background(Color.White),
+                placeholder = { Text(text = "Password") }
+            )
+            /*CustomTextFieldLogin(
+                value = email,
+                onValueChange = { email = it },
+                hint = "EMAIL"
             )
             CustomTextFieldLogin(
                 value = textValue,
                 onValueChange = { textValue = it },
                 hint = "Password"
-            )
+            )*/
             Button(
-                onClick = onSignInClick,
+                onClick = /*onSignInClick, */{ viewModel.login(email.text.toString(), password.text.toString()) },
                 colors = ButtonDefaults.buttonColors(
                     colorResource(id = R.color.orange),
                     contentColor = Color.White
@@ -148,6 +170,7 @@ fun SignInScreen_Preview() {
     SignInScreen(SignInState(true,null),
                     onSignInClick =  {},
                     onRegisterClick = {},
+                    viewModel = SignInViewModel(),
     )
 }
 @Composable

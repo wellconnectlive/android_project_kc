@@ -42,7 +42,6 @@ class MainActivity : ComponentActivity() {
 
     private val registerViewModelEx : RegisterViewModel_ex by viewModels()
     private val registerViewModel: RegisterViewModel by viewModels()
-//    private lateinit var auth : FirebaseAuth
 
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -126,7 +125,8 @@ class MainActivity : ComponentActivity() {
                                     onRegisterClick = {
                                         Log.i("PUSH_REG", "PRESIONA DESDE REG")
                                         navController.navigate("register")
-                                    }
+                                    },
+                                    viewModel,
                                 )
                             }
 

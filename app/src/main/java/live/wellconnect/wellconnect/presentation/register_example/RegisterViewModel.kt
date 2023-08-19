@@ -32,6 +32,7 @@ class RegisterViewModel @Inject constructor(
     private val _user : MutableLiveData <UserRegister> = MutableLiveData<UserRegister>()
     val user : MutableLiveData<UserRegister> get() = _user
 
+    // todo, chequear porqué no puede ser una password menor a 6 , caso contrario da error
     fun registerUser(userRegister: UserRegister) = viewModelScope.launch(Dispatchers.IO) {
         auth.createUserWithEmailAndPassword(
             userRegister.email,
@@ -46,7 +47,6 @@ class RegisterViewModel @Inject constructor(
                 //getMessageError()
             }
         }
-
     }
 
 }

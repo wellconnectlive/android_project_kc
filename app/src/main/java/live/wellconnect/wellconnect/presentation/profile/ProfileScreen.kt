@@ -1,5 +1,6 @@
 package live.wellconnect.wellconnect.presentation.profile
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -27,9 +28,11 @@ fun ProfileScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if(userData?.profilePictureUrl != null) {
+        Log.i("USERDATA", userData.toString())
+        //if(userData?.profilePictureUrl != null) {
+        /*if(userData?.userId != null) {
             AsyncImage(
-                model = userData.profilePictureUrl,
+                model = userData.email,
                 contentDescription = "Profile picture",
                 modifier = Modifier
                     .size(150.dp)
@@ -37,14 +40,29 @@ fun ProfileScreen(
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.height(16.dp))
+        }*/
+        if(userData?.userId != null) {
+            userData.email?.let {
+                Text(
+                    text = userData.email,
+                    textAlign = TextAlign.Center,
+                    fontSize = 36.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
         }
-        if(userData?.username != null) {
-            Text(
-                text = userData.username,
-                textAlign = TextAlign.Center,
-                fontSize = 36.sp,
-                fontWeight = FontWeight.SemiBold
-            )
+
+        // DELETE
+        if(userData?.userId != null) {
+            userData.userId?.let {
+                Text(
+                    text = userData.userId,
+                    textAlign = TextAlign.Center,
+                    fontSize = 36.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
             Spacer(modifier = Modifier.height(16.dp))
         }
         Button(onClick = onSignOut) {
