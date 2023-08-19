@@ -23,7 +23,8 @@ class ProfileScreenViewModel @Inject constructor(
     val dataUser : LiveData<String> get() = _dataUser
 
     fun getUserValues(uID :String) = viewModelScope.launch(Dispatchers.IO) {
-        _dataUser.postValue(repository.checkUser(uID))
-        dataUser.value?.let { Log.i("NAME", it) }
+        _dataUser.postValue(repository.checkUser(uID).toString())
+        //dataUser.value?.let { Log.i("NAME", it) }
+        Log.i("NAME", _dataUser.value.toString())
     }
 }
