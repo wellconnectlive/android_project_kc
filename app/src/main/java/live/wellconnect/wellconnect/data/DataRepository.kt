@@ -7,4 +7,5 @@ interface DataRepository {
 
     suspend fun insertUser(user : UserModel)
     fun loadUser(user : UserRegister)
+    fun checkUser(uID : String) : String
 }

@@ -2,6 +2,7 @@ package live.wellconnect.wellconnect.domain
 
 import java.util.Date
 
+// todo, validar los atributos que pasarán a opcionales
 // add photo attibute
 data class UserModel(
     val id : String,

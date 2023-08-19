@@ -15,13 +15,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import live.wellconnect.wellconnect.presentation.UserData
 
 @Composable
 fun ProfileScreen(
     userData: UserData?,
-    onSignOut: () -> Unit
+    onSignOut: () -> Unit,
+    profileScreenViewModel: ProfileScreenViewModel
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -29,6 +31,9 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Log.i("USERDATA", userData.toString())
+        userData?.email?.let { profileScreenViewModel.getUserValues(it) }
+        val userName = profileScreenViewModel.dataUser.value
+
         //if(userData?.profilePictureUrl != null) {
         /*if(userData?.userId != null) {
             AsyncImage(
@@ -42,9 +47,9 @@ fun ProfileScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }*/
         if(userData?.userId != null) {
-            userData.email?.let {
+            if (userName != null) {
                 Text(
-                    text = userData.email,
+                    text = userName,
                     textAlign = TextAlign.Center,
                     fontSize = 36.sp,
                     fontWeight = FontWeight.SemiBold

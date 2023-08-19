@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import live.wellconnect.wellconnect.presentation.SignInScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreen
+import live.wellconnect.wellconnect.presentation.profile.ProfileScreenViewModel
 import live.wellconnect.wellconnect.presentation.register_example.Register
 import live.wellconnect.wellconnect.presentation.register_example.RegisterScreen
 import live.wellconnect.wellconnect.presentation.register_example.RegisterViewModel
@@ -42,6 +43,7 @@ class MainActivity : ComponentActivity() {
 
     private val registerViewModelEx : RegisterViewModel_ex by viewModels()
     private val registerViewModel: RegisterViewModel by viewModels()
+    private val profileViewModel: ProfileScreenViewModel  by viewModels()
 
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -145,12 +147,14 @@ class MainActivity : ComponentActivity() {
 
                                             navController.popBackStack()
                                         }
-                                    }
+                                    },
+                                    profileViewModel,
                                 )
                             }
 
                             composable("register") {
                                 RegisterScreen(registerViewModel)
+                               // navController.popBackStack()
                             }
                         }
                     }

@@ -26,4 +26,38 @@ class DataRepositoryImpl @Inject constructor(
             )
         )
     }
+
+    override fun checkUser(uID: String): String {
+
+        /*val userId = "el_id_del_usuario"
+        val userReference = firebaseDatabase.getReference("users").child(userId)
+
+        userReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userData = snapshot.getValue(UserData::class.java)
+
+                if (userData != null) {
+                    val userName = userData.name
+                    // Aquí puedes usar el valor del nombre (userName)
+                } else {
+                    // Manejar el caso en que userData es nulo
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar errores de lectura
+            }
+        })*/
+        var name = ""
+        /*db.collection("users").document(uID).get().addOnSuccessListener {
+
+        }*/
+        //val ref = db.collection("users").document(uID).get()
+        val ref = db.collection("users").get()
+
+        ref.addOnSuccessListener {
+            it.forEach { i -> println(i.data) }
+        }
+        return name
+    }
 }
