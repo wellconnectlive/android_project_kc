@@ -20,6 +20,7 @@ class RegisterViewModel_ex @Inject constructor(
     private val _user : MutableLiveData<UserModel> = MutableLiveData<UserModel>()
     val user : LiveData<UserModel> get() = _user
 
+    // rebuilt to firebase
     fun addUser(userModel: UserModel) = viewModelScope.launch(Dispatchers.IO) {
         Log.i("PUSHED2", userModel.toString())
         repository.insertUser(userModel)

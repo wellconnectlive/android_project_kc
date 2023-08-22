@@ -30,8 +30,6 @@ fun ProfileScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Log.i("USERDATA", userData.toString())
-        //userData?.email?.let { profileScreenViewModel.getUserValues(it) }
         val email =  userData?.email ?: ""
         profileScreenViewModel.getUserValues(email)
         val userName = profileScreenViewModel.dataUser.value
@@ -48,30 +46,27 @@ fun ProfileScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
         }*/
-        if(userData?.userId != null) {
             if (userName != null) {
                 Text(
-                    text = userName,
+                    text = userName.name,
                     textAlign = TextAlign.Center,
                     fontSize = 36.sp,
                     fontWeight = FontWeight.SemiBold
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-        }
 
         // DELETE
-        if(userData?.userId != null) {
-            userData.userId?.let {
-                Text(
-                    text = userData.userId,
-                    textAlign = TextAlign.Center,
-                    fontSize = 36.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
+                if (userName != null) {
+                    Text(
+                        text = userName.name,
+                        textAlign = TextAlign.Center,
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
             Spacer(modifier = Modifier.height(16.dp))
-        }
+
         Button(onClick = onSignOut) {
             Text(text = "Sign out")
         }
