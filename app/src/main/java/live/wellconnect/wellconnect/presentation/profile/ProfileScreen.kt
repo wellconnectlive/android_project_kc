@@ -1,5 +1,6 @@
 package live.wellconnect.wellconnect.presentation.profile
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -19,11 +20,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import live.wellconnect.wellconnect.presentation.UserData
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun ProfileScreen(
     userData: UserData?,
     onSignOut: () -> Unit,
-    profileScreenViewModel: ProfileScreenViewModel
+    profileScreenViewModel: ProfileScreenViewModel,
+    onRegContinue : () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -59,7 +62,7 @@ fun ProfileScreen(
         // DELETE
                 if (userName != null) {
                     Text(
-                        text = userName.name,
+                        text = userName.email,
                         textAlign = TextAlign.Center,
                         fontSize = 36.sp,
                         fontWeight = FontWeight.SemiBold
@@ -69,6 +72,11 @@ fun ProfileScreen(
 
         Button(onClick = onSignOut) {
             Text(text = "Sign out")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onRegContinue) {
+            Text(text = "Continue")
         }
     }
 

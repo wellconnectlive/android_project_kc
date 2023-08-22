@@ -5,10 +5,11 @@ import java.util.Date
 // todo, validar los atributos que pasarán a opcionales
 // add photo attibute
 data class UserModel(
-    val id : String?,
+    //val id : String?,
     var name : String?,
     var lastNameFather : String?,
     var lastNameMother : String?,
+    //var photo : String?,
     var gender : Gender?,
     //val gender : String,
     var dni : String?,
@@ -28,6 +29,7 @@ data class UserModel(
     var postalCode : String?,
 )
 
+///Users/isadevs/Documents/
 enum class Gender{
     FEMALE,
     MALE,

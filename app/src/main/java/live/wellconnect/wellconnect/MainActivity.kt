@@ -27,7 +27,6 @@ import androidx.navigation.compose.rememberNavController
 import live.wellconnect.wellconnect.presentation.SignInViewModel
 import androidx.activity.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import live.wellconnect.wellconnect.presentation.SignInScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreen
@@ -35,13 +34,13 @@ import live.wellconnect.wellconnect.presentation.profile.ProfileScreenViewModel
 import live.wellconnect.wellconnect.presentation.register_example.Register
 import live.wellconnect.wellconnect.presentation.register_example.RegisterScreen
 import live.wellconnect.wellconnect.presentation.register_example.RegisterViewModel
-import live.wellconnect.wellconnect.presentation.register_example.RegisterViewModel_ex
+import live.wellconnect.wellconnect.presentation.register_example.RegisterViewModelContinue
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val registerViewModelEx : RegisterViewModel_ex by viewModels()
+    private val registerViewModelEx : RegisterViewModelContinue by viewModels()
     private val registerViewModel: RegisterViewModel by viewModels()
     private val profileViewModel: ProfileScreenViewModel  by viewModels()
 
@@ -149,6 +148,9 @@ class MainActivity : ComponentActivity() {
                                         }
                                     },
                                     profileViewModel,
+                                    onRegContinue = {
+                                        navController.navigate("register_continue")
+                                    },
                                 )
                             }
 
@@ -156,6 +158,12 @@ class MainActivity : ComponentActivity() {
                                 RegisterScreen(registerViewModel)
                                // navController.popBackStack()
                             }
+
+                            composable("register_continue") {
+                                Register(userData = googleAuthUiClient.getSignedInUser(), registerViewModelEx)
+                                //navController.popBackStack()  // todo, chequear porque sobreescirbe en empty la pantalla
+                            }
+
                         }
                     }
 

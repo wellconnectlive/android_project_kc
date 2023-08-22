@@ -13,7 +13,7 @@ import live.wellconnect.wellconnect.domain.UserModel
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel_ex @Inject constructor(
+class RegisterViewModelContinue @Inject constructor(
     private val repository: DataRepository
 ) : ViewModel() {
 
@@ -21,8 +21,8 @@ class RegisterViewModel_ex @Inject constructor(
     val user : LiveData<UserModel> get() = _user
 
     // rebuilt to firebase
-    fun addUser(userModel: UserModel) = viewModelScope.launch(Dispatchers.IO) {
+    fun addUser(userModel: UserModel, email : String) = viewModelScope.launch(Dispatchers.IO) {
         Log.i("PUSHED2", userModel.toString())
-        repository.insertUser(userModel)
+        repository.insertUser(userModel, email)
     }
 }

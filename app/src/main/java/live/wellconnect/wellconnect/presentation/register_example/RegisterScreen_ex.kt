@@ -24,13 +24,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import live.wellconnect.wellconnect.domain.Gender
 import live.wellconnect.wellconnect.domain.UserModel
+import live.wellconnect.wellconnect.presentation.UserData
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Register(viewModel: RegisterViewModel_ex) {
+fun Register(
+    userData: UserData?,
+    viewModel: RegisterViewModelContinue,
+) {
 
-    var id by remember { mutableStateOf(TextFieldValue()) } /// verificar cómo se manejará él primer registro para asignar id
+    val emailData =  userData?.email ?: ""
+    //var id by remember { mutableStateOf(TextFieldValue()) } /// verificar cómo se manejará él primer registro para asignar id
     var name by remember { mutableStateOf(TextFieldValue()) }
     var fatherLastName by remember { mutableStateOf(TextFieldValue()) }
     var motherLastName by remember { mutableStateOf(TextFieldValue()) }
@@ -49,7 +54,7 @@ fun Register(viewModel: RegisterViewModel_ex) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        TextField(
+        /*TextField(
             value = id,
             onValueChange = { id = it },
             modifier = Modifier
@@ -57,7 +62,7 @@ fun Register(viewModel: RegisterViewModel_ex) {
                 .background(Color.White),
             placeholder = { Text(text = "ID") }
         )
-        values.add(id.text)
+        values.add(id.text)*/
         TextField(
             value = name,
             onValueChange = { name = it },
@@ -158,8 +163,8 @@ fun Register(viewModel: RegisterViewModel_ex) {
         values.add(postalCode.text)
 
         if(!checkUser(values)){
-            val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(), values[3].toString(), Gender.FEMALE, values[5].toString(), values[6].toString(), values[7].toString(), values[8].toString(), values[9].toString(), values[10].toString(), values[11].toString())
-            GetButton(viewModel, user)
+            val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(),  Gender.FEMALE, values[3].toString(), values[4].toString(), values[5].toString(), values[6].toString(), values[7].toString(), values[8].toString(), values[9].toString())
+            GetButton(viewModel, user, emailData)
         }
 
     }
@@ -174,12 +179,12 @@ fun checkUser(values: ArrayList<Any>): Boolean {
  * Simultáneamente se debe de crear una funcion para limpiar los textfield y señalizar que se ha agregado al nuevo objeto
  */
 @Composable
-fun GetButton(viewModel: RegisterViewModel_ex, user: UserModel) {
+fun GetButton(viewModel: RegisterViewModelContinue, user: UserModel, userData: String) {
     val response = viewModel.user.observeAsState()
 
     Button(
         onClick = {
-            viewModel.addUser(user)
+            viewModel.addUser(user, userData)
             Log.i("PUSHED", user.toString())
                   },
         shape = RoundedCornerShape(50.dp)

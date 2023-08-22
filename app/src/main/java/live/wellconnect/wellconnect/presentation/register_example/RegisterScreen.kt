@@ -41,6 +41,7 @@ fun RegisterScreen(viewModel : RegisterViewModel) {
     var name by remember { mutableStateOf(TextFieldValue()) }
     var email by remember { mutableStateOf(TextFieldValue()) }
     var password by remember { mutableStateOf(TextFieldValue()) } // required validation
+    var photo by remember { mutableStateOf(TextFieldValue()) } // required validation
     Column(
         modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.Center,
@@ -62,6 +63,13 @@ fun RegisterScreen(viewModel : RegisterViewModel) {
             onValueChange = { email = it },
         )
         Space()
+        MakeText("Photo Location", 16)
+        TextField(
+            label = { Text(text = "photo") },
+            value = photo,
+            onValueChange = { photo = it },
+        )
+        Space()
         MakeText("Password", 16)
         TextField(
             label = { Text(text = "Create a password") },
@@ -76,7 +84,7 @@ fun RegisterScreen(viewModel : RegisterViewModel) {
 
         /// check for politics and conditions
 
-        val user = UserRegister(name.text.toString(), email.text.toString(), password.text.toString())
+        val user = UserRegister(name.text.toString(), email.text.toString(), password.text.toString()/*, photo.text.toString()*/)
 
         Button(
             onClick = {
