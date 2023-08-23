@@ -1,15 +1,11 @@
 package live.wellconnect.wellconnect.presentation.register_example
 
 import android.util.Log
-import androidx.compose.material3.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.oAuthProvider
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,14 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val repository : DataRepository
+    private val repository: DataRepository
 ) : ViewModel() {
 
-    // move to repo
-
     private val auth : FirebaseAuth = Firebase.auth
-    // just proof to mov own repository
-    private val db = FirebaseFirestore.getInstance()
 
     private val _user : MutableLiveData <UserRegister> = MutableLiveData<UserRegister>()
     val user : MutableLiveData<UserRegister> get() = _user
@@ -40,12 +32,14 @@ class RegisterViewModel @Inject constructor(
         ).addOnCompleteListener{ task ->
             if (task.isSuccessful) {
                 Log.i("REGISTER", "Usuario autenticado con éxito")
+                auth.currentUser?.sendEmailVerification()
                 repository.loadUser(userRegister)
             } else {
                 Log.i("ERROR", "No se ha conseguido autenticar al usuario, intentelo nuevamente")
                 // todo debe de ir un alert de error, chequear con las states
-                //getMessageError()
             }
+        }.addOnFailureListener {
+            Log.i("ERROR_REGISTER", "No se ha conseguido registrar al usuario, intentelo nuevamente")
         }
     }
 

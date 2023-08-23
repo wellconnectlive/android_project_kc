@@ -6,8 +6,8 @@ import live.wellconnect.wellconnect.domain.UserRegister
 
 interface DataRepository {
 
+
     suspend fun insertUser(user : UserModel, userUID : String)
     fun loadUser(user : UserRegister)
-    //suspend fun checkUser(uID : String) : String
     suspend fun checkUser(uID : String) : UserModelDTO
 }
