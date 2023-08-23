@@ -34,7 +34,7 @@ fun Register(
     viewModel: RegisterViewModelContinue,
 ) {
 
-    val emailData =  userData?.email ?: ""
+    val idData =  userData?.userId ?: ""
     //var id by remember { mutableStateOf(TextFieldValue()) } /// verificar cómo se manejará él primer registro para asignar id
     var name by remember { mutableStateOf(TextFieldValue()) }
     var fatherLastName by remember { mutableStateOf(TextFieldValue()) }
@@ -164,7 +164,7 @@ fun Register(
 
         if(!checkUser(values)){
             val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(),  Gender.FEMALE, values[3].toString(), values[4].toString(), values[5].toString(), values[6].toString(), values[7].toString(), values[8].toString(), values[9].toString())
-            GetButton(viewModel, user, emailData)
+            GetButton(viewModel, user, idData)
         }
 
     }

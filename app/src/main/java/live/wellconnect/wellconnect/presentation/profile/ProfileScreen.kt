@@ -33,8 +33,8 @@ fun ProfileScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val email =  userData?.email ?: ""
-        profileScreenViewModel.getUserValues(email)
+        val uiID =  userData?.userId?: ""
+        profileScreenViewModel.getUserValues(uiID)
         val userName = profileScreenViewModel.dataUser.value
 
         //if(userData?.profilePictureUrl != null) {

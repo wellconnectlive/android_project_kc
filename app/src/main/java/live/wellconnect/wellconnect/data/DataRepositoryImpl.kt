@@ -4,7 +4,6 @@ package live.wellconnect.wellconnect.data
 import android.net.Uri
 import android.util.Log
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -48,15 +47,15 @@ class DataRepositoryImpl @Inject constructor(
     }
 
 
-    override fun loadUser(user : UserRegister) {
-        db.collection("users").document(user.email).set(
-            hashMapOf(
-                "email" to user.email,
-                "password" to user.password,
-                "name" to user.name,
-                //"photo" to getImage(user.photo),
+    override fun loadUser(user: UserRegister, currentUser: String) {
+        db.collection("users").document(currentUser).set(
+                hashMapOf(
+                    "email" to user.email,
+                    "password" to user.password,
+                    "name" to user.name,
+                    //"photo" to getImage(user.photo),
+                )
             )
-        )
     }
 
     private fun getImage(photo : String) : Task<Uri> {

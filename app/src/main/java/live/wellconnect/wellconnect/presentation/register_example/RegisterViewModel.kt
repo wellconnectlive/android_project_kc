@@ -33,7 +33,7 @@ class RegisterViewModel @Inject constructor(
             if (task.isSuccessful) {
                 Log.i("REGISTER", "Usuario autenticado con éxito")
                 auth.currentUser?.sendEmailVerification()
-                repository.loadUser(userRegister)
+                auth.currentUser?.let { repository.loadUser(userRegister, it.uid) }
             } else {
                 Log.i("ERROR", "No se ha conseguido autenticar al usuario, intentelo nuevamente")
                 // todo debe de ir un alert de error, chequear con las states

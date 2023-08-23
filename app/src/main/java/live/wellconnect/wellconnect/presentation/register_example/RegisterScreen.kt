@@ -65,8 +65,11 @@ fun RegisterScreen(viewModel : RegisterViewModel) {
             horizontalAlignment = Alignment.Start,
         ) {
             MakeText("Sign up", 25)
-            Space()
+            Space(10)
+            MakeText("Create an account to get started", 15)
+            Space(30)
             MakeText("Name", 14)
+            Space(10)
             TextField(
                 label = { Text(text = "Name") },
                 modifier = Modifier
@@ -80,8 +83,9 @@ fun RegisterScreen(viewModel : RegisterViewModel) {
                     Image(imageVector = Icons.Outlined.Edit, contentDescription = "Pencil Edit")
                 },
             )
-            Space()
+            Space(20)
             MakeText("Email Address", 14)
+            Space(10)
             TextField(
                 label = { Text(text = "name@email.com") },
                 value = email,
@@ -89,31 +93,38 @@ fun RegisterScreen(viewModel : RegisterViewModel) {
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
-            Space()
+            Space(20)
             MakeText("Password", 14)
+            Space(10)
             TextField(
                 label = { Text(text = "Create a password") },
                 value = password,
                 onValueChange = { password = it },
                 singleLine = true,
-                modifier = Modifier.alpha(1F).background(Color.White).fillMaxWidth(),
+                modifier = Modifier
+                    .alpha(1F)
+                    .background(Color.White)
+                    .fillMaxWidth(),
                 trailingIcon = {
                     Image(imageVector = Icons.Outlined.Lock, contentDescription = "Password")
                 },
             )
-            Space()
+            Space(20)
             TextField(
                 label = { Text(text = "Confirm password") },
                 value = password,
                 onValueChange = { password = it },
                 singleLine = true,
-                modifier = Modifier.alpha(1F).background(Color.White).fillMaxWidth(),
+                modifier = Modifier
+                    .alpha(1F)
+                    .background(Color.White)
+                    .fillMaxWidth(),
                 trailingIcon = {
                     Image(imageVector = Icons.Outlined.Lock, contentDescription = "Password")
                 },
             )
-            Space()
-            /// check for politics and conditions
+            Space(20)
+            // todo :  check for politics and conditions
 
             val user = UserRegister(name.text.toString(), email.text.toString(), password.text.toString()/*, photo.text.toString()*/)
 
@@ -136,6 +147,22 @@ fun RegisterScreen(viewModel : RegisterViewModel) {
 
 }
 
+
+/*@Composable
+fun MakeTextField(
+    label : String,
+    image : Icons,
+) {
+    val (text, setText) = mutableStateOf("")
+    TextField(
+        trailingIcon = image,
+        value = text,
+        onValueChange = setText,
+        label = label,
+        modifier = Modifier.fillMaxWidth()
+    )
+}*/
+
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun RegisterScreen_Preview(){
@@ -152,7 +179,7 @@ fun MakeText(text : String, size : Int) = Text(
 )
 
 @Composable
-fun Space() = Spacer(
+fun Space(size : Int) = Spacer(
     modifier = Modifier
-        .height(20.dp)
+        .height(size.dp)
 )
