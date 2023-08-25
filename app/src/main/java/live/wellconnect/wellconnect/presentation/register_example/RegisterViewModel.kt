@@ -1,6 +1,9 @@
 package live.wellconnect.wellconnect.presentation.register_example
 
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,6 +23,8 @@ class RegisterViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val auth : FirebaseAuth = Firebase.auth
+    var isRegisterShow by mutableStateOf(false)
+        private set
 
     private val _user : MutableLiveData <UserRegister> = MutableLiveData<UserRegister>()
     val user : MutableLiveData<UserRegister> get() = _user
@@ -34,6 +39,7 @@ class RegisterViewModel @Inject constructor(
                 Log.i("REGISTER", "Usuario autenticado con éxito")
                 auth.currentUser?.sendEmailVerification()
                 auth.currentUser?.let { repository.loadUser(userRegister, it.uid) }
+                isRegisterShow = true
             } else {
                 Log.i("ERROR", "No se ha conseguido autenticar al usuario, intentelo nuevamente")
                 // todo debe de ir un alert de error, chequear con las states
@@ -41,6 +47,11 @@ class RegisterViewModel @Inject constructor(
         }.addOnFailureListener {
             Log.i("ERROR_REGISTER", "No se ha conseguido registrar al usuario, intentelo nuevamente")
         }
+    }
+
+    fun signOut() {
+        isRegisterShow = false
+        auth.signOut()
     }
 
 }

@@ -3,7 +3,6 @@ package live.wellconnect.wellconnect.presentation.register_example
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,13 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -38,16 +34,15 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import live.wellconnect.wellconnect.R
-import live.wellconnect.wellconnect.data.DataRepository
 import live.wellconnect.wellconnect.data.DataRepositoryImpl
 import live.wellconnect.wellconnect.domain.UserRegister
-import live.wellconnect.wellconnect.navigation.Screens
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(viewModel : RegisterViewModel) {
+fun RegisterScreen(
+    viewModel : RegisterViewModel,
+) {
 
     var name by remember { mutableStateOf(TextFieldValue()) }
     var email by remember { mutableStateOf(TextFieldValue()) }
@@ -134,12 +129,26 @@ fun RegisterScreen(viewModel : RegisterViewModel) {
                     Log.i("PUSHED", user.toString())
                 },
                 shape = RoundedCornerShape(5.dp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+
 
             ) {
                 Text(
                     text = "Sign Up",
                     color = Color.Black
+                )
+            }
+
+            if (viewModel.isRegisterShow){
+                CustomDialog(
+                    onDismiss = {
+                        viewModel.isRegisterShow
+                    },
+                    onSigIn = {
+                        viewModel.signOut()
+                    }
                 )
             }
         }
