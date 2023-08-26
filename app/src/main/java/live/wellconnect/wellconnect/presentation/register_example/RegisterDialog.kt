@@ -15,9 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import live.wellconnect.wellconnect.components.MakeText
+import live.wellconnect.wellconnect.components.Space
+import live.wellconnect.wellconnect.ui.theme.TextColor
 
 
 @Composable
@@ -46,9 +50,9 @@ fun CustomDialog(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                MakeText("Message sended to your email", 20)
+                MakeText("Message sended to your email", 20, TextColor, TextAlign.Start)
                 Space(size = 20)
-                MakeText("Please Verify your email address to log in and get started", 14)
+                MakeText("Please Verify your email address to log in and get started", 14, TextColor, TextAlign.Start)
                 Space(size = 50)
                 Button(
                     modifier = Modifier

@@ -6,10 +6,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -29,16 +27,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import live.wellconnect.wellconnect.components.MakeText
+import live.wellconnect.wellconnect.components.MakeTextField
+import live.wellconnect.wellconnect.components.MakeTextFieldPassword
 import live.wellconnect.wellconnect.components.Space
 import live.wellconnect.wellconnect.data.DataRepositoryImpl
 import live.wellconnect.wellconnect.domain.UserRegister
+import live.wellconnect.wellconnect.ui.theme.TextColor
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,118 +51,80 @@ fun RegisterScreen(
     var password by remember { mutableStateOf(TextFieldValue()) } // required validation
 
     Surface(
-        color = Color.White,
-        modifier = Modifier.fillMaxSize().padding(30.dp)
-    ) {
-
-    }
-
-
-    Box(
         modifier = Modifier
             .fillMaxSize()
-    ){
-        Column(
+            .background(Color.White)
+            .padding(30.dp)
+    ) {
+        Box(
             modifier = Modifier
-                .padding(20.dp)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start,
-        ) {
-            MakeText("Sign up", 25)
-            Space(10)
-            MakeText("Create an account to get started", 15)
-            Space(30)
-            MakeText("Name", 14)
-            Space(10)
-            TextField(
-                label = { Text(text = "Name") },
+                .fillMaxSize()
+                .background(Color.White)
+        ){
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .alpha(0.8F)
-                    .background(Color.White),
-                value = name,
-                onValueChange = { name = it },
-                singleLine = true,
-                trailingIcon = {
-                    Image(imageVector = Icons.Outlined.Edit, contentDescription = "Pencil Edit")
-                },
-            )
-            Space(20)
-            MakeText("Email Address", 14)
-            Space(10)
-            TextField(
-                label = { Text(text = "name@email.com") },
-                value = email,
-                onValueChange = { email = it },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Space(20)
-            MakeText("Password", 14)
-            Space(10)
-            TextField(
-                label = { Text(text = "Create a password") },
-                value = password,
-                onValueChange = { password = it },
-                singleLine = true,
-                modifier = Modifier
-                    .alpha(1F)
-                    .background(Color.White)
-                    .fillMaxWidth(),
-                trailingIcon = {
-                    Image(imageVector = Icons.Outlined.Lock, contentDescription = "Password")
-                },
-            )
-            Space(20)
-            TextField(
-                label = { Text(text = "Confirm password") },
-                value = password,
-                onValueChange = { password = it },
-                singleLine = true,
-                modifier = Modifier
-                    .alpha(1F)
-                    .background(Color.White)
-                    .fillMaxWidth(),
-                trailingIcon = {
-                    Image(imageVector = Icons.Outlined.Lock, contentDescription = "Password")
-                },
-            )
-            Space(20)
-            // todo :  check for politics and conditions
-
-            val user = UserRegister(name.text.toString(), email.text.toString(), password.text.toString()/*, photo.text.toString()*/)
-
-            Button(
-                onClick = {
-                    viewModel.registerUser(user)
-                    Log.i("PUSHED", user.toString())
-                },
-                shape = RoundedCornerShape(5.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-
-
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start,
             ) {
-                Text(
-                    text = "Sign Up",
-                    color = Color.Black
-                )
-            }
+                MakeText("Sign up", 16, TextColor, TextAlign.Start)
+                Space(10)
+                MakeText("Create an account to get started", 12, Color.Black, TextAlign.Start)
+                Space(30)
+                MakeText("Name", 12, TextColor, TextAlign.Start)
+                Space(10)
+                MakeTextField(labelValue = "Name", Icons.Outlined.Edit)
 
-            if (viewModel.isRegisterShow){
-                CustomDialog(
-                    onDismiss = {
-                        viewModel.isRegisterShow
+                Space(20)
+                MakeText("Email Address", 12, TextColor, TextAlign.Start)
+                Space(10)
+                MakeTextField(labelValue = "name@email.com", icon = null)
+
+                Space(20)
+                MakeText("Password", 12, TextColor, TextAlign.Start)
+                Space(10)
+
+                MakeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Lock)
+                Space(20)
+                MakeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Lock)
+
+                Space(20)
+                // todo :  check for politics and conditions
+
+                val user = UserRegister(name.text.toString(), email.text.toString(), password.text.toString()/*, photo.text.toString()*/)
+
+                Button(
+                    onClick = {
+                        viewModel.registerUser(user)
+                        Log.i("PUSHED", user.toString())
                     },
-                    onSigIn = {
-                        viewModel.signOut()
-                    }
-                )
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                    ) {
+                    Text(
+                        text = "Sign Up",
+                        color = Color.Black
+                    )
+                }
+
+                if (viewModel.isRegisterShow){
+                    CustomDialog(
+                        onDismiss = {
+                            viewModel.isRegisterShow
+                        },
+                        onSigIn = {
+                            viewModel.signOut()
+                        }
+                    )
+                }
             }
         }
+
     }
+
+
+
 
 }
 
