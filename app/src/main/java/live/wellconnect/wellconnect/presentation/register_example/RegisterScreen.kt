@@ -11,8 +11,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Block
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.PanoramaFishEye
+import androidx.compose.material.icons.outlined.Password
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
@@ -34,6 +38,8 @@ import androidx.compose.ui.unit.dp
 import live.wellconnect.wellconnect.components.MakeText
 import live.wellconnect.wellconnect.components.MakeTextField
 import live.wellconnect.wellconnect.components.MakeTextFieldPassword
+import live.wellconnect.wellconnect.components.MyButton
+import live.wellconnect.wellconnect.components.MyCheckBox
 import live.wellconnect.wellconnect.components.Space
 import live.wellconnect.wellconnect.data.DataRepositoryImpl
 import live.wellconnect.wellconnect.domain.UserRegister
@@ -56,97 +62,63 @@ fun RegisterScreen(
             .background(Color.White)
             .padding(30.dp)
     ) {
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)
-        ){
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.Start,
-            ) {
-                MakeText("Sign up", 16, TextColor, TextAlign.Start)
-                Space(10)
-                MakeText("Create an account to get started", 12, Color.Black, TextAlign.Start)
-                Space(30)
-                MakeText("Name", 12, TextColor, TextAlign.Start)
-                Space(10)
-                MakeTextField(labelValue = "Name", Icons.Outlined.Edit)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start,
+        ) {
+            MakeText("Sign up", 16, TextColor, TextAlign.Start)
+            Space(10)
+            MakeText("Create an account to get started", 12, Color.Black, TextAlign.Start)
+            Space(30)
+            MakeText("Name", 12, TextColor, TextAlign.Start)
+            Space(10)
+            MakeTextField(labelValue = "Name", Icons.Outlined.Edit)
 
-                Space(20)
-                MakeText("Email Address", 12, TextColor, TextAlign.Start)
-                Space(10)
-                MakeTextField(labelValue = "name@email.com", icon = null)
+            Space(20)
+            MakeText("Email Address", 12, TextColor, TextAlign.Start)
+            Space(10)
+            MakeTextField(labelValue = "name@email.com", icon = null)
 
-                Space(20)
-                MakeText("Password", 12, TextColor, TextAlign.Start)
-                Space(10)
+            Space(20)
+            MakeText("Password", 12, TextColor, TextAlign.Start)
+            Space(10)
 
-                MakeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Lock)
-                Space(20)
-                MakeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Lock)
+            MakeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password)
+            Space(20)
+            MakeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Key)
 
-                Space(20)
-                // todo :  check for politics and conditions
+            Space(20)
 
-                val user = UserRegister(name.text.toString(), email.text.toString(), password.text.toString()/*, photo.text.toString()*/)
+            MyCheckBox(text = "I've read and agree with the Terms and Conditions and the Privacy Policy.")
+            // todo :  check for politics and conditions
+            Space(20)
+            val user = UserRegister(
+                name.text.toString(),
+                email.text.toString(),
+                password.text.toString()
+            )
 
-                Button(
-                    onClick = {
-                        viewModel.registerUser(user)
-                        Log.i("PUSHED", user.toString())
+            MyButton(user = user, viewModel = viewModel)
+
+            if (viewModel.isRegisterShow) {
+                CustomDialog(
+                    onDismiss = {
+                        viewModel.isRegisterShow
                     },
-                    shape = RoundedCornerShape(10.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                    ) {
-                    Text(
-                        text = "Sign Up",
-                        color = Color.Black
-                    )
-                }
-
-                if (viewModel.isRegisterShow){
-                    CustomDialog(
-                        onDismiss = {
-                            viewModel.isRegisterShow
-                        },
-                        onSigIn = {
-                            viewModel.signOut()
-                        }
-                    )
-                }
+                    onSigIn = {
+                        viewModel.signOut()
+                    }
+                )
             }
         }
-
     }
-
-
-
-
 }
-
-
-/*@Composable
-fun MakeTextField(
-    label : String,
-    image : Icons,
-) {
-    val (text, setText) = mutableStateOf("")
-    TextField(
-        trailingIcon = image,
-        value = text,
-        onValueChange = setText,
-        label = label,
-        modifier = Modifier.fillMaxWidth()
-    )
-}*/
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun RegisterScreen_Preview(){
+fun RegisterScreen_Preview() {
     RegisterScreen(viewModel = RegisterViewModel(repository = DataRepositoryImpl()))
 }
 
