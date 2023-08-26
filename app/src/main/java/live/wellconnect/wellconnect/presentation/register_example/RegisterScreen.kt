@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -34,6 +35,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import live.wellconnect.wellconnect.components.MakeText
+import live.wellconnect.wellconnect.components.Space
 import live.wellconnect.wellconnect.data.DataRepositoryImpl
 import live.wellconnect.wellconnect.domain.UserRegister
 
@@ -47,6 +50,14 @@ fun RegisterScreen(
     var name by remember { mutableStateOf(TextFieldValue()) }
     var email by remember { mutableStateOf(TextFieldValue()) }
     var password by remember { mutableStateOf(TextFieldValue()) } // required validation
+
+    Surface(
+        color = Color.White,
+        modifier = Modifier.fillMaxSize().padding(30.dp)
+    ) {
+
+    }
+
 
     Box(
         modifier = Modifier
@@ -177,18 +188,5 @@ fun MakeTextField(
 fun RegisterScreen_Preview(){
     RegisterScreen(viewModel = RegisterViewModel(repository = DataRepositoryImpl()))
 }
-@Composable
-fun MakeText(text : String, size : Int) = Text(
-    text = text,
-    style = TextStyle(
-        fontSize = size.sp,
-        fontFamily = FontFamily.Serif,
-        color = Color.DarkGray
-    )
-)
 
-@Composable
-fun Space(size : Int) = Spacer(
-    modifier = Modifier
-        .height(size.dp)
-)
+
