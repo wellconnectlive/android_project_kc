@@ -27,6 +27,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,6 +40,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -58,7 +60,8 @@ fun MakeText(text : String, size : Int, color : Color, align : TextAlign) = Text
     text = text,
     style = TextStyle(
         fontSize = size.sp,
-        fontFamily = FontFamily.Serif,
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold
     ),
     color = color,
     textAlign = align
@@ -72,7 +75,7 @@ fun Space(size : Int) = Spacer(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MakeTextField(labelValue: String, icon: ImageVector?){
+fun makeTextField(labelValue: String, icon: ImageVector?) : MutableState< String >{
     
     val textValue = remember { mutableStateOf("") }
     
@@ -96,11 +99,13 @@ fun MakeTextField(labelValue: String, icon: ImageVector?){
         },
         shape = RoundedCornerShape(10.dp)
     )
+
+    return textValue
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MakeTextFieldPassword(labelValue: String, icon: ImageVector?){
+fun makeTextFieldPassword(labelValue: String, icon: ImageVector?) : MutableState<String>{
 
     val passwordValue = remember { mutableStateOf("") }
 
@@ -134,6 +139,8 @@ fun MakeTextFieldPassword(labelValue: String, icon: ImageVector?){
         visualTransformation = if(passworsIsVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
         shape = RoundedCornerShape(10.dp),
     )
+
+    return passwordValue
 }
 
 @Composable

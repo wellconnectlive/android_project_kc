@@ -36,11 +36,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import live.wellconnect.wellconnect.components.MakeText
-import live.wellconnect.wellconnect.components.MakeTextField
-import live.wellconnect.wellconnect.components.MakeTextFieldPassword
 import live.wellconnect.wellconnect.components.MyButton
 import live.wellconnect.wellconnect.components.MyCheckBox
 import live.wellconnect.wellconnect.components.Space
+import live.wellconnect.wellconnect.components.makeTextField
+import live.wellconnect.wellconnect.components.makeTextFieldPassword
 import live.wellconnect.wellconnect.data.DataRepositoryImpl
 import live.wellconnect.wellconnect.domain.UserRegister
 import live.wellconnect.wellconnect.ui.theme.TextColor
@@ -52,9 +52,9 @@ fun RegisterScreen(
     viewModel : RegisterViewModel,
 ) {
 
-    var name by remember { mutableStateOf(TextFieldValue()) }
-    var email by remember { mutableStateOf(TextFieldValue()) }
-    var password by remember { mutableStateOf(TextFieldValue()) } // required validation
+    var name by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") } // required validation
 
     Surface(
         modifier = Modifier
@@ -71,33 +71,30 @@ fun RegisterScreen(
             MakeText("Sign up", 16, TextColor, TextAlign.Start)
             Space(10)
             MakeText("Create an account to get started", 12, Color.Black, TextAlign.Start)
-            Space(30)
+            Space(20)
             MakeText("Name", 12, TextColor, TextAlign.Start)
-            Space(10)
-            MakeTextField(labelValue = "Name", Icons.Outlined.Edit)
+            name = makeTextField(labelValue = "Name", Icons.Outlined.Edit).value
 
-            Space(20)
+            Space(15)
             MakeText("Email Address", 12, TextColor, TextAlign.Start)
-            Space(10)
-            MakeTextField(labelValue = "name@email.com", icon = null)
+            email = makeTextField(labelValue = "name@email.com", icon = null).value
 
-            Space(20)
+            Space(15)
             MakeText("Password", 12, TextColor, TextAlign.Start)
-            Space(10)
 
-            MakeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password)
-            Space(20)
-            MakeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Key)
+            password = makeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password).value
+            Space(15)
+            val repassword = makeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Key)
 
-            Space(20)
+            Space(15)
 
             MyCheckBox(text = "I've read and agree with the Terms and Conditions and the Privacy Policy.")
             // todo :  check for politics and conditions
             Space(20)
             val user = UserRegister(
-                name.text.toString(),
-                email.text.toString(),
-                password.text.toString()
+                name,
+                email,
+                password,
             )
 
             MyButton(user = user, viewModel = viewModel)
