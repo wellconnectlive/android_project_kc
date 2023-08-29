@@ -1,4 +1,4 @@
-package live.wellconnect.wellconnect.presentation.register_example
+package live.wellconnect.wellconnect.presentation.register.register_ex
 
 import android.util.Log
 import androidx.lifecycle.LiveData

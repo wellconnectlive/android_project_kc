@@ -1,4 +1,4 @@
-package live.wellconnect.wellconnect.presentation.register_example
+package live.wellconnect.wellconnect.presentation.register
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import live.wellconnect.wellconnect.domain.Gender
 import live.wellconnect.wellconnect.domain.UserModel
 import live.wellconnect.wellconnect.presentation.UserData
+import live.wellconnect.wellconnect.presentation.register.register_ex.RegisterViewModelContinue
 
 
 @OptIn(ExperimentalMaterial3Api::class)

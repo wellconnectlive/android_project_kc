@@ -1,3 +1,32 @@
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import live.wellconnect.wellconnect.navigation.AppRouter
+import live.wellconnect.wellconnect.navigation.Screens
+import live.wellconnect.wellconnect.presentation.register.TermsAndConditionsScreen
+
+/*@Composable
+fun NavigationApp() {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize(),
+        color = Color.Black
+    ) {
+        Crossfade(targetState = AppRouter.currentScreen) { currentState ->
+            when(currentState.value){
+                is Screens.TermsAndConditionsScreen -> {
+                    TermsAndConditionsScreen({})
+                }
+
+                else -> {}
+            }
+        }
+    }
+}
+
 /*package live.wellconnect.wellconnect.navigation
 
 import android.app.Activity.RESULT_OK

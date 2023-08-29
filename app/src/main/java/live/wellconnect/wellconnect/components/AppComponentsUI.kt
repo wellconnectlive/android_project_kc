@@ -2,16 +2,11 @@ package live.wellconnect.wellconnect.components
 
 import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.magnifier
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
@@ -32,10 +27,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -48,11 +41,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.firebase.firestore.auth.User
-import dagger.Component
-import live.wellconnect.wellconnect.R
 import live.wellconnect.wellconnect.domain.UserRegister
-import live.wellconnect.wellconnect.presentation.register_example.RegisterViewModel
+import live.wellconnect.wellconnect.presentation.register.RegisterViewModel
 import live.wellconnect.wellconnect.ui.theme.TextColor
 
 @Composable
@@ -144,7 +134,11 @@ fun makeTextFieldPassword(labelValue: String, icon: ImageVector?) : MutableState
 }
 
 @Composable
-fun MyCheckBox(text : String) = Row(
+fun MyCheckBox(
+    text : String,
+    onCheckedChange : (Boolean) -> Unit,
+    onTextSelected: (String) -> Unit,
+) = Row(
     Modifier
         .fillMaxWidth()
         .heightIn(70.dp),
@@ -153,14 +147,16 @@ fun MyCheckBox(text : String) = Row(
     val checkState = remember { mutableStateOf(false) }
     Checkbox(
         checked = checkState.value,
-        onCheckedChange = { checkState.value != checkState.value }
+        onCheckedChange = {
+            checkState.value = it
+            onCheckedChange.invoke(it)
+        }
     )
-   // MakeText(text = text, size = 12, color = TextColor, align = TextAlign.Start)
-    MyClickableText(text = text)
+    MyClickableText(text = text, onTextSelected)
 }
 
 @Composable
-fun MyClickableText(text : String) {
+fun MyClickableText(text : String, onTextSelected : (String) -> Unit) {
     val initText = "I've read and agree with the "
     val termText = " Terms and Conditions"
     val secondText = " and the"
@@ -184,6 +180,10 @@ fun MyClickableText(text : String) {
             frankenText.getStringAnnotations(clickText, clickText)
                 .firstOrNull()?.also { span ->
                     Log.i("TAG", "{$span} es el texto click")
+
+                    if (span.item == termText || span.item == privacyText) {
+                        onTextSelected(span.item)
+                    }
                 }
         }
     )
@@ -203,6 +203,21 @@ fun MyButton(user : UserRegister, viewModel : RegisterViewModel) = Button(
 ) {
     Text(
         text = "Sign Up",
+        color = Color.Black
+    )
+}
+
+@Composable
+fun MyCustomButton(text: String, heigh: Int, onSigIn : Unit) = Button(
+    onClick = { onSigIn },
+    shape = RoundedCornerShape(10.dp),
+    modifier = Modifier
+        .fillMaxWidth()
+        .heightIn(heigh.dp),
+    colors = ButtonDefaults.buttonColors(TextColor)
+) {
+    Text(
+        text = text,
         color = Color.Black
     )
 }

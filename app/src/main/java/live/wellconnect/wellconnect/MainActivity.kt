@@ -31,10 +31,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import live.wellconnect.wellconnect.presentation.SignInScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreenViewModel
-import live.wellconnect.wellconnect.presentation.register_example.Register
-import live.wellconnect.wellconnect.presentation.register_example.RegisterScreen
-import live.wellconnect.wellconnect.presentation.register_example.RegisterViewModel
-import live.wellconnect.wellconnect.presentation.register_example.RegisterViewModelContinue
+import live.wellconnect.wellconnect.presentation.register.Register
+import live.wellconnect.wellconnect.presentation.register.RegisterScreen
+import live.wellconnect.wellconnect.presentation.register.RegisterViewModel
+import live.wellconnect.wellconnect.presentation.register.register_ex.RegisterViewModelContinue
 
 
 @AndroidEntryPoint
