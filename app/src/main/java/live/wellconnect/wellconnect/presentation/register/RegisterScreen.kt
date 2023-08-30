@@ -25,10 +25,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import live.wellconnect.wellconnect.components.MakeText
 import live.wellconnect.wellconnect.components.MakeTextField
+import live.wellconnect.wellconnect.components.MakeTextFieldPassword
 import live.wellconnect.wellconnect.components.MyButton
 import live.wellconnect.wellconnect.components.MyCheckBox
 import live.wellconnect.wellconnect.components.Space
-import live.wellconnect.wellconnect.components.makeTextFieldPassword
 import live.wellconnect.wellconnect.data.DataRepositoryImpl
 import live.wellconnect.wellconnect.domain.UserRegister
 import live.wellconnect.wellconnect.navigation.AppRouter
@@ -69,16 +69,16 @@ fun RegisterScreen(
 
             Space(15)
             MakeText("Email Address", 12, TextColor, TextAlign.Start)
-            //email = makeTextField(labelValue = "name@email.com", icon = null).value
+
             MakeTextField(labelValue = "name@email.com", icon = null, onTextChange = { viewModel.onEvent(RegisterStates.EmailTaking(it)) }, errorStatus = viewModel.registerUIStates.value.emailError)
 
             Space(15)
             MakeText("Password", 12, TextColor, TextAlign.Start)
 
-            //password = makeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password).value
-            MakeTextField(labelValue = "Create a password", icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
+            MakeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
             Space(15)
-            val repassword = makeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Key)
+            // todo -> still await for the same password validator
+            MakeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
 
             Space(15)
 
@@ -100,11 +100,6 @@ fun RegisterScreen(
 
             // todo :  check for politics and conditions
             Space(20)
-            /*val user = UserRegister(
-                name,
-                email,
-                password,
-            )*/
 
             MyButton(onClicked = { viewModel.onEvent(RegisterStates.ButtonClicked) }, isEnabled = viewModel.isValidOK.value)
 

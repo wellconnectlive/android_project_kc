@@ -53,15 +53,14 @@ class DataRepositoryImpl @Inject constructor(
                     "email" to user.email,
                     "password" to user.password,
                     "name" to user.name,
-                    //"photo" to getImage(user.photo),
                 )
             )
     }
 
     private fun getImage(photo : String) : Task<Uri> {
-        var file = Uri.fromFile(File("$photo"))
+        val file = Uri.fromFile(File("$photo"))
         val imagesRef = referenceStorage.child("images/${file.lastPathSegment}")
-        var uploadTask = imagesRef.putFile(file)
+        val uploadTask = imagesRef.putFile(file)
 
         // observers de la imagen subida
         uploadTask.addOnFailureListener {

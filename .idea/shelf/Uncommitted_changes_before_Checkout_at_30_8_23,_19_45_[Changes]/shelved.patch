@@ -1,0 +1,118 @@
+Index: app/src/main/java/live/wellconnect/wellconnect/presentation/register/RegisterScreen.kt
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/presentation/register/RegisterScreen.kt b/app/src/main/java/live/wellconnect/wellconnect/presentation/register/RegisterScreen.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/presentation/register/RegisterScreen.kt	
++++ b/app/src/main/java/live/wellconnect/wellconnect/presentation/register/RegisterScreen.kt	
+@@ -25,10 +25,10 @@
+ import androidx.compose.ui.unit.dp
+ import live.wellconnect.wellconnect.components.MakeText
+ import live.wellconnect.wellconnect.components.MakeTextField
++import live.wellconnect.wellconnect.components.MakeTextFieldPassword
+ import live.wellconnect.wellconnect.components.MyButton
+ import live.wellconnect.wellconnect.components.MyCheckBox
+ import live.wellconnect.wellconnect.components.Space
+-import live.wellconnect.wellconnect.components.makeTextFieldPassword
+ import live.wellconnect.wellconnect.data.DataRepositoryImpl
+ import live.wellconnect.wellconnect.domain.UserRegister
+ import live.wellconnect.wellconnect.navigation.AppRouter
+@@ -40,11 +40,6 @@
+ fun RegisterScreen(
+     viewModel : RegisterViewModel,
+ ) {
+-
+-    var name by remember { mutableStateOf("") }
+-    var email by remember { mutableStateOf("") }
+-    var password by remember { mutableStateOf("") } // required validation
+-    var check : Boolean = false
+     var value : String = ""
+     val termText = " Terms and Conditions"
+ 
+@@ -69,16 +64,14 @@
+ 
+             Space(15)
+             MakeText("Email Address", 12, TextColor, TextAlign.Start)
+-            //email = makeTextField(labelValue = "name@email.com", icon = null).value
+             MakeTextField(labelValue = "name@email.com", icon = null, onTextChange = { viewModel.onEvent(RegisterStates.EmailTaking(it)) }, errorStatus = viewModel.registerUIStates.value.emailError)
+ 
+             Space(15)
+             MakeText("Password", 12, TextColor, TextAlign.Start)
+ 
+-            //password = makeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password).value
+-            MakeTextField(labelValue = "Create a password", icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
++            MakeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
+             Space(15)
+-            val repassword = makeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Key)
++            val repassword = MakeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Key , onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
+ 
+             Space(15)
+ 
+@@ -100,11 +93,6 @@
+ 
+             // todo :  check for politics and conditions
+             Space(20)
+-            /*val user = UserRegister(
+-                name,
+-                email,
+-                password,
+-            )*/
+ 
+             MyButton(onClicked = { viewModel.onEvent(RegisterStates.ButtonClicked) }, isEnabled = viewModel.isValidOK.value)
+ 
+Index: app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt b/app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt	
++++ b/app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt	
+@@ -103,7 +103,7 @@
+ 
+ @OptIn(ExperimentalMaterial3Api::class)
+ @Composable
+-fun makeTextFieldPassword(labelValue: String, icon: ImageVector?) : MutableState<String>{
++fun MakeTextFieldPassword(labelValue: String, icon: ImageVector?, onTextChange: (String) -> Unit, errorStatus: Boolean) {
+ 
+     val passwordValue = remember { mutableStateOf("") }
+ 
+@@ -120,7 +120,10 @@
+         ),
+         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+         value = passwordValue.value,
+-        onValueChange = { passwordValue.value = it },
++        onValueChange = {
++            passwordValue.value = it
++            onTextChange.invoke(it)
++            },
+         singleLine = true,
+         trailingIcon = {
+             if (icon != null) {
+@@ -137,8 +140,6 @@
+         visualTransformation = if(passworsIsVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
+         shape = RoundedCornerShape(10.dp),
+     )
+-
+-    return passwordValue
+ }
+ 
+ @Composable
+@@ -198,11 +199,8 @@
+ }
+ 
+ @Composable
+-//fun MyButton(user : UserRegister, viewModel : RegisterViewModel) = Button(
+ fun MyButton(onClicked : () -> Unit, isEnabled : Boolean) = Button(
+     onClick = {
+-        //viewModel.registerUser(user)
+-        //Log.i("PUSHED", user.toString())
+         onClicked.invoke()
+     },
+     shape = RoundedCornerShape(10.dp),
+@@ -219,8 +217,8 @@
+ }
+ 
+ @Composable
+-fun MyCustomButton(text: String, heigh: Int, onSigIn : Unit) = Button(
+-    onClick = { onSigIn },
++fun MyCustomButton(text: String, heigh: Int, onSigIn : () -> Unit) = Button(
++    onClick = { onSigIn.invoke() },
+     shape = RoundedCornerShape(10.dp),
+     modifier = Modifier
+         .fillMaxWidth()

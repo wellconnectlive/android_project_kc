@@ -103,11 +103,16 @@ fun MakeTextField(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun makeTextFieldPassword(labelValue: String, icon: ImageVector?) : MutableState<String>{
+fun MakeTextFieldPassword(
+    labelValue: String,
+    icon: ImageVector?,
+    onTextChange : (String) -> Unit,
+    errorStatus : Boolean = false,
+) {
 
     val passwordValue = remember { mutableStateOf("") }
 
-    val passworsIsVisible = remember { mutableStateOf(false) }
+    val passwordIsVisible = remember { mutableStateOf(false) }
 
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
@@ -120,25 +125,29 @@ fun makeTextFieldPassword(labelValue: String, icon: ImageVector?) : MutableState
         ),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         value = passwordValue.value,
-        onValueChange = { passwordValue.value = it },
+        onValueChange = {
+            passwordValue.value = it
+            onTextChange(it)
+            },
         singleLine = true,
+        maxLines = 1,
+        isError = errorStatus,
         trailingIcon = {
             if (icon != null) {
-                val iconImage = if(passworsIsVisible.value){
+                val iconImage = if(passwordIsVisible.value){
                     Icons.Outlined.Visibility
                 }else {
                     Icons.Outlined.VisibilityOff
                 }
-                IconButton(onClick = { passworsIsVisible.value = !passworsIsVisible.value }) {
+                IconButton(onClick = { passwordIsVisible.value = !passwordIsVisible.value }) {
                     Image(imageVector = icon, contentDescription = "Pencil Edit")
                 }
             }
         },
-        visualTransformation = if(passworsIsVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
+        visualTransformation = if(passwordIsVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
         shape = RoundedCornerShape(10.dp),
     )
 
-    return passwordValue
 }
 
 @Composable
