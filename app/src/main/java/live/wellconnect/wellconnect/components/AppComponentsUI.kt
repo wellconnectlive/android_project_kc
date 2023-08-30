@@ -65,8 +65,12 @@ fun Space(size : Int) = Spacer(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun makeTextField(
-    labelValue: String, icon: ImageVector?) : MutableState< String >{
+fun MakeTextField(
+    labelValue: String,
+    icon: ImageVector?,
+    onTextChange : (String) -> Unit,
+    errorStatus : Boolean = false,
+) {
     
     val textValue = remember { mutableStateOf("") }
     
@@ -81,8 +85,13 @@ fun makeTextField(
         ),
         keyboardOptions = KeyboardOptions.Default,
         value = textValue.value,
-        onValueChange = { textValue.value = it },
+        onValueChange = {
+            textValue.value = it
+            onTextChange(it)
+            },
+        isError = !errorStatus,
         singleLine = true,
+        maxLines = 1,
         trailingIcon = {
             if (icon != null) {
                 Image(imageVector = icon, contentDescription = "Pencil Edit")
@@ -90,8 +99,6 @@ fun makeTextField(
         },
         shape = RoundedCornerShape(10.dp)
     )
-
-    return textValue
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -191,16 +198,19 @@ fun MyClickableText(text : String, onTextSelected : (String) -> Unit) {
 }
 
 @Composable
-fun MyButton(user : UserRegister, viewModel : RegisterViewModel) = Button(
+//fun MyButton(user : UserRegister, viewModel : RegisterViewModel) = Button(
+fun MyButton(onClicked : () -> Unit, isEnabled : Boolean) = Button(
     onClick = {
-        viewModel.registerUser(user)
-        Log.i("PUSHED", user.toString())
+        //viewModel.registerUser(user)
+        //Log.i("PUSHED", user.toString())
+        onClicked.invoke()
     },
     shape = RoundedCornerShape(10.dp),
     modifier = Modifier
         .fillMaxWidth()
         .heightIn(50.dp),
-    colors = ButtonDefaults.buttonColors(TextColor)
+    colors = ButtonDefaults.buttonColors(TextColor),
+    enabled = isEnabled
 ) {
     Text(
         text = "Sign Up",

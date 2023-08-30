@@ -24,10 +24,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import live.wellconnect.wellconnect.components.MakeText
+import live.wellconnect.wellconnect.components.MakeTextField
 import live.wellconnect.wellconnect.components.MyButton
 import live.wellconnect.wellconnect.components.MyCheckBox
 import live.wellconnect.wellconnect.components.Space
-import live.wellconnect.wellconnect.components.makeTextField
 import live.wellconnect.wellconnect.components.makeTextFieldPassword
 import live.wellconnect.wellconnect.data.DataRepositoryImpl
 import live.wellconnect.wellconnect.domain.UserRegister
@@ -65,16 +65,18 @@ fun RegisterScreen(
             MakeText("Create an account to get started", 12, Color.Black, TextAlign.Start)
             Space(20)
             MakeText("Name", 12, TextColor, TextAlign.Start)
-            name = makeTextField(labelValue = "Name", Icons.Outlined.Edit).value
+            MakeTextField(labelValue = "Name", Icons.Outlined.Edit, onTextChange = { viewModel.onEvent(RegisterStates.NameTaking(it)) }, errorStatus = viewModel.registerUIStates.value.nameError)
 
             Space(15)
             MakeText("Email Address", 12, TextColor, TextAlign.Start)
-            email = makeTextField(labelValue = "name@email.com", icon = null).value
+            //email = makeTextField(labelValue = "name@email.com", icon = null).value
+            MakeTextField(labelValue = "name@email.com", icon = null, onTextChange = { viewModel.onEvent(RegisterStates.EmailTaking(it)) }, errorStatus = viewModel.registerUIStates.value.emailError)
 
             Space(15)
             MakeText("Password", 12, TextColor, TextAlign.Start)
 
-            password = makeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password).value
+            //password = makeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password).value
+            MakeTextField(labelValue = "Create a password", icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
             Space(15)
             val repassword = makeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Key)
 
@@ -82,7 +84,7 @@ fun RegisterScreen(
 
             MyCheckBox(text = "I've read and agree with the Terms and Conditions and the Privacy Policy.",
                     onCheckedChange = {
-                        check = it
+                        viewModel.onEvent(RegisterStates.TermsAndPolicyTaking(it))
                     },
                     onTextSelected = {
                         Log.i("TERMS", "TERMS")
@@ -90,6 +92,7 @@ fun RegisterScreen(
                     }
                 )
 
+            // todo -> delete after proof
             if (value == termText) {
                 Log.i("TERMS", "TERMS")
                 TermsAndConditionsScreen(onDismiss = {}, onAccept = {})
@@ -97,13 +100,13 @@ fun RegisterScreen(
 
             // todo :  check for politics and conditions
             Space(20)
-            val user = UserRegister(
+            /*val user = UserRegister(
                 name,
                 email,
                 password,
-            )
+            )*/
 
-            MyButton(user = user, viewModel = viewModel)
+            MyButton(onClicked = { viewModel.onEvent(RegisterStates.ButtonClicked) }, isEnabled = viewModel.isValidOK.value)
 
             if (viewModel.isRegisterShow) {
                 CustomDialog(
