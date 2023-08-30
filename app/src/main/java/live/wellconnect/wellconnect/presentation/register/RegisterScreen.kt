@@ -36,7 +36,6 @@ import live.wellconnect.wellconnect.navigation.Screens
 import live.wellconnect.wellconnect.ui.theme.TextColor
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
     viewModel : RegisterViewModel,

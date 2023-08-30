@@ -65,7 +65,8 @@ fun Space(size : Int) = Spacer(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun makeTextField(labelValue: String, icon: ImageVector?) : MutableState< String >{
+fun makeTextField(
+    labelValue: String, icon: ImageVector?) : MutableState< String >{
     
     val textValue = remember { mutableStateOf("") }
     
