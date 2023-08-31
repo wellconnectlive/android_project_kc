@@ -1,12 +1,15 @@
 package live.wellconnect.wellconnect.components
 
+import android.media.Image
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,13 +25,13 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -41,8 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import live.wellconnect.wellconnect.domain.UserRegister
-import live.wellconnect.wellconnect.presentation.register.RegisterViewModel
+import live.wellconnect.wellconnect.R
 import live.wellconnect.wellconnect.ui.theme.TextColor
 
 @Composable
@@ -210,8 +212,6 @@ fun MyClickableText(text : String, onTextSelected : (String) -> Unit) {
 //fun MyButton(user : UserRegister, viewModel : RegisterViewModel) = Button(
 fun MyButton(onClicked : () -> Unit, isEnabled : Boolean) = Button(
     onClick = {
-        //viewModel.registerUser(user)
-        //Log.i("PUSHED", user.toString())
         onClicked.invoke()
     },
     shape = RoundedCornerShape(10.dp),
@@ -228,8 +228,8 @@ fun MyButton(onClicked : () -> Unit, isEnabled : Boolean) = Button(
 }
 
 @Composable
-fun MyCustomButton(text: String, heigh: Int, onSigIn : Unit) = Button(
-    onClick = { onSigIn },
+fun MyCustomButton(text: String, heigh: Int, onSigIn: () -> Unit) = Button(
+    onClick = { onSigIn() },
     shape = RoundedCornerShape(10.dp),
     modifier = Modifier
         .fillMaxWidth()
@@ -242,3 +242,12 @@ fun MyCustomButton(text: String, heigh: Int, onSigIn : Unit) = Button(
     )
 }
 
+@Composable
+fun MyCustomImage(image : Int, height : Int, width : Int) = Image(
+    painter = painterResource(id = image),
+    contentDescription = "Send a Message image",
+    modifier = Modifier
+        .height(height.dp)
+        .width(width.dp)
+        .background(Color.Transparent)
+)

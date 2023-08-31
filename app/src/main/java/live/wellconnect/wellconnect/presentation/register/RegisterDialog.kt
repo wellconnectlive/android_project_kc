@@ -18,11 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import live.wellconnect.wellconnect.R
 import live.wellconnect.wellconnect.components.MakeText
 import live.wellconnect.wellconnect.components.MyCustomButton
+import live.wellconnect.wellconnect.components.MyCustomImage
 import live.wellconnect.wellconnect.components.Space
 import live.wellconnect.wellconnect.ui.theme.TextColor
 
@@ -33,19 +36,17 @@ fun CustomDialog(
     onSigIn: () -> Unit,
 ) {
     Dialog(
-        onDismissRequest = { onDismiss() /*onDismiss(viewModel)*/ },
+        onDismissRequest = { onDismiss() },
         properties = DialogProperties(
             usePlatformDefaultWidth = false
         )
     ) {
         Card(
-            //elevation = 5.dp,
-            shape = RoundedCornerShape(15.dp),
             modifier = Modifier
+                .fillMaxSize(0.7f)
                 .background(Color.White)
                 .alpha(0.9f)
-                .fillMaxWidth(0.9f)
-                .border(2.dp, Color.Black, shape = RoundedCornerShape(15.dp))
+                .border(2.dp, TextColor, shape = RoundedCornerShape(15.dp))
         ) {
             Surface(
                 modifier = Modifier
@@ -60,16 +61,19 @@ fun CustomDialog(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
+                    MyCustomImage(image = R.drawable.message_sender, height = 72, width = 72)
+                    Space(size = 30)
                     MakeText("Message sended to your email", 20, TextColor, TextAlign.Start)
                     Space(size = 20)
                     MakeText(
                         "Please Verify your email address to log in and get started",
                         14,
                         TextColor,
-                        TextAlign.Start
+                        TextAlign.Center
                     )
                     Space(size = 50)
-                    Button(
+                    /*Button(
                         modifier = Modifier
                             .fillMaxWidth(0.8f),
                         onClick = { onSigIn() },
@@ -77,13 +81,18 @@ fun CustomDialog(
                     )
                     {
                         Text(text = "Sign Up")
-                    }
-                    //MyCustomButton(text = "Sign Up", 50, onSigIn())
+                    }*/
+                    MyCustomButton(text = "Sign Up", heigh = 30, onSigIn = { onSigIn() })
                 }
             }
         }
     }
 }
+
+
+@Preview
+@Composable
+fun CustomDialog_Preview() = CustomDialog(onDismiss = { }, onSigIn = {})
 
 
 

@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">wellconnect</string>
     <string name="web_client_id">73583484631-m1qm8ssadlruai2fnrrm7chujs96mmfs.apps.googleusercontent.com</string>
+    <string name="sign_title">Sign up</string>
+    <string name="sign_sub_title">Create an account to get started</string>
+    <string name="name">Name</string>
+    <string name="name_error">Please, check the name</string>
+    <string name="email">Email Address</string>
+    <string name="email_example">name@email.com</string>
+    <string name="email_error">The email field must contain a email format</string>
+    <string name="password">Password</string>
+    <string name="password_label">Create a password</string>
+    <string name="password_error">The password must contain at least six characters</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="confirm_password_error">Does not match the supplied password, please check</string>
     <string name="terms_and_conditions">By continuing you accept our Privacy Policy and Terms of Use</string>
     <string name="terms_and_conditions_header">Terms of Use</string>
+    <string name="terms_and_conditions_error">You must accept the terms and policies of the application to proceed to register</string>
+    <string name="privacy_title">Privacy Policy</string>
+    <string name="privacy_text">We may use your personal data to develop new services, We will retain and evaluate information on your recent visits to our website and how you move around different sections of our website for analytics purposes to understand how people use our website so that we can make it more intuitive</string>
 </resources>

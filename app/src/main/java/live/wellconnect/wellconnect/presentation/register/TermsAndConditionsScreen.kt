@@ -28,8 +28,8 @@ import live.wellconnect.wellconnect.ui.theme.TextColor
 
 @Composable
 fun TermsAndConditionsScreen(
-    onDismiss : () -> Unit,
-    onAccept : () -> Unit,
+    onDismiss: () -> Unit,
+    onAccept: () -> Unit,
 ) = Dialog(
     onDismissRequest = { onDismiss() },
     properties = DialogProperties(
@@ -59,7 +59,7 @@ fun TermsAndConditionsScreen(
             ) {
                 MakeText(text = stringResource(id = R.string.terms_and_conditions), size = 14, color = TextColor, align = TextAlign.Justify)
                 Space(size = 20)
-                MyCustomButton(text = "Accept", 30, onAccept())
+                MyCustomButton(text = "Accept", 30, onSigIn = { onAccept() })
             }
         }
     }
@@ -68,5 +68,5 @@ fun TermsAndConditionsScreen(
 @Preview
 @Composable()
 fun TermsAndConditionsScreen_Preview() {
-    TermsAndConditionsScreen(onDismiss = {}, onAccept = {})
+    TermsAndConditionsScreen(onDismiss = {}, onAccept = {  })
 }

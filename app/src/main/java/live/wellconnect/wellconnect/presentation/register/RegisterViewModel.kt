@@ -31,6 +31,9 @@ class RegisterViewModel @Inject constructor(
     var isRegisterShow by mutableStateOf(false)
         private set
 
+    var isTermsShow by mutableStateOf(false)
+    var isPolicyShow by mutableStateOf(false)
+
     private val _user : MutableLiveData <UserRegister> = MutableLiveData<UserRegister>()
     val user : MutableLiveData<UserRegister> get() = _user
 
