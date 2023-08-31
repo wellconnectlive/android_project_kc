@@ -52,16 +52,25 @@ class RegisterViewModel @Inject constructor(
                 registerUIStates.value = registerUIStates.value.copy(
                     email =  event.email
                 )
+                printState()
             }
             is RegisterStates.PasswordTaking -> {
                 registerUIStates.value = registerUIStates.value.copy(
                     password = event.password
                 )
+                printState()
+            }
+            is RegisterStates.RepasswordTaking -> {
+                registerUIStates.value = registerUIStates.value.copy(
+                    repassword = event.repassword
+                )
+                printState()
             }
             is RegisterStates.TermsAndPolicyTaking -> {
                 registerUIStates.value = registerUIStates.value.copy(
                     termsAndPolicy = event.isAccepted
                 )
+                printState()
             }
             is RegisterStates.ButtonClicked -> {
                 val user = UserRegister(registerUIStates.value.name, registerUIStates.value.email, registerUIStates.value.password )
@@ -75,23 +84,23 @@ class RegisterViewModel @Inject constructor(
     private fun isAllFieldsValidates() {
         val nameResult = Validator.validateName(name = registerUIStates.value.name)
         val emailResult = Validator.validateEmail(email = registerUIStates.value.email)
-        val passwordResult = Validator.validatePassword(password = registerUIStates.value.password)
+        val passwordResult = Validator.validatePassword(password = registerUIStates.value.password, registerUIStates.value.repassword)
         val termsAndPolicyResult = Validator.validateTermsAndPolicys(status = registerUIStates.value.termsAndPolicy)
 
         registerUIStates.value = registerUIStates.value.copy(
             nameError = nameResult,
             emailError = emailResult,
             passwordError = passwordResult,
+            repasswordError = passwordResult,
             termsAndPolicyError = termsAndPolicyResult,
         )
 
-        isValidOK.value = nameResult && emailResult && passwordResult && termsAndPolicyResult
+        isValidOK.value = nameResult && emailResult && passwordResult  && termsAndPolicyResult
     }
 
 
     // todo, chequear porqué no puede ser una password menor a 6 , caso contrario da error
-    fun registerUser(userRegister: UserRegister) = viewModelScope.launch(Dispatchers.IO) {
-    //fun registerUser() = viewModelScope.launch(Dispatchers.IO) {
+    private fun registerUser(userRegister: UserRegister) = viewModelScope.launch(Dispatchers.IO) {
         auth.createUserWithEmailAndPassword(
             userRegister.email,
             userRegister.password,

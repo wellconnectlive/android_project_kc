@@ -40,11 +40,6 @@ import live.wellconnect.wellconnect.ui.theme.TextColor
 fun RegisterScreen(
     viewModel : RegisterViewModel,
 ) {
-
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") } // required validation
-    var check : Boolean = false
     var value : String = ""
     val termText = " Terms and Conditions"
 
@@ -78,7 +73,7 @@ fun RegisterScreen(
             MakeTextFieldPassword(labelValue = "Create a password", icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
             Space(15)
             // todo -> still await for the same password validator
-            MakeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
+            MakeTextFieldPassword(labelValue = "Confirm password", icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.RepasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
 
             Space(15)
 

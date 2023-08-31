@@ -22,7 +22,7 @@ object Validator {
         return EMAIL_IS_OK.matcher(email).matches()
     }
 
-    fun validatePassword(password : String) = !password.isNullOrEmpty() && password.length >= 6
+    fun validatePassword(password : String, repassword : String) = !password.isNullOrEmpty() && password.length >= 6 && password == repassword
 
     fun validateTermsAndPolicys(status : Boolean) = status
 

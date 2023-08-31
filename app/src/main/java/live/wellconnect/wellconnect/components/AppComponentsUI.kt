@@ -89,9 +89,9 @@ fun MakeTextField(
             textValue.value = it
             onTextChange(it)
             },
-        isError = !errorStatus,
         singleLine = true,
         maxLines = 1,
+        isError = !errorStatus,
         trailingIcon = {
             if (icon != null) {
                 Image(imageVector = icon, contentDescription = "Pencil Edit")
@@ -131,7 +131,7 @@ fun MakeTextFieldPassword(
             },
         singleLine = true,
         maxLines = 1,
-        isError = errorStatus,
+        isError = !errorStatus,
         trailingIcon = {
             if (icon != null) {
                 val iconImage = if(passwordIsVisible.value){
