@@ -8,6 +8,7 @@ object Validator {
 
     fun validateEmail(email : String) = !email.isNullOrEmpty() && isValidEmail(email)
 
+
     private fun isValidEmail(email : String) : Boolean {
         val EMAIL_IS_OK = Pattern.compile(
             "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
@@ -23,6 +24,7 @@ object Validator {
     }
 
     fun validatePassword(password : String, repassword : String) = !password.isNullOrEmpty() && password.length >= 6 && password == repassword
+    fun validatePasswordOnLogin(password : String) = !password.isNullOrEmpty() && password.length >= 6
 
     fun validateTermsAndPolicys(status : Boolean) = status
 

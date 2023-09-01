@@ -69,7 +69,7 @@ fun TermsAndConditionsScreen(
                 Space(size = 30)
                 MakeText(text = stringResource(id = R.string.terms_and_conditions), size = 14, color = Color.DarkGray, align = TextAlign.Justify)
                 Space(size = 50)
-                MyCustomButton(text = "Accept", 30, colorText = Color.White, onSigIn = { onAccept() })
+                MyCustomButton(text = stringResource(id = R.string.accept), 30, colorText = Color.White, onSigIn = { onAccept() })
             }
         }
     }

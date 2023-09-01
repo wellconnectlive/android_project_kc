@@ -68,7 +68,7 @@ fun PrivacyPolicyScreen(
                 Space(size = 30)
                 MakeText(text = stringResource(id = R.string.privacy_text), size = 14, color = Color.DarkGray, align = TextAlign.Justify)
                 Space(size = 20)
-                MyCustomButton(text = "Accept", 30, colorText = Color.White, onSigIn = { onAccept() } )
+                MyCustomButton(text = stringResource(id = R.string.accept), 30, colorText = Color.White, onSigIn = { onAccept() } )
             }
         }
     }

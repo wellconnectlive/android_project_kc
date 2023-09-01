@@ -76,16 +76,11 @@ fun RegisterScreen(
             //getAmessageToUser(context, viewModel.registerUIStates.value.repasswordError, stringResource(id = R.string.confirm_password_error))
             
             Space(15)
-            MyCheckBox(text = "I've read and agree with the Terms and Conditions and the Privacy Policy.",
+            MyCheckBox(text = stringResource(id = R.string.checkbox_text),
                     onCheckedChange = {
                         viewModel.onEvent(RegisterStates.TermsAndPolicyTaking(it))
                     },
                     onTextSelected = {
-                        /*if (it == termText){
-                            viewModel.isTermsShow = true
-                        } else if (it == privacyText){
-                            viewModel.isPolicyShow = true
-                        }*/
                         when(it){
                             termText -> { viewModel.isTermsShow = true }
                             privacyText -> { viewModel.isPolicyShow = true }
@@ -121,7 +116,7 @@ fun RegisterScreen(
             }
 
             Space(20)
-            MyButton(onClicked = { viewModel.onEvent(RegisterStates.ButtonClicked) }, isEnabled = viewModel.isValidOK.value)
+            MyButton(onClicked = { viewModel.onEvent(RegisterStates.ButtonClicked) }, isEnabled = viewModel.isValidOK.value, text = stringResource(id = R.string.sign_title))
 
         }
     }

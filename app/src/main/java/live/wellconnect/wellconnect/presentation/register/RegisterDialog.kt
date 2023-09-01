@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -64,17 +65,17 @@ fun CustomDialog(
 
                     MyCustomImage(image = R.drawable.message_sender, height = 72, width = 72)
                     Space(size = 30)
-                    MakeText("Message sended to your email", 20, TextColor, TextAlign.Center)
+                    MakeText(stringResource(id = R.string.message_send), 20, TextColor, TextAlign.Center)
                     Space(size = 20)
                     MakeText(
-                        "Please Verify your email address to log in and get started",
+                        stringResource(id = R.string.message_subtitle),
                         14,
                         Color.DarkGray,
                         TextAlign.Center
                     )
 
                     Space(size = 50)
-                    MyCustomButton(text = "Sign Up", heigh = 30, colorText = Color.White, onSigIn = { onSigIn() })
+                    MyCustomButton(text = stringResource(id = R.string.sign_title), heigh = 30, colorText = Color.White, onSigIn = { onSigIn() })
                 }
             }
         }

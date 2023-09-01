@@ -7,6 +7,7 @@
     <string name="name_error">Please, check the name</string>
     <string name="email">Email Address</string>
     <string name="email_example">name@email.com</string>
+    <string name="email_address">Email Address</string>
     <string name="email_error">The email field must contain a email format</string>
     <string name="password">Password</string>
     <string name="password_label">Create a password</string>
@@ -18,4 +19,12 @@
     <string name="terms_and_conditions_error">You must accept the terms and policies of the application to proceed to register</string>
     <string name="privacy_title">Privacy Policy</string>
     <string name="privacy_text">We may use your personal data to develop new services, We will retain and evaluate information on your recent visits to our website and how you move around different sections of our website for analytics purposes to understand how people use our website so that we can make it more intuitive</string>
+    <string name="accept">Accept</string>
+    <string name="message_send">Message sended to your email</string>
+    <string name="message_subtitle">Please Verify your email address to log in and get started</string>
+    <string name="login_title">Welcome!</string>
+    <string name="login_button">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register">Not a member? Register Now</string>
+    <string name="checkbox_text">I\'ve read and agree with the Terms and Conditions and the Privacy Policy.</string>
 </resources>

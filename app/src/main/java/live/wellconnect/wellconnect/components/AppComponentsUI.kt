@@ -22,6 +22,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -208,7 +209,7 @@ fun MyClickableText(text : String, onTextSelected : (String) -> Unit) {
 
 @Composable
 //fun MyButton(user : UserRegister, viewModel : RegisterViewModel) = Button(
-fun MyButton(onClicked : () -> Unit, isEnabled : Boolean) = Button(
+fun MyButton(onClicked : () -> Unit, isEnabled : Boolean, text : String) = Button(
     onClick = {
         onClicked.invoke()
     },
@@ -220,7 +221,7 @@ fun MyButton(onClicked : () -> Unit, isEnabled : Boolean) = Button(
     enabled = isEnabled
 ) {
     Text(
-        text = "Sign Up",
+        text = text,
         color = Color.Black
     )
 }
@@ -259,3 +260,13 @@ fun MyCustomImageIcon(image: ImageVector, height: Int, width: Int) = Image(
         .width(width.dp)
         .background(Color.Transparent)
 )
+
+@Composable
+fun MyTextButton(onClick : () -> Unit, text: String, align: TextAlign) = TextButton(
+        onClick = onClick,
+    ) {
+        Text(
+            text,
+            textAlign = align
+        )
+    }
