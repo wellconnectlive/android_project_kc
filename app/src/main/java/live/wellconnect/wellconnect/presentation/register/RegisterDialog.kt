@@ -64,25 +64,17 @@ fun CustomDialog(
 
                     MyCustomImage(image = R.drawable.message_sender, height = 72, width = 72)
                     Space(size = 30)
-                    MakeText("Message sended to your email", 20, TextColor, TextAlign.Start)
+                    MakeText("Message sended to your email", 20, TextColor, TextAlign.Center)
                     Space(size = 20)
                     MakeText(
                         "Please Verify your email address to log in and get started",
                         14,
-                        TextColor,
+                        Color.DarkGray,
                         TextAlign.Center
                     )
+
                     Space(size = 50)
-                    /*Button(
-                        modifier = Modifier
-                            .fillMaxWidth(0.8f),
-                        onClick = { onSigIn() },
-                        shape = RoundedCornerShape(50.dp)
-                    )
-                    {
-                        Text(text = "Sign Up")
-                    }*/
-                    MyCustomButton(text = "Sign Up", heigh = 30, onSigIn = { onSigIn() })
+                    MyCustomButton(text = "Sign Up", heigh = 30, colorText = Color.White, onSigIn = { onSigIn() })
                 }
             }
         }

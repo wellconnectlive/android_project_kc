@@ -1,6 +1,5 @@
 package live.wellconnect.wellconnect.components
 
-import android.media.Image
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -44,7 +43,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import live.wellconnect.wellconnect.R
 import live.wellconnect.wellconnect.ui.theme.TextColor
 
 @Composable
@@ -228,7 +226,7 @@ fun MyButton(onClicked : () -> Unit, isEnabled : Boolean) = Button(
 }
 
 @Composable
-fun MyCustomButton(text: String, heigh: Int, onSigIn: () -> Unit) = Button(
+fun MyCustomButton(text: String, heigh: Int, colorText : Color, onSigIn: () -> Unit) = Button(
     onClick = { onSigIn() },
     shape = RoundedCornerShape(10.dp),
     modifier = Modifier
@@ -238,13 +236,23 @@ fun MyCustomButton(text: String, heigh: Int, onSigIn: () -> Unit) = Button(
 ) {
     Text(
         text = text,
-        color = Color.Black
+        color = colorText
     )
 }
 
 @Composable
 fun MyCustomImage(image : Int, height : Int, width : Int) = Image(
     painter = painterResource(id = image),
+    contentDescription = "Send a Message image",
+    modifier = Modifier
+        .height(height.dp)
+        .width(width.dp)
+        .background(Color.Transparent)
+)
+
+@Composable
+fun MyCustomImageIcon(image: ImageVector, height: Int, width: Int) = Image(
+    imageVector = image,
     contentDescription = "Send a Message image",
     modifier = Modifier
         .height(height.dp)
