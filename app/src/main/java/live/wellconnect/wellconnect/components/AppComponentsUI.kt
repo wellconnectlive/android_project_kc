@@ -35,7 +35,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -45,13 +44,16 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import live.wellconnect.wellconnect.ui.theme.TextColor
+import live.wellconnect.wellconnect.ui.theme.TextColorDark
+import live.wellconnect.wellconnect.ui.theme.myFont
+import live.wellconnect.wellconnect.ui.theme.myFontSemiBold
 
 @Composable
 fun MakeText(text : String, size : Int, color : Color, align : TextAlign) = Text(
     text = text,
     style = TextStyle(
         fontSize = size.sp,
-        fontFamily = FontFamily.Default,
+        fontFamily = myFont,
         fontWeight = FontWeight.Bold
     ),
     color = color,
@@ -174,7 +176,10 @@ fun MyCheckBox(
 }
 
 @Composable
-fun MyClickableText(text : String, onTextSelected : (String) -> Unit) {
+fun MyClickableText(
+    text : String,
+    onTextSelected : (String) -> Unit)
+{
     val initText = "I've read and agree with the "
     val termText = " Terms and Conditions"
     val secondText = " and the"
@@ -208,7 +213,39 @@ fun MyClickableText(text : String, onTextSelected : (String) -> Unit) {
 }
 
 @Composable
-//fun MyButton(user : UserRegister, viewModel : RegisterViewModel) = Button(
+fun MyClickableTextLogin(
+    onTextSelected: () -> Unit
+)
+{
+    val initText = "Not a member? "
+    val termText = " Register Now"
+
+
+    val frankenText = buildAnnotatedString {
+        withStyle(style = SpanStyle(color = TextColorDark, fontFamily = myFontSemiBold)) {
+            append(initText)
+        }
+        withStyle(style = SpanStyle(color = TextColor, fontFamily = myFont)) {
+            pushStringAnnotation(tag = termText, annotation = termText)
+            append(termText)
+        }
+    }
+    ClickableText(
+        text = frankenText,
+        onClick = { clickText ->
+            frankenText.getStringAnnotations(clickText, clickText)
+                .firstOrNull()?.also { span ->
+                    Log.i("TAG", "{$span} es el texto click")
+
+                    if (span.item == termText) {
+                        onTextSelected()
+                    }
+                }
+        }
+    )
+}
+
+@Composable
 fun MyButton(onClicked : () -> Unit, isEnabled : Boolean, text : String) = Button(
     onClick = {
         onClicked.invoke()

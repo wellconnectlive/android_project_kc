@@ -10,4 +10,5 @@
     <color name="orange">#FF8137</color>
     <color name="blueBackground">#00D1FF</color>
     <color name="blueFontText">#004099</color>
+    <color name="darkBlueText">#00596D</color>
 </resources>

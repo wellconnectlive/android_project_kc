@@ -30,6 +30,7 @@ import live.wellconnect.wellconnect.components.MyCheckBox
 import live.wellconnect.wellconnect.components.Space
 import live.wellconnect.wellconnect.data.DataRepositoryImpl
 import live.wellconnect.wellconnect.ui.theme.TextColor
+import live.wellconnect.wellconnect.ui.theme.TextColorDark
 
 
 @Composable
@@ -52,22 +53,22 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start,
         ) {
-            MakeText(stringResource(id = R.string.sign_title), 16, TextColor, TextAlign.Start)
+            MakeText(stringResource(id = R.string.sign_title), 16, TextColorDark, TextAlign.Start)
             Space(10)
             MakeText(stringResource(id = R.string.sign_sub_title), 12, Color.Black, TextAlign.Start)
             Space(20)
-            MakeText(stringResource(id = R.string.name), 12, TextColor, TextAlign.Start)
+            MakeText(stringResource(id = R.string.name), 12, TextColorDark, TextAlign.Start)
             MakeTextField(stringResource(id = R.string.name), Icons.Outlined.Edit, onTextChange = { viewModel.onEvent(RegisterStates.NameTaking(it)) }, errorStatus = viewModel.registerUIStates.value.nameError)
             //getAmessageToUser(context, viewModel.registerUIStates.value.nameError, stringResource(id = R.string.name_error))
 
             
             Space(15)
-            MakeText(stringResource(id = R.string.email), 12, TextColor, TextAlign.Start)
+            MakeText(stringResource(id = R.string.email), 12, TextColorDark, TextAlign.Start)
             MakeTextField(stringResource(id = R.string.email_example), icon = null, onTextChange = { viewModel.onEvent(RegisterStates.EmailTaking(it)) }, errorStatus = viewModel.registerUIStates.value.emailError)
             //getAmessageToUser(context, viewModel.registerUIStates.value.emailError, stringResource(id = R.string.email_error))
 
             Space(15)
-            MakeText(stringResource(id = R.string.password), 12, TextColor, TextAlign.Start)
+            MakeText(stringResource(id = R.string.password), 12, TextColorDark, TextAlign.Start)
             MakeTextFieldPassword(stringResource(id = R.string.password_label), icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
             //getAmessageToUser(context, viewModel.registerUIStates.value.passwordError, stringResource(id = R.string.password_error))
 
