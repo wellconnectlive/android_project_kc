@@ -92,7 +92,8 @@ fun SignInScreen(
                 MakeTextField(stringResource(id = R.string.email_address), icon = null, onTextChange = { viewModel.onEvent(SignInStateOk.EmailTaking(it)) }, errorStatus = viewModel.signUIStates.value.emailError)
                 MakeTextFieldPassword(stringResource(id = R.string.password), icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(SignInStateOk.PasswordTaking(it)) }, errorStatus = viewModel.signUIStates.value.passwordError)
                 MyTextButton(onClick = {} , text = stringResource(id = R.string.forgot_password), align = TextAlign.Start)
-
+                Space(size = 10)
+                // todo -> event on forgot password?
                 MyButton(onClicked = { viewModel.onEvent(SignInStateOk.ButtonClicked) }, isEnabled = viewModel.isValidOk.value, text = stringResource(id = R.string.login_button))
             }
             Row (

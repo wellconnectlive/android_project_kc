@@ -5,7 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,6 +33,7 @@ import live.wellconnect.wellconnect.components.MyCustomButton
 import live.wellconnect.wellconnect.components.MyCustomImageIcon
 import live.wellconnect.wellconnect.components.Space
 import live.wellconnect.wellconnect.ui.theme.TextColor
+import live.wellconnect.wellconnect.ui.theme.TextColorDark
 
 @Composable
 fun TermsAndConditionsScreen(
@@ -44,7 +47,8 @@ fun TermsAndConditionsScreen(
     ) {
     OutlinedCard(
         modifier = Modifier
-            .fillMaxSize(0.7f)
+            .fillMaxWidth()
+            .fillMaxHeight(0.6F)
             .background(Color.White)
             .alpha(0.9f)
             .border(2.dp, TextColor, shape = RoundedCornerShape(15.dp))
@@ -57,7 +61,7 @@ fun TermsAndConditionsScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .padding(20.dp)
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.Center,
@@ -65,11 +69,11 @@ fun TermsAndConditionsScreen(
             ) {
                 MyCustomImageIcon(image = Icons.Outlined.PendingActions , height = 96, width = 96)
                 Space(size = 30)
-                MakeText(text = stringResource(id = R.string.terms_and_conditions_header), size = 24, color = TextColor, align = TextAlign.Center)
+                MakeText(text = stringResource(id = R.string.terms_and_conditions_header), size = 24, color = TextColorDark, align = TextAlign.Center)
                 Space(size = 30)
                 MakeText(text = stringResource(id = R.string.terms_and_conditions), size = 14, color = Color.DarkGray, align = TextAlign.Justify)
                 Space(size = 50)
-                MyCustomButton(text = stringResource(id = R.string.accept), 30, colorText = Color.White, onSigIn = { onAccept() })
+                MyCustomButton(text = stringResource(id = R.string.accept), 50, width = 0.7F, colorText = Color.White, colorButton = TextColorDark, onSigIn = { onAccept() })
             }
         }
     }

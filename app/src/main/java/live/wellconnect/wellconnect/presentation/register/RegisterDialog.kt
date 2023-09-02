@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,6 +30,7 @@ import live.wellconnect.wellconnect.components.MyCustomButton
 import live.wellconnect.wellconnect.components.MyCustomImage
 import live.wellconnect.wellconnect.components.Space
 import live.wellconnect.wellconnect.ui.theme.TextColor
+import live.wellconnect.wellconnect.ui.theme.TextColorDark
 
 
 @Composable
@@ -44,7 +46,8 @@ fun CustomDialog(
     ) {
         Card(
             modifier = Modifier
-                .fillMaxSize(0.7f)
+                .fillMaxWidth()
+                .fillMaxHeight(0.5F)
                 .background(Color.White)
                 .alpha(0.9f)
                 .border(2.dp, TextColor, shape = RoundedCornerShape(15.dp))
@@ -63,19 +66,19 @@ fun CustomDialog(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    MyCustomImage(image = R.drawable.message_sender, height = 72, width = 72)
+                    MyCustomImage(image = R.drawable.message_sender, height = 84, width = 84)
                     Space(size = 30)
-                    MakeText(stringResource(id = R.string.message_send), 20, TextColor, TextAlign.Center)
+                    MakeText(stringResource(id = R.string.message_send), 18, TextColorDark, TextAlign.Center)
                     Space(size = 20)
                     MakeText(
                         stringResource(id = R.string.message_subtitle),
-                        14,
+                        12,
                         Color.DarkGray,
                         TextAlign.Center
                     )
 
-                    Space(size = 50)
-                    MyCustomButton(text = stringResource(id = R.string.sign_title), heigh = 30, colorText = Color.White, onSigIn = { onSigIn() })
+                    Space(size = 90)
+                    MyCustomButton(text = stringResource(id = R.string.sign_title), heigh = 50, width = 0.7F, colorText = Color.White, colorButton = TextColorDark, onSigIn = { onSigIn() })
                 }
             }
         }

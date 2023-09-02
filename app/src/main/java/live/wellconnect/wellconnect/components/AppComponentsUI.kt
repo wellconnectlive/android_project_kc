@@ -187,12 +187,12 @@ fun MyClickableText(
 
     val frankenText = buildAnnotatedString {
         append(initText)
-        withStyle(style = SpanStyle(color = TextColor)) {
+        withStyle(style = SpanStyle(color = TextColor, fontFamily = myFont)) {
             pushStringAnnotation(tag = termText, annotation = termText)
             append(termText)
         }
         append(secondText)
-        withStyle(style = SpanStyle(color = TextColor)) {
+        withStyle(style = SpanStyle(color = TextColor, fontFamily = myFont)) {
             pushStringAnnotation(tag = privacyText, annotation = privacyText)
             append(privacyText)
         }
@@ -219,7 +219,6 @@ fun MyClickableTextLogin(
 {
     val initText = "Not a member? "
     val termText = " Register Now"
-
 
     val frankenText = buildAnnotatedString {
         withStyle(style = SpanStyle(color = TextColorDark, fontFamily = myFontSemiBold)) {
@@ -264,13 +263,13 @@ fun MyButton(onClicked : () -> Unit, isEnabled : Boolean, text : String) = Butto
 }
 
 @Composable
-fun MyCustomButton(text: String, heigh: Int, colorText : Color, onSigIn: () -> Unit) = Button(
+fun MyCustomButton(text: String, heigh: Int, width : Float, colorText : Color, colorButton : Color, onSigIn: () -> Unit) = Button(
     onClick = { onSigIn() },
     shape = RoundedCornerShape(10.dp),
     modifier = Modifier
-        .fillMaxWidth()
+        .fillMaxWidth(width)
         .heightIn(heigh.dp),
-    colors = ButtonDefaults.buttonColors(TextColor)
+    colors = ButtonDefaults.buttonColors(colorButton)
 ) {
     Text(
         text = text,
