@@ -69,11 +69,11 @@ fun RegisterScreen(
 
             Space(15)
             MakeText(stringResource(id = R.string.password), 12, TextColorDark, TextAlign.Start)
-            MakeTextFieldPassword(stringResource(id = R.string.password_label), icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
+            MakeTextFieldPassword(stringResource(id = R.string.password_label),  onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
             //getAmessageToUser(context, viewModel.registerUIStates.value.passwordError, stringResource(id = R.string.password_error))
 
             Space(15)
-            MakeTextFieldPassword(stringResource(id = R.string.confirm_password), icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(RegisterStates.RepasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
+            MakeTextFieldPassword(stringResource(id = R.string.confirm_password), onTextChange = { viewModel.onEvent(RegisterStates.RepasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
             //getAmessageToUser(context, viewModel.registerUIStates.value.repasswordError, stringResource(id = R.string.confirm_password_error))
             
             Space(15)

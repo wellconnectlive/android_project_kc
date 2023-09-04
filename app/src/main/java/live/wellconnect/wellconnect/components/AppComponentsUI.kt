@@ -13,12 +13,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -108,7 +111,6 @@ fun MakeTextField(
 @Composable
 fun MakeTextFieldPassword(
     labelValue: String,
-    icon: ImageVector?,
     onTextChange : (String) -> Unit,
     errorStatus : Boolean = false,
 ) {
@@ -136,16 +138,14 @@ fun MakeTextFieldPassword(
         maxLines = 1,
         isError = !errorStatus,
         trailingIcon = {
-            if (icon != null) {
                 val iconImage = if(passwordIsVisible.value){
                     Icons.Outlined.Visibility
                 }else {
                     Icons.Outlined.VisibilityOff
                 }
                 IconButton(onClick = { passwordIsVisible.value = !passwordIsVisible.value }) {
-                    Image(imageVector = icon, contentDescription = "Pencil Edit")
+                    Icon(imageVector = iconImage, contentDescription = "Password show")
                 }
-            }
         },
         visualTransformation = if(passwordIsVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
         shape = RoundedCornerShape(10.dp),

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Password
+import androidx.compose.material.icons.outlined.RemoveRedEye
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 
@@ -90,7 +91,7 @@ fun SignInScreen(
                 MakeText(text = stringResource(id = R.string.login_title), size = 24, color = TextColorDark, align = TextAlign.Start)
                 Space(15)
                 MakeTextField(stringResource(id = R.string.email_address), icon = null, onTextChange = { viewModel.onEvent(SignInStateOk.EmailTaking(it)) }, errorStatus = viewModel.signUIStates.value.emailError)
-                MakeTextFieldPassword(stringResource(id = R.string.password), icon = Icons.Outlined.Password, onTextChange = { viewModel.onEvent(SignInStateOk.PasswordTaking(it)) }, errorStatus = viewModel.signUIStates.value.passwordError)
+                MakeTextFieldPassword(stringResource(id = R.string.password), onTextChange = { viewModel.onEvent(SignInStateOk.PasswordTaking(it)) }, errorStatus = viewModel.signUIStates.value.passwordError)
                 MyTextButton(onClick = {} , text = stringResource(id = R.string.forgot_password), align = TextAlign.Start)
                 Space(size = 10)
                 // todo -> event on forgot password?
@@ -140,7 +141,7 @@ fun LogoName() {
         contentDescription = "Nombre de la aplicación",
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
+            .height(276.dp)
             .background(Color.Transparent),
         )
 }

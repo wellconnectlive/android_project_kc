@@ -1,35 +1,31 @@
 package live.wellconnect.wellconnect.domain
 
-import java.util.Date
+import java.sql.Date
+
 
 // todo, validar los atributos que pasarán a opcionales
-// add photo attibute
+
 data class UserModel(
-    //val id : String?,
-    var name : String?,
-    var lastNameFather : String?,
-    var lastNameMother : String?,
-    //var photo : String?,
     var gender : Gender?,
-    //val gender : String,
-    var dni : String?,
-    var address : String?,
-    val poblation : String?,
-    var country : String?,
-    //val bloodType : BloodType,
-    //val bloodType : String,
-    //val age : Int,
     var age : String?,
-    //val birthDate : Date,
-    //val birthDate : String,
-    //val inscriptionDate : Date,
-    //val inscriptionDate : String,
+    var photo : String?,
+    var country : String?,
     var phoneNumber : String?,
-    //val postalCode : Int,
-    var postalCode : String?,
+    var allowTracking : Boolean?,
+    var myFiles : MyFiles?,
+    var alerts : Alerts?,
+    var religion : Religion?,
+    var bloodType : BloodType?,
+    var implants : List<Implants>,
+    var medAllergy : List<MedsAllergy>,
+    var foodAllergy : List<FoodAllergy>,
+    var otherAllergy : List<OtherAllergy>,
+    var userType : UserType?,
+    var diseases : List<CommomDisease>,
+    var contacts : List<Contacts>,
+
 )
 
-///Users/isadevs/Documents/
 enum class Gender{
     FEMALE,
     MALE,
@@ -46,8 +42,28 @@ enum class BloodType {
     Ominus,
 }
 
+data class MyFiles(
+    var name : String,
+    var type : FileType,
+)
+
+data class Alerts(
+    var alertType : AlertType,
+    var date : Date,
+)
+enum class FileType {
+    PDF,
+    JPG,
+    DATE
+}
+
+enum class AlertType {
+    MEDICATION,
+    DATES,
+}
+
 // cómo enlaza con la clase user???
-data class UserDataModel (
+/*data class UserDataModel (
     val id : String,
     val religion : Religion,
     val userType : UserType,
@@ -59,7 +75,7 @@ data class UserDataModel (
     val foodAllergy : List<FoodAllergy>,
     val otherAllergy : List<OtherAllergy>,
     val implants : List<Implants>
-)
+)*/
 
 enum class Religion{
     CHRISTIAN_APOSTOLIC_ROMAN,

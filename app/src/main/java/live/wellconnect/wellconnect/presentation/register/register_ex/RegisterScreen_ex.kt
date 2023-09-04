@@ -164,7 +164,7 @@ fun Register(
         values.add(postalCode.text)
 
         if(!checkUser(values)){
-            val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(),  Gender.FEMALE, values[3].toString(), values[4].toString(), values[5].toString(), values[6].toString(), values[7].toString(), values[8].toString(), values[9].toString())
+            val user = UserModel(Gender.FEMALE, values[0].toString(), values[1].toString(), values[2].toString(),  values[3].toString(), true, null, null, null, null, listOf(), listOf(), listOf(),listOf(),null, listOf(), listOf())
             GetButton(viewModel, user, idData)
         }
 
