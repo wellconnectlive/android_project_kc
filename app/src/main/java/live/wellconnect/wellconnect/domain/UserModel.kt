@@ -62,21 +62,6 @@ enum class AlertType {
     DATES,
 }
 
-// cómo enlaza con la clase user???
-/*data class UserDataModel (
-    val id : String,
-    val religion : Religion,
-    val userType : UserType,
-    val note : String,
-    val allowTracking : Boolean,
-    val contacts : List<Contacts>,
-    val diseases : CommomDisease,
-    val medAllergy : List<MedsAllergy>,
-    val foodAllergy : List<FoodAllergy>,
-    val otherAllergy : List<OtherAllergy>,
-    val implants : List<Implants>
-)*/
-
 enum class Religion{
     CHRISTIAN_APOSTOLIC_ROMAN,
     ORTHODOX,
@@ -121,12 +106,12 @@ enum class Kinship {
 }
 
 enum class CommomDisease {
-    DISABILITY_INTELLECTUAL,
+    INTELLECTUAL_DISABILITY,
     DIABETES,
     HYPERTENSION,
     ALZHEIMER,
     AUTISM,
-    DISEASE_VON_WILLEBRAND,
+    VON_WILLEBRAND_DISEASE,
     HEMOPHILIA,
     DEMENTIA_SENILE,
     DEAFNESS,

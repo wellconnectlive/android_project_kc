@@ -1,6 +1,7 @@
 package live.wellconnect.wellconnect
 
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -27,6 +28,10 @@ import androidx.navigation.compose.rememberNavController
 import live.wellconnect.wellconnect.presentation.SignInViewModel
 import androidx.activity.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import live.wellconnect.wellconnect.presentation.SignInScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreen
@@ -43,6 +48,8 @@ class MainActivity : ComponentActivity() {
     private val registerViewModelEx : RegisterViewModelContinue by viewModels()
     private val registerViewModel: RegisterViewModel by viewModels()
     private val profileViewModel: ProfileScreenViewModel  by viewModels()
+    private val auth : FirebaseAuth = Firebase.auth
+
 
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -53,6 +60,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             WellconnectTheme {
                     // A surface container using the 'background' color from the theme

@@ -1,7 +1,6 @@
 package live.wellconnect.wellconnect.presentation.register
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Password
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.firebase.firestore.FirebaseFirestore
 import live.wellconnect.wellconnect.R
 import live.wellconnect.wellconnect.components.MakeText
 import live.wellconnect.wellconnect.components.MakeTextField
@@ -29,7 +28,6 @@ import live.wellconnect.wellconnect.components.MyButton
 import live.wellconnect.wellconnect.components.MyCheckBox
 import live.wellconnect.wellconnect.components.Space
 import live.wellconnect.wellconnect.data.DataRepositoryImpl
-import live.wellconnect.wellconnect.ui.theme.TextColor
 import live.wellconnect.wellconnect.ui.theme.TextColorDark
 
 
@@ -126,7 +124,7 @@ fun RegisterScreen(
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun RegisterScreen_Preview() {
-    RegisterScreen(viewModel = RegisterViewModel(repository = DataRepositoryImpl()))
+    RegisterScreen(viewModel = RegisterViewModel(repository = DataRepositoryImpl(FirebaseFirestore.getInstance())))
 }
 
 private fun getAmessageToUser(context : Context, stateError : Boolean, message : String){

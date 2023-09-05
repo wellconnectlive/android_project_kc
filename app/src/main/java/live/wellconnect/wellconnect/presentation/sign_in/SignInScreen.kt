@@ -12,9 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Password
-import androidx.compose.material.icons.outlined.RemoveRedEye
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 
@@ -35,6 +32,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 
 import androidx.compose.ui.text.style.TextAlign
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import live.wellconnect.wellconnect.components.MakeTextFieldPassword
 import live.wellconnect.wellconnect.components.MyButton
 import live.wellconnect.wellconnect.components.MyClickableTextLogin
