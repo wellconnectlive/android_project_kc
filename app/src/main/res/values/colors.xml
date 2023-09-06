@@ -11,4 +11,6 @@
     <color name="blueBackground">#00D1FF</color>
     <color name="blueFontText">#004099</color>
     <color name="darkBlueText">#00596D</color>
+    <color name="grisOscuroskyBlue">#FF006982</color>
+    <color name="azul">#FF006FFD</color>
 </resources>

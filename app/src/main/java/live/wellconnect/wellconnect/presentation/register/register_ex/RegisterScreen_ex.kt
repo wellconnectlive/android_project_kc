@@ -55,15 +55,6 @@ fun Register(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        /*TextField(
-            value = id,
-            onValueChange = { id = it },
-            modifier = Modifier
-                .alpha(0.8F)
-                .background(Color.White),
-            placeholder = { Text(text = "ID") }
-        )
-        values.add(id.text)*/
         TextField(
             value = name,
             onValueChange = { name = it },
@@ -164,8 +155,8 @@ fun Register(
         values.add(postalCode.text)
 
         if(!checkUser(values)){
-            val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(),  Gender.FEMALE, values[3].toString(), values[4].toString(), values[5].toString(), values[6].toString(), values[7].toString(), values[8].toString(), values[9].toString())
-            GetButton(viewModel, user, idData)
+            //val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(),  Gender.FEMALE, values[3].toString(), values[4].toString(), values[5].toString(), values[6].toString(), values[7].toString(), values[8].toString(), values[9].toString())
+            //GetButton(viewModel, user, idData)
         }
 
     }

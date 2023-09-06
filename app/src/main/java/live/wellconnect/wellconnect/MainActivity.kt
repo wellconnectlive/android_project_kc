@@ -34,6 +34,7 @@ import live.wellconnect.wellconnect.presentation.profile.ProfileScreenViewModel
 import live.wellconnect.wellconnect.presentation.register.Register
 import live.wellconnect.wellconnect.presentation.register.RegisterScreen
 import live.wellconnect.wellconnect.presentation.register.RegisterViewModel
+import live.wellconnect.wellconnect.presentation.register.register_ex.RegisterFirst
 import live.wellconnect.wellconnect.presentation.register.register_ex.RegisterViewModelContinue
 
 
@@ -149,7 +150,7 @@ class MainActivity : ComponentActivity() {
                                     },
                                     profileViewModel,
                                     onRegContinue = {
-                                        navController.navigate("register_continue")
+                                        navController.navigate("register_first")
                                     },
                                 )
                             }
@@ -163,6 +164,13 @@ class MainActivity : ComponentActivity() {
                                 Register(userData = googleAuthUiClient.getSignedInUser(), registerViewModelEx)
                                 //navController.popBackStack()  // todo, chequear porque sobreescirbe en empty la pantalla
                             }
+                            composable("register_first") {
+                                RegisterFirst(userData = googleAuthUiClient.getSignedInUser(),registerViewModelEx, onRegContinue = {
+                                    navController.navigate("")
+                                })
+                                // navController.popBackStack()
+                            }
+
 
                         }
                     }
