@@ -1,0 +1,16 @@
+Index: app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt b/app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt	
++++ b/app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt	
+@@ -28,7 +28,6 @@
+ import androidx.activity.viewModels
+ import androidx.lifecycle.viewmodel.compose.viewModel
+ import com.google.firebase.auth.FirebaseAuth
+-import dagger.hilt.android.AndroidEntryPoint
+ import live.wellconnect.wellconnect.presentation.SignInScreen
+ import live.wellconnect.wellconnect.presentation.profile.ProfileScreen
+ import live.wellconnect.wellconnect.presentation.register_example.Register
