@@ -10,15 +10,16 @@ data class UserModelDTO(
 )
 
 data class UserModelContinueDTO(
-    @set:PropertyName("name") var name : String = "",
-    @set:PropertyName("lastNameFather") var lastNameFather : String = "",
-    @set:PropertyName("lastNameMother") var lastNameMother : String = "",
-    @set:PropertyName("gender") var gender  : Gender = Gender.FEMALE,
-    @set:PropertyName("dni") var dni : String = "",
-    @set:PropertyName("address") var address : String = "",
-    @set:PropertyName("poblation") var poblation : String = "",
-    @set:PropertyName("country") var country : String = "",
-    @set:PropertyName("age") var age : String = "",
-    @set:PropertyName("phoneNumber") var phoneNumber : String = "",
-    @set:PropertyName("postalCode") var postalCode: String = "",
+    //@set:PropertyName("name") var name : String = "",
+    //@set:PropertyName("lastNameFather") var lastNameFather : String = "",
+    //@set:PropertyName("lastNameMother") var lastNameMother : String = "",
+    //@set:PropertyName("gender") var gender  : Gender = Gender.FEMALE,
+    @set:PropertyName("gender") var gender  : String = "",
+    //@set:PropertyName("dni") var dni : String = "",
+    //@set:PropertyName("address") var address : String = "",
+    //@set:PropertyName("poblation") var poblation : String = "",
+    //@set:PropertyName("country") var country : String = "",
+    @set:PropertyName("age") var age : Int ,
+    //@set:PropertyName("phoneNumber") var phoneNumber : String = "",
+    //@set:PropertyName("postalCode") var postalCode: String = "",
 )

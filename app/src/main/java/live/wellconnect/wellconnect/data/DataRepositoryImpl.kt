@@ -28,16 +28,19 @@ class DataRepositoryImpl @Inject constructor(
     override suspend fun insertUser(user: UserModel, userUID : String) {
         val user = hashMapOf(
             "name" to user.name,
-            "lastNameFather" to user.lastNameFather,
-            "lastNameMother" to user.lastNameMother,
+            //"lastNameFather" to user.lastNameFather,
+           // "lastNameMother" to user.lastNameMother,
             "gender" to user.gender,
-            "dni" to user.dni,
-            "addess" to user.address,
-            "poblation" to user.poblation,
+            //"dni" to user.dni,
+            "email" to user.address,
+            //"poblation" to user.poblation,
             "country" to user.country,
             "age" to user.age,
             "phoneNumber" to user.phoneNumber,
-            "postalCode" to user.postalCode,
+            "religion" to user.religion,
+            "bloodType" to user.bloodType,
+            "implants" to user.implants,
+            //"postalCode" to user.postalCode,
         )
 
         db.collection("users").document(userUID).set(user)

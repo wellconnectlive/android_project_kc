@@ -1,6 +1,5 @@
 package live.wellconnect.wellconnect.presentation.register.register_ex
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,20 +16,17 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import live.wellconnect.wellconnect.R
@@ -42,13 +38,15 @@ import live.wellconnect.wellconnect.components.ImplantSelectorWithDialog
 import live.wellconnect.wellconnect.components.NumberedProgressBar
 import live.wellconnect.wellconnect.components.ReligionSelectorWithDialog
 import live.wellconnect.wellconnect.components.TextFieldForPhoto
-import live.wellconnect.wellconnect.data.DataRepository
-import live.wellconnect.wellconnect.data.DataRepositoryImpl
+import live.wellconnect.wellconnect.domain.BloodType
+import live.wellconnect.wellconnect.domain.Country
 import live.wellconnect.wellconnect.domain.Gender
+import live.wellconnect.wellconnect.domain.Implants
+import live.wellconnect.wellconnect.domain.Religion
 import live.wellconnect.wellconnect.domain.UserModel
 import live.wellconnect.wellconnect.presentation.UserData
-import live.wellconnect.wellconnect.presentation.SignInState
-import live.wellconnect.wellconnect.presentation.register.GetButton
+
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,14 +56,18 @@ fun RegisterFirst(
     viewModel: RegisterViewModelContinue,
     onRegContinue : () -> Unit
 ) {
-    //var tValName by remember { mutableStateOf("") }
+
     val idData =  userData?.userId ?: ""
-    var tValSex by remember { mutableStateOf("") }
-    var tValAge by remember { mutableStateOf("") }
-    var tValCountry by remember { mutableStateOf("") }
-    var tValPhoneNumber by remember { mutableStateOf("") }
-    var tValBloodGroup by remember { mutableStateOf("") }
-    val values = ArrayList<Any>()
+    viewModel.getUserValues(idData)
+    val userName = viewModel.dataUser.value
+    var tValGender by remember { mutableStateOf<Gender?>(null) }
+    var tValAge by remember { mutableStateOf<Int?>(null) }
+    var tValCountry by remember { mutableStateOf<Country?>(null) }
+    var tValPhoneNumber by remember { mutableStateOf<Int?>(null) }
+    var tValReligion by remember { mutableStateOf<Religion?>(null) }
+    var tValBloodGroup by remember { mutableStateOf<BloodType?>(null) }
+    var tValImplants by remember { mutableStateOf<List<Implants?>>(emptyList()) }
+
 
     Box(
         modifier = Modifier
@@ -99,7 +101,7 @@ fun RegisterFirst(
                 )
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Hola XXXXX",
+            Text("Hola ${userName?.name}",
                 style = TextStyle(
                     color = colorResource(id = R.color.grisOscuroskyBlue),
                     fontSize = 16.sp,
@@ -117,44 +119,40 @@ fun RegisterFirst(
 
             ) {
 
-
             DropDownTextFieldWithDialog("Indica tu sexo"){ selectedGender ->
-                values.add(selectedGender)
+                tValGender = selectedGender
             }
 
             EditTextField(
                 value = tValAge,
                 onValueChange = { tValAge = it },
-                hint = "Edad"
+                hint = "Fecha de nacimiento"
             )
-            values.add(tValAge)
+
             TextFieldForPhoto("Tu foto")
             CountrySelectorWithDialog("Indica tu país de origen"){ selectedCountry ->
-                values.add(selectedCountry)
+                tValCountry = selectedCountry
             }
+
 
             EditTextField(
                 value = tValPhoneNumber,
                 onValueChange = { tValPhoneNumber = it },
                 hint = "Teléfono"
             )
-            values.add(tValPhoneNumber)
+
             ReligionSelectorWithDialog("Religion") { selectedReligion ->
-                values.add(selectedReligion)
+                tValReligion = selectedReligion
             }
+
             BloodGroupSelectorWithDialog("Indica tu grupo sanguíneo"){ selectedBlood ->
-                values.add((selectedBlood))
+                tValBloodGroup = selectedBlood
             }
 
             ImplantSelectorWithDialog("Implantes"){ selectedImplant ->
-                values.add((selectedImplant))
+                tValImplants = tValImplants + selectedImplant
             }
-
             Spacer(modifier = Modifier.height(30.dp))
-            if(!checkUser(values)){
-                val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(),values[3].toString(), values[4].toString(), values[5].toString(),values[5].toString())
-                viewModel.addUser(user,idData)
-            }
 
         }
 
@@ -166,7 +164,10 @@ fun RegisterFirst(
         contentAlignment = Alignment.BottomCenter
     ) {
         Button(
-            onClick = { onRegContinue
+            onClick = {
+                    val user = UserModel(userName?.name, tValGender,userName?.email,tValCountry,tValAge,tValPhoneNumber,tValReligion,tValBloodGroup,tValImplants)
+                    viewModel.addUser(user,idData)
+
                 },
             modifier = Modifier
                 .fillMaxWidth()

@@ -86,6 +86,11 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import live.wellconnect.wellconnect.R
+import live.wellconnect.wellconnect.domain.BloodType
+import live.wellconnect.wellconnect.domain.Country
+import live.wellconnect.wellconnect.domain.Gender
+import live.wellconnect.wellconnect.domain.Implants
+import live.wellconnect.wellconnect.domain.Religion
 import live.wellconnect.wellconnect.ui.theme.TextColor
 import live.wellconnect.wellconnect.ui.theme.TextColorDark
 import live.wellconnect.wellconnect.ui.theme.myFont
@@ -349,12 +354,11 @@ fun MyTextButton(onClick : () -> Unit, text: String, align: TextAlign) = TextBut
             textAlign = align
         )
     }
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun EditTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
+    value: Int?,
+    onValueChange: (Int?) -> Unit,
     hint: String,
     modifier: Modifier = Modifier
         .fillMaxWidth()
@@ -362,45 +366,48 @@ fun EditTextField(
         .border(1.dp, colorResource(id = R.color.grisOscuroskyBlue), RoundedCornerShape(8.dp))
         .background(Color.White, shape = MaterialTheme.shapes.medium)
 ) {
-    var isHintVisible by remember { mutableStateOf(value.isEmpty()) }
-    var isEditable by remember { mutableStateOf(true) }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Box(
         modifier = modifier,
         contentAlignment = Alignment.CenterStart
     ) {
+        var text by remember { mutableStateOf(value?.toString() ?: "") }
+        var isHintVisible by remember { mutableStateOf(value == null) }
+
         BasicTextField(
-            value = value,
+            value = text,
             onValueChange = {
-                onValueChange(it)
+                text = it
+                onValueChange(it.toIntOrNull())
                 isHintVisible = it.isEmpty()
             },
             textStyle = TextStyle(
                 color = Color.Black,
                 fontSize = 16.sp
             ),
-            singleLine = false,
+            singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Text
+                keyboardType = KeyboardType.Number
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
-                    // Ocultar el teclado
+                    // Ocultar el teclado al hacer clic fuera del campo
                     keyboardController?.hide()
                 }
             ),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 12.dp, top = 12.dp, end = 12.dp, bottom = 12.dp) // Ajuste del padding en todos los lados
-                .onFocusChanged {
-                    isHintVisible = it.isFocused
-
-                }
+                .padding(
+                    start = 12.dp,
+                    top = 12.dp,
+                    end = 12.dp,
+                    bottom = 12.dp
+                )
         )
 
-        if (value.isEmpty()) {
+        if (isHintVisible) {
             Text(
                 text = hint,
                 style = TextStyle(
@@ -411,23 +418,13 @@ fun EditTextField(
                     .align(Alignment.CenterStart)
                     .padding(start = 12.dp)
             )
-            Icon(
-                imageVector = Icons.Outlined.Edit,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(30.dp)
-                    .align(Alignment.CenterEnd)
-                    .padding(end = 12.dp)
-            )
         }
-
-
     }
 }
 @Preview(showBackground = true)
 @Composable
 fun EditTextField_Preview() {
-    EditTextField("",{}, "Introduce tus datos")
+    EditTextField(0,{}, "Introduce tus datos")
 }
 
 @Composable
@@ -470,32 +467,19 @@ fun TextFieldForPhoto(
     }
 }
 @Composable
-fun DropDownTextFieldWithDialog(gender: String, onGenderSelected: (String)->Unit) {
-    var isDialogOpen by remember { mutableStateOf(false) }
+fun DropDownTextFieldWithDialog(gender: String, onGenderSelected: (Gender)->Unit) {
     var selectedGender by remember { mutableStateOf(gender) }
 
     DropDownTextField(
         value = selectedGender,
         onValueChange = { selectedGender = it },
         hint = "Selecciona tu género",
-        options = listOf("Masculino", "Femenino", "No binario", "Prefiero no decirlo"),
+        options = listOf(Gender.MALE,Gender.FEMALE,Gender.NON_BINARY,Gender.OTHER),
         onOptionSelected = {
-            selectedGender = it
-            isDialogOpen = false
+            selectedGender = it.toString()
+            onGenderSelected(it)
         }
     )
-
-    if (isDialogOpen) {
-        GenderOptionsDialog(
-            options = listOf("Soy hombre", "Soy mujer", "No binario", "Prefiero no decirlo"),
-            onOptionSelected = {
-                selectedGender = it
-                isDialogOpen = false
-                onGenderSelected(it)
-            },
-            onDismissRequest = { isDialogOpen = false }
-        )
-    }
 }
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -503,15 +487,13 @@ fun DropDownTextField(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
-    options: List<String>,
-    onOptionSelected: (String) -> Unit,
+    options: List<Gender>,
+    onOptionSelected: (Gender) -> Unit,
     modifier: Modifier = Modifier
         .border(1.dp, Color.Black, RoundedCornerShape(8.dp)),
 ) {
     var isHintVisible by remember { mutableStateOf(value.isEmpty()) }
     var expanded by remember { mutableStateOf(false) }
-
-    val selectedOptionIndex = options.indexOf(value)
 
     Box(
         modifier = modifier
@@ -556,7 +538,8 @@ fun DropDownTextField(
                 options = options,
                 onOptionSelected = {
                     onOptionSelected(it)
-                    expanded = false // Cerrar el diálogo después de seleccionar una opción
+                    expanded = false
+                    // Cerrar el diálogo después de seleccionar una opción
                 },
                 onDismissRequest = {
                     expanded = false // Cerrar el diálogo si se descarta
@@ -568,8 +551,8 @@ fun DropDownTextField(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GenderOptionsDialog(
-    options: List<String>,
-    onOptionSelected: (String) -> Unit,
+    options: List<Gender>,
+    onOptionSelected: (Gender) -> Unit,
     onDismissRequest: () -> Unit
 ) {
     AlertDialog(
@@ -607,7 +590,7 @@ fun GenderOptionsDialog(
 
                     ) {
                         Text(
-                            text = gender,
+                            text = gender.toString(),
                             color = colorResource(id = R.color.azul)
                         )
                     }
@@ -621,7 +604,7 @@ fun GenderOptionsDialog(
 @Preview
 @Composable
 fun GenderOptionsDialogPreview() {
-    val genderOptions = listOf("Masculino", "Femenino", "No binario", "Prefiero no decirlo")
+    val genderOptions = listOf(Gender.MALE,Gender.FEMALE,Gender.NON_BINARY,Gender.OTHER)
 
     GenderOptionsDialog(
         options = genderOptions,
@@ -692,13 +675,13 @@ fun NumberedProgressBarPreview() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReligionSelectorWithDialog(selectedReligion: String, onReligionSelected: (String) -> Unit) {
+fun ReligionSelectorWithDialog(selectedReligion: String, onReligionSelected: (Religion) -> Unit) {
     var isDialogOpen by remember { mutableStateOf(false) }
     var selectedReligionName by remember { mutableStateOf(selectedReligion) }
 
     ReligionSelectorTextField(
-        value = selectedReligionName,
-        onValueChange = { selectedReligionName = it },
+        value = selectedReligionName.toString(),
+        onValueChange = { selectedReligionName = it.toString() },
         hint = "Selecciona tu religión",
         onSelectorClick = {
             isDialogOpen = true
@@ -708,19 +691,12 @@ fun ReligionSelectorWithDialog(selectedReligion: String, onReligionSelected: (St
     if (isDialogOpen) {
         ReligionOptionsDialog(
             options = listOf(
-                "Cristianismo",
-                "Islam",
-                "Hinduismo",
-                "Budismo",
-                "Sijismo",
-                "Judaísmo",
-                "Ateísmo",
-                "Testigo de Jehová",
-                "Otra"
+                Religion.BUDDHISMO,Religion.CATHOLIC,Religion.EVANGELIST,Religion.HINDU,Religion.JEHOVAH_WITNESS,Religion.JEW,Religion.MUSLIM,
+                Religion.SUNNI,Religion.SHIISM,Religion.ORTHODOX,Religion.PROTESTANT,Religion.JEHOVAH_WITNESS,Religion.CHRISTIAN_APOSTOLIC_ROMAN
             ), // Implementa una función que devuelve la lista de religiones
-            selectedReligion = selectedReligionName,
+            selectedReligion = selectedReligionName.toString(),
             onOptionSelected = {
-                selectedReligionName = it
+                selectedReligionName = it.toString()
                 isDialogOpen = false
                 onReligionSelected(it)
             },
@@ -732,7 +708,7 @@ fun ReligionSelectorWithDialog(selectedReligion: String, onReligionSelected: (St
 @Composable
 fun ReligionSelectorTextField(
     value: String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (Religion) -> Unit,
     hint: String,
     onSelectorClick: () -> Unit
 ) {
@@ -767,9 +743,9 @@ fun ReligionSelectorTextField(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReligionOptionsDialog(
-    options: List<String>,
+    options: List<Religion>,
     selectedReligion: String,
-    onOptionSelected: (String) -> Unit,
+    onOptionSelected: (Religion) -> Unit,
     onDismissRequest: () -> Unit
 ) {
     AlertDialog(
@@ -792,10 +768,10 @@ fun ReligionOptionsDialog(
                 contentPadding = PaddingValues(16.dp)
             ) {
                 itemsIndexed(options) { index, religion ->
-                    val isSelected = religion == selectedReligion
+                    val isSelected = religion.toString() == selectedReligion
 
                     Text(
-                        text = religion,
+                        text = religion.toString(),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
@@ -832,8 +808,8 @@ fun ReligionSelectorTextField_Preview() {
 @Preview
 fun ReligionOptionsDialog_Preview() {
     val religionOptions = listOf(
-        "Cristianismo", "Islam", "Hinduismo", "Budismo", "Sijismo", "Judaísmo", "Ateísmo",
-        "Otra"
+        Religion.BUDDHISMO,Religion.CATHOLIC,Religion.EVANGELIST,Religion.HINDU,Religion.JEHOVAH_WITNESS,Religion.JEW,Religion.MUSLIM,
+        Religion.SUNNI,Religion.SHIISM,Religion.ORTHODOX,Religion.PROTESTANT,Religion.JEHOVAH_WITNESS,Religion.CHRISTIAN_APOSTOLIC_ROMAN
     )
     ReligionOptionsDialog(
         options = religionOptions,
@@ -844,7 +820,7 @@ fun ReligionOptionsDialog_Preview() {
 }
 
 @Composable
-fun BloodGroupSelectorWithDialog(selectedBloodGroup: String, onBloodSelected: (String) -> Unit) {
+fun BloodGroupSelectorWithDialog(selectedBloodGroup: String, onBloodSelected: (BloodType) -> Unit) {
     var isDialogOpen by remember { mutableStateOf(false) }
     var selectedBloodGroupName by remember { mutableStateOf(selectedBloodGroup) }
 
@@ -859,10 +835,19 @@ fun BloodGroupSelectorWithDialog(selectedBloodGroup: String, onBloodSelected: (S
 
     if (isDialogOpen) {
         BloodGroupOptionsDialog(
-            options = listOf("A", "B", "AB", "O"),
+            options = listOf(
+                BloodType.ABplus,
+                BloodType.ABminus,
+                BloodType.Aplus,
+                BloodType.Aminus,
+                BloodType.Bplus,
+                BloodType.Bminus,
+                BloodType.Oplus,
+                BloodType.Ominus
+            ),
             selectedBloodGroup = selectedBloodGroupName,
             onOptionSelected = {
-                selectedBloodGroupName = it
+                selectedBloodGroupName = it.toString()
                 isDialogOpen = false
                 onBloodSelected(it)
             },
@@ -909,9 +894,9 @@ fun BloodGroupSelectorTextField(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BloodGroupOptionsDialog(
-    options: List<String>,
+    options: List<BloodType>,
     selectedBloodGroup: String,
-    onOptionSelected: (String) -> Unit,
+    onOptionSelected: (BloodType) -> Unit,
     onDismissRequest: () -> Unit
 ) {
     AlertDialog(
@@ -933,11 +918,11 @@ fun BloodGroupOptionsDialog(
                     .height(150.dp),
                 contentPadding = PaddingValues(16.dp)
             ) {
-                itemsIndexed(options) { index, bloodGroup ->
-                    val isSelected = bloodGroup == selectedBloodGroup
+                itemsIndexed(options) { _, bloodGroup ->
+                    val isSelected = bloodGroup.nombreEnEspanol == selectedBloodGroup
 
                     Text(
-                        text = bloodGroup,
+                        text = bloodGroup.nombreEnEspanol,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
@@ -972,7 +957,15 @@ fun BloodGroupSelectorTextField_Preview() {
 @Composable
 @Preview
 fun BloodGroupOptionsDialog_Preview() {
-    val bloodGroupOptions = listOf("A", "B", "AB", "O")
+    val bloodGroupOptions = listOf(
+        BloodType.ABplus,
+        BloodType.ABminus,
+        BloodType.Aplus,
+        BloodType.Aminus,
+        BloodType.Bplus,
+        BloodType.Bminus,
+        BloodType.Oplus,
+        BloodType.Ominus)
     BloodGroupOptionsDialog(
         options = bloodGroupOptions,
         selectedBloodGroup = "A",
@@ -982,7 +975,7 @@ fun BloodGroupOptionsDialog_Preview() {
 }
 
 @Composable
-fun ImplantSelectorWithDialog(selectedImplant: String, onImplantSelected: (String) -> Unit) {
+fun ImplantSelectorWithDialog(selectedImplant: String, onImplantSelected: (Implants) -> Unit) {
     var isDialogOpen by remember { mutableStateOf(false) }
     var selectedImplantName by remember { mutableStateOf(selectedImplant) }
 
@@ -997,13 +990,21 @@ fun ImplantSelectorWithDialog(selectedImplant: String, onImplantSelected: (Strin
 
     if (isDialogOpen) {
         ImplantOptionsDialog(
-            options = listOf(
-                "Bypass cardíaco", "Prótesis de rodilla", "Prótesis de cadera", "Stent coronario",
-                "Pacemaker", "Implante coclear", "Implante dental", "Implante de catarata"
-            ), // Implementa una función que devuelve la lista de tipos de implantes
+            options =listOf(
+                Implants.CARDIAC_BYPASS,
+                Implants.KNEE_PROSTHESIS,
+                Implants.HIP_PROSTHESIS,
+                Implants.CORONARY_STENT,
+                Implants.PACEMAKER,
+                Implants.COCHLEAR_IMPLANT,
+                Implants.DENTAL_IMPLANT,
+                Implants.CATARACT_IMPLANT,
+                Implants.OTHER
+            ),
+             // Implementa una función que devuelve la lista de tipos de implantes
             selectedImplant = selectedImplantName,
             onOptionSelected = {
-                selectedImplantName = it
+                selectedImplantName = it.toString()
                 isDialogOpen = false
                 onImplantSelected(it)
             },
@@ -1049,9 +1050,9 @@ fun ImplantSelectorTextField(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImplantOptionsDialog(
-    options: List<String>,
+    options: List<Implants>,
     selectedImplant: String,
-    onOptionSelected: (String) -> Unit,
+    onOptionSelected: (Implants) -> Unit,
     onDismissRequest: () -> Unit
 ) {
     AlertDialog(
@@ -1073,11 +1074,11 @@ fun ImplantOptionsDialog(
                     .height(150.dp),
                 contentPadding = PaddingValues(16.dp)
             ) {
-                itemsIndexed(options) { index, implant ->
-                    val isSelected = implant == selectedImplant
+                itemsIndexed(options) { _, implant ->
+                    val isSelected = implant.nameInSpanish == selectedImplant
 
                     Text(
-                        text = implant,
+                        text = implant.toString(),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
@@ -1112,12 +1113,18 @@ fun ImplantSelectorTextField_Preview() {
 @Composable
 @Preview
 fun ImplantOptionsDialog_Preview() {
-    val implantOptions = listOf(
-        "Bypass cardíaco", "Prótesis de rodilla", "Prótesis de cadera", "Stent coronario",
-        "Pacemaker", "Implante coclear", "Implante dental", "Implante de catarata", "Otro"
-    )
     ImplantOptionsDialog(
-        options = implantOptions,
+        options = listOf(
+            Implants.CARDIAC_BYPASS,
+            Implants.KNEE_PROSTHESIS,
+            Implants.HIP_PROSTHESIS,
+            Implants.CORONARY_STENT,
+            Implants.PACEMAKER,
+            Implants.COCHLEAR_IMPLANT,
+            Implants.DENTAL_IMPLANT,
+            Implants.CATARACT_IMPLANT,
+            Implants.OTHER
+        ),
         selectedImplant = "Bypass cardíaco",
         onOptionSelected = {},
         onDismissRequest = {}
@@ -1384,9 +1391,9 @@ fun AlergiesOptionsDialog(
                     }
                     if (showEdiTextAlergie && !showConfirmation) {
                         EditTextField(
-                            value = etAlergy,
+                            value = etAlergy.toInt(),
                             onValueChange = { newValue ->
-                                etAlergy = newValue
+                                //etAlergy = newValue
                             },
                             hint = "Tengo alergia a:"
                         )
@@ -1456,7 +1463,7 @@ fun AlergiesOptionsDialogPreview() {
 }
 
 @Composable
-fun CountrySelectorWithDialog(selectedCountry: String, onSelectedCountry: (String)-> Unit) {
+fun CountrySelectorWithDialog(selectedCountry: String, onSelectedCountry: (Country)-> Unit) {
     var isDialogOpen by remember { mutableStateOf(false) }
     var selectedCountryName by remember { mutableStateOf(selectedCountry) }
 
@@ -1471,14 +1478,10 @@ fun CountrySelectorWithDialog(selectedCountry: String, onSelectedCountry: (Strin
 
     if (isDialogOpen) {
         CountryOptionsDialog(
-            options = listOf(
-                "Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador", "Guyana",
-                "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela", "Belize", "Costa Rica",
-                "El Salvador", "Guatemala", "Honduras", "Mexico", "Nicaragua", "Panama"
-            ), // Implementa una función que devuelve la lista de países
+            options = Country.values().map { it.name }, // Implementa una función que devuelve la lista de países
             selectedCountry = selectedCountryName,
             onOptionSelected = {
-                selectedCountryName = it
+                selectedCountryName = it.toString()
                 isDialogOpen = false
                 onSelectedCountry(it)
             },
@@ -1526,7 +1529,7 @@ fun CountrySelectorTextField(
 fun CountryOptionsDialog(
     options: List<String>,
     selectedCountry: String,
-    onOptionSelected: (String) -> Unit,
+    onOptionSelected: (Country) -> Unit,
     onDismissRequest: () -> Unit
 ) {
     AlertDialog(
@@ -1543,10 +1546,12 @@ fun CountryOptionsDialog(
         shape = MaterialTheme.shapes.medium,
         text = {
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().height(250.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp),
                 contentPadding = PaddingValues(16.dp)
             ) {
-                itemsIndexed(options) { index, country ->
+                itemsIndexed(options) { _, country ->
                     val isSelected = country == selectedCountry
 
                     Text(
@@ -1555,7 +1560,10 @@ fun CountryOptionsDialog(
                             .fillMaxWidth()
                             .padding(bottom = 8.dp)
                             .clickable {
-                                onOptionSelected(country)
+                                val country = obtenerPaisPorNombre(country)
+                                if (country != null) {
+                                    onOptionSelected(country)
+                                }
                                 onDismissRequest()
                             },
                         color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Black,
@@ -1570,6 +1578,7 @@ fun CountryOptionsDialog(
         dismissButton = {}
     )
 }
+
 @Composable
 @Preview
 fun CountrySelectorTextField_Preview() {
@@ -1595,5 +1604,14 @@ fun CountryOptionsDialog_Preview() {
         onOptionSelected = {},
         onDismissRequest = {}
     )
+}
+fun obtenerPaisPorNombre(nombreEnEspanol: String): Country? {
+    return Country.values().firstOrNull { it.name.equals(nombreEnEspanol, ignoreCase = true) }
+}
+fun obtenerImplantePorNombre(nombreEnEspanol: String): Implants? {
+    return Implants.values().firstOrNull { it.name.equals(nombreEnEspanol, ignoreCase = true) }
+}
+fun obtenerTipoDeSangrePorNombre(nombreEnEspanol: String): BloodType? {
+    return BloodType.values().firstOrNull { it.name.equals(nombreEnEspanol, ignoreCase = true) }
 }
 
