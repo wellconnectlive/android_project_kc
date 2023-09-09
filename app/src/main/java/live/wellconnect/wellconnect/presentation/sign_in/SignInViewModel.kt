@@ -9,10 +9,11 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import live.wellconnect.wellconnect.presentation.register.RegisterStates
 import live.wellconnect.wellconnect.utils.Validator
+import javax.inject.Inject
 
-class SignInViewModel: ViewModel() {
+class SignInViewModel @Inject constructor() : ViewModel()
+{
 
     private val _state = MutableStateFlow(SignInState())
     val state = _state.asStateFlow()
@@ -75,7 +76,7 @@ class SignInViewModel: ViewModel() {
         }
     }
 
-    private fun login(email : String, password : String){
+    fun login(email : String, password : String){
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
             if(it.isSuccessful) {
                 Log.i("LOGIN", "Usuario iniciado con éxito $email")

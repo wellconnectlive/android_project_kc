@@ -16,9 +16,7 @@ import live.wellconnect.wellconnect.domain.UserRegister
 import java.io.File
 import javax.inject.Inject
 
-class DataRepositoryImpl @Inject constructor(
-
-) : DataRepository {
+class DataRepositoryImpl @Inject constructor(db: FirebaseFirestore) : DataRepository {
 
     private val db = FirebaseFirestore.getInstance()
 

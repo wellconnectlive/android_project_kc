@@ -25,7 +25,24 @@ package live.wellconnect.wellconnect.domain
     var phoneNumber : String?,
     //val postalCode : Int,
     var postalCode : String?,
-)*/
+)
+
+///Users/isadevs/Documents/
+enum class Gender{
+    FEMALE,
+    MALE,
+}
+
+enum class BloodType {
+    ABplus,
+    ABminus,
+    Aplus,
+    Aminus,
+    Bplus,
+    Bminus,
+    Oplus,
+    Ominus,
+}
 
 data class UserModel(
     //val id : String?,

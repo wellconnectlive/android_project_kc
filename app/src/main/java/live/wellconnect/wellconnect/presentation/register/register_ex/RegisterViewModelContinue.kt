@@ -25,9 +25,9 @@ class RegisterViewModelContinue @Inject constructor(
     val dataUser : LiveData<UserModelDTO> get() = _dataUser
 
     // rebuilt to firebase
-    fun addUser(userModel: UserModel, email : String) = viewModelScope.launch(Dispatchers.IO) {
+    fun addUser(userModel: UserModel, id: String) = viewModelScope.launch(Dispatchers.IO) {
         Log.i("PUSHED2", userModel.toString())
-        repository.insertUser(userModel, email)
+        repository.insertUser(userModel, id)
     }
     fun addUserContinue(userModel: UserModel, userContinue: UserDataModel, id: String) = viewModelScope.launch(Dispatchers.IO) {
         Log.i("PUSHED3", userModel.toString())

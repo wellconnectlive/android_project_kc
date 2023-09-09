@@ -1,6 +1,7 @@
 package live.wellconnect.wellconnect
 
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -28,6 +29,10 @@ import live.wellconnect.wellconnect.presentation.SignInViewModel
 import androidx.activity.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jmoreno.mispruebasparawell.RegisterSecond
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import live.wellconnect.wellconnect.presentation.SignInScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreen
