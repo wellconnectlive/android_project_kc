@@ -30,30 +30,27 @@ package live.wellconnect.wellconnect.domain
 data class UserModel(
     //val id : String?,
     var name: String?,
-    //var lastNameFather : String?,
-    //var lastNameMother : String?,
-    //var photo : String?,
     var gender: Gender?,
-    //val gender : String,
-    //var dni : String?,
     var address : String?,
-    //val poblation : String?,
     var country: Country?,
-    //val bloodType : BloodType,
-    //val bloodType : String,
-    //val age : Int,
     var age: Int?,
-    //val birthDate : Date,
-    //val birthDate : String,
-    //val inscriptionDate : Date,
-    //val inscriptionDate : String,
     var phoneNumber: Int?,
     val religion: Religion?,
     val bloodType: BloodType?,
     val implants: List<Implants?>?
-    //val postalCode : Int,
-    //var postalCode : String?,
 )
+data class UserDataModel (
+    val id : String,
+    val userType : UserType,
+    val note : String,
+    val allowTracking : Boolean,
+    val contacts : List<Contacts>,
+    val diseases : List<CommomDisease?>,
+    val medAllergy : List<MedsAllergy>,
+    val foodAllergy : List<FoodAllergy>,
+    val otherAllergy : List<OtherAllergy>,
+)
+
 ///Users/isadevs/Documents/
 enum class Gender(val gender: String){
     FEMALE("Femenino"),
@@ -73,19 +70,6 @@ enum class BloodType(val nombreEnEspanol: String) {
     Ominus("O-")
 }
 // cómo enlaza con la clase user???
-data class UserDataModel (
-    val id : String,
-    val religion : Religion,
-    val userType : UserType,
-    val note : String,
-    val allowTracking : Boolean,
-    val contacts : List<Contacts>,
-    val diseases : CommomDisease,
-    val medAllergy : List<MedsAllergy>,
-    val foodAllergy : List<FoodAllergy>,
-    val otherAllergy : List<OtherAllergy>,
-    val implants : List<Implants>
-)
 
 enum class Religion{
     CHRISTIAN_APOSTOLIC_ROMAN,
@@ -130,16 +114,30 @@ enum class Kinship {
     FRIEND,
 }
 
-enum class CommomDisease {
-    DISABILITY_INTELLECTUAL,
-    DIABETES,
-    HYPERTENSION,
-    ALZHEIMER,
-    AUTISM,
-    DISEASE_VON_WILLEBRAND,
-    HEMOPHILIA,
-    DEMENTIA_SENILE,
-    DEAFNESS,
+enum class CommomDisease(var nombreEnEspanol: String) {
+    DISABILITY_INTELLECTUAL("Tengo discapacidad intelectual"),
+    DIABETES("Tengo diabetes"),
+    HYPERTENSION("Tengo hipertensión"),
+    ALZHEIMER("Tengo Alzheimer"),
+    AUTISM("Tengo autismo"),
+    DISEASE_VON_WILLEBRAND("Tengo la enfermedad de Von Willebrand"),
+    HEMOPHILIA("Tengo hemofilia"),
+    DEMENTIA_SENILE("Tengo demencia senil"),
+    DEAFNESS("Tengo sordera"),
+    OTHER("");
+
+    companion object {
+        fun fromString(nombre: String): CommomDisease {
+            for (disease in values()) {
+                if (disease.nombreEnEspanol == nombre) {
+                    return disease
+                }
+            }
+            // Si no se encuentra una coincidencia, se devuelve "OTRA_ENFERMEDAD"
+            OTHER.nombreEnEspanol = nombre
+            return OTHER
+        }
+    }
 }
 
 enum class MedsAllergy {

@@ -167,7 +167,6 @@ fun RegisterFirst(
             onClick = {
                     val user = UserModel(userName?.name, tValGender,userName?.email,tValCountry,tValAge,tValPhoneNumber,tValReligion,tValBloodGroup,tValImplants)
                     viewModel.addUser(user,idData)
-
                 },
             modifier = Modifier
                 .fillMaxWidth()

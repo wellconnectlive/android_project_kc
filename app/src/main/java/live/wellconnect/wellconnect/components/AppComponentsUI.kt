@@ -40,6 +40,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -1613,5 +1614,134 @@ fun obtenerImplantePorNombre(nombreEnEspanol: String): Implants? {
 }
 fun obtenerTipoDeSangrePorNombre(nombreEnEspanol: String): BloodType? {
     return BloodType.values().firstOrNull { it.name.equals(nombreEnEspanol, ignoreCase = true) }
+}
+@Composable
+fun CheckboxWithCustomIcon(
+    text: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .height(50.dp)
+        .border(1.dp, colorResource(id = R.color.grisOscuroskyBlue), RoundedCornerShape(8.dp))
+        .background(Color.White, shape = MaterialTheme.shapes.medium)
+) {
+    val customCheckboxColors = CheckboxDefaults.colors(
+        checkedColor = colorResource(id = R.color.grisOscuroskyBlue), // Cambia aquí al color verde que desees
+        uncheckedColor = Color.Gray // Color cuando no está marcado
+    )
+
+    Row(
+        modifier = modifier
+            .padding(horizontal = 12.dp), // Espaciado horizontal
+        verticalAlignment = Alignment.CenterVertically // Centrar verticalmente
+    ) {
+        Text(
+            text = text,
+            style = TextStyle(
+                color = Color.Black,
+                fontSize = 16.sp
+            ),
+            modifier = Modifier.weight(1f)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Checkbox(
+            checked = checked,
+            onCheckedChange = { newChecked ->
+                onCheckedChange(newChecked)
+            },
+            colors = customCheckboxColors,
+            modifier = Modifier.size(24.dp).padding(end = 8.dp)
+        )
+    }
+}
+@Composable
+@Preview
+fun CheckboxWithCustomIconPreview() {
+    var checked by remember { mutableStateOf(true) }
+
+    CheckboxWithCustomIcon(
+        text = "Tengo diabetes",
+        checked = checked,
+        onCheckedChange = { newChecked ->
+            checked = newChecked
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    )
+}
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun EditTextFieldForNewDiseases(
+    value: String?,
+    onValueChange: (String?) -> Unit,
+    hint: String,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .height(50.dp)
+        .border(1.dp, colorResource(id = R.color.grisOscuroskyBlue), RoundedCornerShape(8.dp))
+        .background(Color.White, shape = MaterialTheme.shapes.medium)
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.CenterStart
+    ) {
+
+        var isHintVisible by remember { mutableStateOf(value?.isEmpty()) }
+
+        if (value != null) {
+            BasicTextField(
+                value = value,
+                onValueChange = {
+                    onValueChange(it)
+                    isHintVisible = it.isEmpty()
+                },
+                textStyle = TextStyle(
+                    color = Color.Black,
+                    fontSize = 16.sp
+                ),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Number
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        // Ocultar el teclado al hacer clic fuera del campo
+                        keyboardController?.hide()
+                    }
+                ),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        start = 12.dp,
+                        top = 12.dp,
+                        end = 12.dp,
+                        bottom = 12.dp
+                    )
+            )
+        }
+
+        if (isHintVisible == true) {
+            Text(
+                text = hint,
+                style = TextStyle(
+                    color = Color.Gray,
+                    fontSize = 16.sp
+                ),
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 12.dp)
+            )
+        }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun EditTextFieldForDeseases_Preview() {
+    EditTextFieldForNewDiseases("",{}, "Introduce una nueva dolencia")
 }
 

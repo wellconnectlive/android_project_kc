@@ -27,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import live.wellconnect.wellconnect.presentation.SignInViewModel
 import androidx.activity.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jmoreno.mispruebasparawell.RegisterSecond
 import dagger.hilt.android.AndroidEntryPoint
 import live.wellconnect.wellconnect.presentation.SignInScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreen
@@ -166,8 +167,14 @@ class MainActivity : ComponentActivity() {
                             }
                             composable("register_first") {
                                 RegisterFirst(userData = googleAuthUiClient.getSignedInUser(),registerViewModelEx, onRegContinue = {
-                                    navController.navigate("")
+                                    navController.navigate("register_second")
                                 })
+                                // navController.popBackStack()
+                            }
+                            composable("register_second") {
+                                RegisterSecond(navController = navController, userData = googleAuthUiClient.getSignedInUser(),registerViewModelEx, onRegContinue = {
+                                    navController.navigate("")
+                                }, navigateBack = {})
                                 // navController.popBackStack()
                             }
 

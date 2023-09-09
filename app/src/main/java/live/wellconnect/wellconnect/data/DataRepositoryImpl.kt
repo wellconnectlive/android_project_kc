@@ -9,6 +9,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.CompletableDeferred
+import live.wellconnect.wellconnect.domain.UserDataModel
 import live.wellconnect.wellconnect.domain.UserModel
 import live.wellconnect.wellconnect.domain.UserModelDTO
 import live.wellconnect.wellconnect.domain.UserRegister
@@ -92,5 +93,31 @@ class DataRepositoryImpl @Inject constructor(
 
         return deferreduser.await()
     }
+    override suspend fun insertUserContinue(user: UserModel, userContinue: UserDataModel, userUID : String) {
+        val user = hashMapOf(
+            "name" to user.name,
+            "gender" to user.gender,
+            "email" to user.address,
+            "country" to user.country,
+            "age" to user.age,
+            "phoneNumber" to user.phoneNumber,
+            "religion" to user.religion,
+            "bloodType" to user.bloodType,
+            "implants" to user.implants,
+            "type" to userContinue.userType,
+            "allowTracking" to userContinue.allowTracking,
+            "contacts" to userContinue.contacts,
+            "diseases" to userContinue.diseases,
+            "medAllergy" to userContinue.medAllergy,
+            "foodAllergy" to userContinue.medAllergy,
+            "otherAllergy" to userContinue.otherAllergy,
+        )
+
+        db.collection("users").document(userUID).set(user)
+            .addOnFailureListener{ error -> Log.i("ERROR_INSERT_USER", "Error en insert de user", error)}
+            .addOnSuccessListener { Log.i("SUCESSFULL_INSERT", "User Update") }
+
+    }
+
 
 }
