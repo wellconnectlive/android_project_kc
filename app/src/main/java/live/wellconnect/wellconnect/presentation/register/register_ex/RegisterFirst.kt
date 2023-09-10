@@ -119,7 +119,7 @@ fun RegisterFirst(
 
             ) {
 
-            DropDownTextFieldWithDialog("Indica tu sexo"){ selectedGender ->
+            DropDownTextFieldWithDialog("Indica tu sexo"){ selectedGender:Gender ->
                 tValGender = selectedGender
             }
 
@@ -130,7 +130,7 @@ fun RegisterFirst(
             )
 
             TextFieldForPhoto("Tu foto")
-            CountrySelectorWithDialog("Indica tu país de origen"){ selectedCountry ->
+            CountrySelectorWithDialog("Indica tu país de origen"){ selectedCountry:Country ->
                 tValCountry = selectedCountry
             }
 
@@ -141,15 +141,15 @@ fun RegisterFirst(
                 hint = "Teléfono"
             )
 
-            ReligionSelectorWithDialog("Religion") { selectedReligion ->
+            ReligionSelectorWithDialog("Religion") { selectedReligion: Religion ->
                 tValReligion = selectedReligion
             }
 
-            BloodGroupSelectorWithDialog("Indica tu grupo sanguíneo"){ selectedBlood ->
+            BloodGroupSelectorWithDialog("Indica tu grupo sanguíneo"){ selectedBlood:BloodType ->
                 tValBloodGroup = selectedBlood
             }
 
-            ImplantSelectorWithDialog("Implantes"){ selectedImplant ->
+            ImplantSelectorWithDialog("Implantes"){ selectedImplant:Implants ->
                 tValImplants = tValImplants + selectedImplant
             }
             Spacer(modifier = Modifier.height(30.dp))

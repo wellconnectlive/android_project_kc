@@ -357,7 +357,7 @@ fun RegisterSecond(
             Button(
                 onClick = {
                     //val user = UserDataModel(idData, UserType.FREEMIUM,"",false,
-                        emptyList(),diseases,tValReligion,tValBloodGroup,tValImplants)
+                      //  emptyList(),diseases,tValReligion,tValBloodGroup,tValImplants)
                     //viewModel.addUserContinue(userModel, user,idData)
                 },
                 modifier = Modifier
