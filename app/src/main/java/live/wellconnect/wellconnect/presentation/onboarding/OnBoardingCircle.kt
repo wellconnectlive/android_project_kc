@@ -66,13 +66,13 @@ import live.wellconnect.wellconnect.presentation.SignInState
 
 @Composable
 fun OnBoardingCircle(
-    state: SignInState,
+    //state: SignInState,
     onSignInClick: () -> Unit
 ) {
 
     var textValue by remember { mutableStateOf(TextFieldValue()) }
     val context = LocalContext.current
-    LaunchedEffect(key1 = state.signInError) {
+    /*LaunchedEffect(key1 = state.signInError) {
         state.signInError?.let { error ->
             Toast.makeText(
                 context,
@@ -80,7 +80,7 @@ fun OnBoardingCircle(
                 Toast.LENGTH_LONG
             ).show()
         }
-    }
+    }*/
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -239,7 +239,7 @@ fun OnBoardingCircle(
 @Preview(showBackground = true)
 @Composable
 fun OnBoardingCircle_Preview() {
-    OnBoardingCircle(SignInState(true,null)){}
+    OnBoardingCircle(onSignInClick = {})
 
 }
 @Composable

@@ -61,13 +61,13 @@ import live.wellconnect.wellconnect.presentation.SignInState
 
 @Composable
 fun OnBoardingSecond(
-    state: SignInState,
-    onSignInClick: () -> Unit
+    //state: SignInState,
+    onBordingCircle : () -> Unit
 ) {
 
     var textValue by remember { mutableStateOf(TextFieldValue()) }
     val context = LocalContext.current
-    LaunchedEffect(key1 = state.signInError) {
+   /* LaunchedEffect(key1 = state.signInError) {
         state.signInError?.let { error ->
             Toast.makeText(
                 context,
@@ -75,7 +75,7 @@ fun OnBoardingSecond(
                 Toast.LENGTH_LONG
             ).show()
         }
-    }
+    }*/
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -137,7 +137,7 @@ fun OnBoardingSecond(
         contentAlignment = Alignment.BottomCenter
     ) {
         Button(
-            onClick = onSignInClick,
+            onClick = onBordingCircle,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
@@ -156,8 +156,7 @@ fun OnBoardingSecond(
 @Preview(showBackground = true)
 @Composable
 fun OnBoardingSecond_Preview() {
-    OnBoardingSecond(SignInState(true,null)){}
-
+    OnBoardingSecond(onBordingCircle = {})
 }
 @Composable
 fun EditTextFieldSecond(

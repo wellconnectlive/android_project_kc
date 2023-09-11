@@ -1,0 +1,304 @@
+Index: app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package live.wellconnect.wellconnect.domain\n\nimport java.sql.Date\n\n\n// todo, validar los atributos que pasarán a opcionales\n\ndata class UserModel(\n    var gender : Gender?,\n    var age : String?,\n    var photo : String?,\n    var country : String?,\n    var phoneNumber : String?,\n    var allowTracking : Boolean?,\n    var myFiles : MyFiles?,\n    var alerts : Alerts?,\n    var religion : Religion?,\n    var bloodType : BloodType?,\n    var implants : List<Implants>,\n    var medAllergy : List<MedsAllergy>,\n    var foodAllergy : List<FoodAllergy>,\n    var otherAllergy : List<OtherAllergy>,\n    var userType : UserType?,\n    var diseases : List<CommomDisease>,\n    var contacts : List<Contacts>,\n\n)\n\nenum class Gender{\n    FEMALE,\n    MALE,\n}\n\nenum class BloodType {\n    ABplus,\n    ABminus,\n    Aplus,\n    Aminus,\n    Bplus,\n    Bminus,\n    Oplus,\n    Ominus,\n}\n\ndata class MyFiles(\n    var name : String,\n    var type : FileType,\n)\n\ndata class Alerts(\n    var alertType : AlertType,\n    var date : Date,\n)\nenum class FileType {\n    PDF,\n    JPG,\n    DATE\n}\n\nenum class AlertType {\n    MEDICATION,\n    DATES,\n}\n\nenum class Religion{\n    CHRISTIAN_APOSTOLIC_ROMAN,\n    ORTHODOX,\n    JEW,\n    MUSLIM,\n    CATHOLIC,\n    EVANGELIST,\n    JEHOVAH_WITNESS,\n    HINDU,\n    PROTESTANT,\n    SUNNI,\n    SHIISM,\n    BUDDHISMO,\n}\n\nenum class UserType{\n    PREMIUM,\n    FREEMIUM,\n}\n\ndata class Contacts(\n    val id : String,\n    val name : String,\n    val kinship : Kinship,\n    val email : String,\n    val phoneNumber : String,\n    val address: String,\n    val shareLocation : Boolean,\n)\n\nenum class Kinship {\n    DAUGHTER,\n    SON,\n    GRANDMOTHER,\n    GRANDFATHER,\n    MOTHER,\n    FATHER,\n    SISTER,\n    BROTHER,\n    NEPHEW,\n    FRIEND,\n}\n\nenum class CommomDisease {\n    INTELLECTUAL_DISABILITY,\n    DIABETES,\n    HYPERTENSION,\n    ALZHEIMER,\n    AUTISM,\n    VON_WILLEBRAND_DISEASE,\n    HEMOPHILIA,\n    DEMENTIA_SENILE,\n    DEAFNESS,\n}\n\nenum class MedsAllergy {\n    ANTIBIOTICS,\n    ANTI_INFLAMMATORIES,\n    GLUTEN, // NO ES ALIMENTICIA?\n    PENICILLIN,\n    ASPIRIN,\n    IBUPROFEN,\n    NAPROXEN_SODIC,\n    SULFOAMIDES,\n    ANTICONVULSANTS,\n}\n\nenum class FoodAllergy {\n    COW_MILK,\n    EGG,\n    FISH_SEAFOOD,\n    FRUITS_DRIED,\n    WHEAT,\n    PEACH,\n    KIWI,\n    BANANA,\n    PEANUT,\n}\n\nenum class OtherAllergy {\n    POLLEN,\n    MITES,\n    MOLD,\n    HAIR_SKIN_ANIMALS,\n    PICKETS_BEE,\n    PICKETS_WASP,\n    FUNGUS,\n}\n\nenum class Implants {\n    PACEMAKER,\n    DEFIBRILLATOR,\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt b/app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt	(revision 4b6d8e07b13a0b4bc33372bdf4535f5dcd7a1f26)
++++ b/app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt	(date 1694270190328)
+@@ -1,36 +1,38 @@
+ package live.wellconnect.wellconnect.domain
+ 
+-import java.sql.Date
+-
+-
+ // todo, validar los atributos que pasarán a opcionales
+-
++// add photo attibute
+ data class UserModel(
++    //val id : String?,
++    var name : String?,
++    var lastNameFather : String?,
++    var lastNameMother : String?,
++    //var photo : String?,
+     var gender : Gender?,
+-    var age : String?,
+-    var photo : String?,
++    //val gender : String,
++    var dni : String?,
++    var address : String?,
++    val poblation : String?,
+     var country : String?,
++    //val bloodType : BloodType,
++    //val bloodType : String,
++    //val age : Int,
++    var age : String?,
++    //val birthDate : Date,
++    //val birthDate : String,
++    //val inscriptionDate : Date,
++    //val inscriptionDate : String,
+     var phoneNumber : String?,
+-    var allowTracking : Boolean?,
+-    var myFiles : MyFiles?,
+-    var alerts : Alerts?,
+-    var religion : Religion?,
+-    var bloodType : BloodType?,
+-    var implants : List<Implants>,
+-    var medAllergy : List<MedsAllergy>,
+-    var foodAllergy : List<FoodAllergy>,
+-    var otherAllergy : List<OtherAllergy>,
+-    var userType : UserType?,
+-    var diseases : List<CommomDisease>,
+-    var contacts : List<Contacts>,
+-
++    //val postalCode : Int,
++    var postalCode : String?,
+ )
+ 
++///Users/isadevs/Documents/
+ enum class Gender{
+     FEMALE,
+     MALE,
+ }
+-
++/*
+ enum class BloodType {
+     ABplus,
+     ABminus,
+@@ -42,25 +44,49 @@
+     Ominus,
+ }
+ 
+-data class MyFiles(
+-    var name : String,
+-    var type : FileType,
++data class UserModel(
++    //val id : String?,
++    var name: String?,
++    var gender: Gender?,
++    var address : String?,
++    var country: Country?,
++    var age: Int?,
++    var phoneNumber: Int?,
++    val religion: Religion?,
++    val bloodType: BloodType?,
++    val implants: List<Implants?>?
+ )
+-
+-data class Alerts(
+-    var alertType : AlertType,
+-    var date : Date,
++data class UserDataModel (
++    val id : String,
++    val userType : UserType,
++    val note : String,
++    val allowTracking : Boolean,
++    val contacts : List<Contacts>,
++    val diseases : List<CommomDisease?>,
++    val medAllergy : List<MedsAllergy>,
++    val foodAllergy : List<FoodAllergy>,
++    val otherAllergy : List<OtherAllergy>,
+ )
+-enum class FileType {
+-    PDF,
+-    JPG,
+-    DATE
++
++///Users/isadevs/Documents/
++enum class Gender(val gender: String){
++    FEMALE("Femenino"),
++    MALE("Masculino"),
++    NON_BINARY("No Binario"),
++    OTHER("Otro"),
+ }
+ 
+-enum class AlertType {
+-    MEDICATION,
+-    DATES,
++enum class BloodType(val nombreEnEspanol: String) {
++    ABplus("AB+"),
++    ABminus("AB-"),
++    Aplus("A+"),
++    Aminus("A-"),
++    Bplus("B+"),
++    Bminus("B-"),
++    Oplus("O+"),
++    Ominus("O-")
+ }
++// cómo enlaza con la clase user???
+ 
+ enum class Religion{
+     CHRISTIAN_APOSTOLIC_ROMAN,
+@@ -105,16 +131,30 @@
+     FRIEND,
+ }
+ 
+-enum class CommomDisease {
+-    INTELLECTUAL_DISABILITY,
+-    DIABETES,
+-    HYPERTENSION,
+-    ALZHEIMER,
+-    AUTISM,
+-    VON_WILLEBRAND_DISEASE,
+-    HEMOPHILIA,
+-    DEMENTIA_SENILE,
+-    DEAFNESS,
++enum class CommomDisease(var nombreEnEspanol: String) {
++    DISABILITY_INTELLECTUAL("Tengo discapacidad intelectual"),
++    DIABETES("Tengo diabetes"),
++    HYPERTENSION("Tengo hipertensión"),
++    ALZHEIMER("Tengo Alzheimer"),
++    AUTISM("Tengo autismo"),
++    DISEASE_VON_WILLEBRAND("Tengo la enfermedad de Von Willebrand"),
++    HEMOPHILIA("Tengo hemofilia"),
++    DEMENTIA_SENILE("Tengo demencia senil"),
++    DEAFNESS("Tengo sordera"),
++    OTHER("");
++
++    companion object {
++        fun fromString(nombre: String): CommomDisease {
++            for (disease in values()) {
++                if (disease.nombreEnEspanol == nombre) {
++                    return disease
++                }
++            }
++            // Si no se encuentra una coincidencia, se devuelve "OTRA_ENFERMEDAD"
++            OTHER.nombreEnEspanol = nombre
++            return OTHER
++        }
++    }
+ }
+ 
+ enum class MedsAllergy {
+@@ -151,7 +191,24 @@
+     FUNGUS,
+ }
+ 
+-enum class Implants {
+-    PACEMAKER,
+-    DEFIBRILLATOR,
++enum class Implants(val nameInSpanish: String) {
++    CARDIAC_BYPASS("Bypass cardíaco"),
++    KNEE_PROSTHESIS("Prótesis de rodilla"),
++    HIP_PROSTHESIS("Prótesis de cadera"),
++    CORONARY_STENT("Stent coronario"),
++    PACEMAKER("Pacemaker"),
++    COCHLEAR_IMPLANT("Implante coclear"),
++    DENTAL_IMPLANT("Implante dental"),
++    CATARACT_IMPLANT("Implante de catarata"),
++    OTHER("Otro")
+ }
++enum class Country(name: String) {
++    BELICE("Belice"),
++    COSTA_RICA("Costa Rica"),
++    EL_SALVADOR("El Salvador"),
++    GUATEMALA("Guatemala"),
++    HONDURAS("Honduras"),
++    NICARAGUA("Nicaragua"),
++    PANAMA("Panamá")
++
++}*/
+Index: app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterScreen_ex.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package live.wellconnect.wellconnect.presentation.register\n\nimport android.util.Log\nimport androidx.compose.foundation.background\nimport androidx.compose.foundation.layout.Arrangement\nimport androidx.compose.foundation.layout.Column\nimport androidx.compose.foundation.layout.padding\nimport androidx.compose.foundation.shape.RoundedCornerShape\nimport androidx.compose.material3.Button\nimport androidx.compose.material3.ExperimentalMaterial3Api\nimport androidx.compose.material3.Text\nimport androidx.compose.material3.TextField\nimport androidx.compose.runtime.Composable\nimport androidx.compose.runtime.getValue\nimport androidx.compose.runtime.livedata.observeAsState\nimport androidx.compose.runtime.mutableStateOf\nimport androidx.compose.runtime.remember\nimport androidx.compose.runtime.setValue\nimport androidx.compose.ui.Alignment\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.draw.alpha\nimport androidx.compose.ui.text.input.TextFieldValue\nimport androidx.compose.ui.graphics.Color\nimport androidx.compose.ui.unit.dp\nimport live.wellconnect.wellconnect.domain.Gender\nimport live.wellconnect.wellconnect.domain.UserModel\nimport live.wellconnect.wellconnect.presentation.UserData\nimport live.wellconnect.wellconnect.presentation.register.register_ex.RegisterViewModelContinue\n\n\n@OptIn(ExperimentalMaterial3Api::class)\n@Composable\nfun Register(\n    userData: UserData?,\n    viewModel: RegisterViewModelContinue,\n) {\n\n    val idData =  userData?.userId ?: \"\"\n    //var id by remember { mutableStateOf(TextFieldValue()) } /// verificar cómo se manejará él primer registro para asignar id\n    var name by remember { mutableStateOf(TextFieldValue()) }\n    var fatherLastName by remember { mutableStateOf(TextFieldValue()) }\n    var motherLastName by remember { mutableStateOf(TextFieldValue()) }\n    var dni by remember { mutableStateOf(TextFieldValue()) }\n    var address by remember { mutableStateOf(TextFieldValue()) }\n    var poblation by remember { mutableStateOf(TextFieldValue()) }\n    var country by remember { mutableStateOf(TextFieldValue()) }\n    var age by remember { mutableStateOf(TextFieldValue()) }\n    var phoneNumber by remember { mutableStateOf(TextFieldValue()) }\n    var postalCode by remember { mutableStateOf(TextFieldValue()) }\n    val values = ArrayList<Any>()\n\n    Column(\n        modifier = Modifier.padding(20.dp),\n        verticalArrangement = Arrangement.Center,\n        horizontalAlignment = Alignment.CenterHorizontally\n    ) {\n\n        /*TextField(\n            value = id,\n            onValueChange = { id = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"ID\") }\n        )\n        values.add(id.text)*/\n        TextField(\n            value = name,\n            onValueChange = { name = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"Name\") }\n        )\n        values.add(name.text)\n        TextField(\n            value = fatherLastName,\n            onValueChange = { fatherLastName = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"Apellido Paterno\") }\n        )\n        values.add(fatherLastName.text)\n\n        TextField(\n            value = motherLastName,\n            onValueChange = { motherLastName = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"Apellido Materno\") }\n        )\n        values.add(motherLastName.text)\n\n        TextField(\n            value = dni,\n            onValueChange = { dni = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"DNI\") }\n        )\n        values.add(dni.text)\n\n        TextField(\n            value = address,\n            onValueChange = { address = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"Direccion\") }\n        )\n        values.add(address.text)\n\n        TextField(\n            value = poblation,\n            onValueChange = { poblation = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"Población\") }\n        )\n        values.add(poblation.text)\n\n        TextField(\n            value = country,\n            onValueChange = { country = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"País\") }\n        )\n        values.add(country.text)\n\n        TextField(\n            value = age,\n            onValueChange = { age = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"Edad\") }\n        )\n        values.add(age.text)\n\n        TextField(\n            value = phoneNumber,\n            onValueChange = { phoneNumber = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"Teléfono\") }\n        )\n        values.add(phoneNumber.text)\n\n        TextField(\n            value = postalCode,\n            onValueChange = { postalCode = it },\n            modifier = Modifier\n                .alpha(0.8F)\n                .background(Color.White),\n            placeholder = { Text(text = \"Código Postal\") }\n        )\n        values.add(postalCode.text)\n\n        if(!checkUser(values)){\n            val user = UserModel(Gender.FEMALE, values[0].toString(), values[1].toString(), values[2].toString(),  values[3].toString(), true, null, null, null, null, listOf(), listOf(), listOf(),listOf(),null, listOf(), listOf())\n            GetButton(viewModel, user, idData)\n        }\n\n    }\n}\n\nfun checkUser(values: ArrayList<Any>): Boolean {\n\n    return values.none { it.toString().isNotEmpty() }\n}\n\n/**\n * Simultáneamente se debe de crear una funcion para limpiar los textfield y señalizar que se ha agregado al nuevo objeto\n */\n@Composable\nfun GetButton(viewModel: RegisterViewModelContinue, user: UserModel, userData: String) {\n    val response = viewModel.user.observeAsState()\n\n    Button(\n        onClick = {\n            viewModel.addUser(user, userData)\n            Log.i(\"PUSHED\", user.toString())\n                  },\n        shape = RoundedCornerShape(50.dp)\n    ) {\n        Text(text = \"Registrar\")\n    }\n\n\n}\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterScreen_ex.kt b/app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterScreen_ex.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterScreen_ex.kt	(revision 4b6d8e07b13a0b4bc33372bdf4535f5dcd7a1f26)
++++ b/app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterScreen_ex.kt	(date 1694270190322)
+@@ -164,7 +164,7 @@
+         values.add(postalCode.text)
+ 
+         if(!checkUser(values)){
+-            val user = UserModel(Gender.FEMALE, values[0].toString(), values[1].toString(), values[2].toString(),  values[3].toString(), true, null, null, null, null, listOf(), listOf(), listOf(),listOf(),null, listOf(), listOf())
++            val user = UserModel(values[0].toString(), values[1].toString(), values[2].toString(),  Gender.FEMALE,  null, null, null, null, null, null, null)
+             GetButton(viewModel, user, idData)
+         }
+ 
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_30_8_23,_19_45_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_8_23,_19_45_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_8_23,_19_45_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_8_23,_19_45_[Changes]1/shelved.patch	(revision 4b6d8e07b13a0b4bc33372bdf4535f5dcd7a1f26)
++++ /dev/null	(revision 4b6d8e07b13a0b4bc33372bdf4535f5dcd7a1f26)
+@@ -1,26 +0,0 @@
+-Index: app/src/main/java/live/wellconnect/wellconnect/data/DataRepositoryImpl.kt
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/java/live/wellconnect/wellconnect/data/DataRepositoryImpl.kt b/app/src/main/java/live/wellconnect/wellconnect/data/DataRepositoryImpl.kt
+---- a/app/src/main/java/live/wellconnect/wellconnect/data/DataRepositoryImpl.kt	
+-+++ b/app/src/main/java/live/wellconnect/wellconnect/data/DataRepositoryImpl.kt	
+-@@ -53,15 +53,14 @@
+-                     "email" to user.email,
+-                     "password" to user.password,
+-                     "name" to user.name,
+--                    //"photo" to getImage(user.photo),
+-                 )
+-             )
+-     }
+- 
+-     private fun getImage(photo : String) : Task<Uri> {
+--        var file = Uri.fromFile(File("$photo"))
+-+        val file = Uri.fromFile(File("$photo"))
+-         val imagesRef = referenceStorage.child("images/${file.lastPathSegment}")
+--        var uploadTask = imagesRef.putFile(file)
+-+        val uploadTask = imagesRef.putFile(file)
+- 
+-         // observers de la imagen subida
+-         uploadTask.addOnFailureListener {
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_2_9_23,_13_48_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_9_23,_13_48_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_9_23,_13_48_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_9_23,_13_48_[Changes]/shelved.patch	(revision 4b6d8e07b13a0b4bc33372bdf4535f5dcd7a1f26)
++++ /dev/null	(revision 4b6d8e07b13a0b4bc33372bdf4535f5dcd7a1f26)
+@@ -1,43 +0,0 @@
+-Index: app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package live.wellconnect.wellconnect.components\n\nimport android.util.Log\nimport androidx.compose.foundation.Image\nimport androidx.compose.foundation.background\nimport androidx.compose.foundation.layout.Row\nimport androidx.compose.foundation.layout.Spacer\nimport androidx.compose.foundation.layout.fillMaxWidth\nimport androidx.compose.foundation.layout.height\nimport androidx.compose.foundation.layout.heightIn\nimport androidx.compose.foundation.layout.width\nimport androidx.compose.foundation.shape.RoundedCornerShape\nimport androidx.compose.foundation.text.ClickableText\nimport androidx.compose.foundation.text.KeyboardOptions\nimport androidx.compose.material.icons.Icons\nimport androidx.compose.material.icons.outlined.Visibility\nimport androidx.compose.material.icons.outlined.VisibilityOff\nimport androidx.compose.material3.Button\nimport androidx.compose.material3.ButtonDefaults\nimport androidx.compose.material3.Checkbox\nimport androidx.compose.material3.ExperimentalMaterial3Api\nimport androidx.compose.material3.IconButton\nimport androidx.compose.material3.OutlinedTextField\nimport androidx.compose.material3.Text\nimport androidx.compose.material3.TextButton\nimport androidx.compose.material3.TextFieldDefaults\nimport androidx.compose.runtime.Composable\nimport androidx.compose.runtime.mutableStateOf\nimport androidx.compose.runtime.remember\nimport androidx.compose.ui.Alignment\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.graphics.Color\nimport androidx.compose.ui.graphics.vector.ImageVector\nimport androidx.compose.ui.res.painterResource\nimport androidx.compose.ui.text.SpanStyle\nimport androidx.compose.ui.text.TextStyle\nimport androidx.compose.ui.text.buildAnnotatedString\nimport androidx.compose.ui.text.font.FontWeight\nimport androidx.compose.ui.text.input.KeyboardType\nimport androidx.compose.ui.text.input.PasswordVisualTransformation\nimport androidx.compose.ui.text.input.VisualTransformation\nimport androidx.compose.ui.text.style.TextAlign\nimport androidx.compose.ui.text.withStyle\nimport androidx.compose.ui.unit.dp\nimport androidx.compose.ui.unit.sp\nimport live.wellconnect.wellconnect.ui.theme.TextColor\nimport live.wellconnect.wellconnect.ui.theme.TextColorDark\nimport live.wellconnect.wellconnect.ui.theme.myFont\nimport live.wellconnect.wellconnect.ui.theme.myFontSemiBold\n\n@Composable\nfun MakeText(text : String, size : Int, color : Color, align : TextAlign) = Text(\n    text = text,\n    style = TextStyle(\n        fontSize = size.sp,\n        fontFamily = myFont,\n        fontWeight = FontWeight.Bold\n    ),\n    color = color,\n    textAlign = align\n)\n\n@Composable\nfun Space(size : Int) = Spacer(\n    modifier = Modifier\n        .height(size.dp)\n)\n\n@OptIn(ExperimentalMaterial3Api::class)\n@Composable\nfun MakeTextField(\n    labelValue: String,\n    icon: ImageVector?,\n    onTextChange : (String) -> Unit,\n    errorStatus : Boolean = false,\n) {\n    \n    val textValue = remember { mutableStateOf(\"\") }\n    \n    OutlinedTextField(\n        modifier = Modifier.fillMaxWidth(),\n        label = { Text(text = labelValue) },\n        colors = TextFieldDefaults.outlinedTextFieldColors(\n            focusedBorderColor = TextColor,\n            focusedLabelColor = TextColor,\n            cursorColor = TextColor,\n            placeholderColor = Color.White,\n        ),\n        keyboardOptions = KeyboardOptions.Default,\n        value = textValue.value,\n        onValueChange = {\n            textValue.value = it\n            onTextChange(it)\n            },\n        singleLine = true,\n        maxLines = 1,\n        isError = !errorStatus,\n        trailingIcon = {\n            if (icon != null) {\n                Image(imageVector = icon, contentDescription = \"Pencil Edit\")\n            }\n        },\n        shape = RoundedCornerShape(10.dp)\n    )\n}\n\n@OptIn(ExperimentalMaterial3Api::class)\n@Composable\nfun MakeTextFieldPassword(\n    labelValue: String,\n    icon: ImageVector?,\n    onTextChange : (String) -> Unit,\n    errorStatus : Boolean = false,\n) {\n\n    val passwordValue = remember { mutableStateOf(\"\") }\n\n    val passwordIsVisible = remember { mutableStateOf(false) }\n\n    OutlinedTextField(\n        modifier = Modifier.fillMaxWidth(),\n        label = { Text(text = labelValue) },\n        colors = TextFieldDefaults.outlinedTextFieldColors(\n            focusedBorderColor = TextColor,\n            focusedLabelColor = TextColor,\n            cursorColor = TextColor,\n            placeholderColor = Color.White,\n        ),\n        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),\n        value = passwordValue.value,\n        onValueChange = {\n            passwordValue.value = it\n            onTextChange(it)\n            },\n        singleLine = true,\n        maxLines = 1,\n        isError = !errorStatus,\n        trailingIcon = {\n            if (icon != null) {\n                val iconImage = if(passwordIsVisible.value){\n                    Icons.Outlined.Visibility\n                }else {\n                    Icons.Outlined.VisibilityOff\n                }\n                IconButton(onClick = { passwordIsVisible.value = !passwordIsVisible.value }) {\n                    Image(imageVector = icon, contentDescription = \"Pencil Edit\")\n                }\n            }\n        },\n        visualTransformation = if(passwordIsVisible.value) VisualTransformation.None else PasswordVisualTransformation(),\n        shape = RoundedCornerShape(10.dp),\n    )\n\n}\n\n@Composable\nfun MyCheckBox(\n    text : String,\n    onCheckedChange : (Boolean) -> Unit,\n    onTextSelected: (String) -> Unit,\n) = Row(\n    Modifier\n        .fillMaxWidth()\n        .heightIn(70.dp),\n    verticalAlignment = Alignment.CenterVertically,\n) {\n    val checkState = remember { mutableStateOf(false) }\n    Checkbox(\n        checked = checkState.value,\n        onCheckedChange = {\n            checkState.value = it\n            onCheckedChange.invoke(it)\n        }\n    )\n    MyClickableText(text = text, onTextSelected)\n}\n\n@Composable\nfun MyClickableText(\n    text : String,\n    onTextSelected : (String) -> Unit)\n{\n    val initText = \"I've read and agree with the \"\n    val termText = \" Terms and Conditions\"\n    val secondText = \" and the\"\n    val privacyText = \" Privacy Policy.\"\n\n    val frankenText = buildAnnotatedString {\n        append(initText)\n        withStyle(style = SpanStyle(color = TextColor, fontFamily = myFont)) {\n            pushStringAnnotation(tag = termText, annotation = termText)\n            append(termText)\n        }\n        append(secondText)\n        withStyle(style = SpanStyle(color = TextColor, fontFamily = myFont)) {\n            pushStringAnnotation(tag = privacyText, annotation = privacyText)\n            append(privacyText)\n        }\n    }\n    ClickableText(\n        text = frankenText,\n        onClick = { clickText ->\n            frankenText.getStringAnnotations(clickText, clickText)\n                .firstOrNull()?.also { span ->\n                    Log.i(\"TAG\", \"{$span} es el texto click\")\n\n                    if (span.item == termText || span.item == privacyText) {\n                        onTextSelected(span.item)\n                    }\n                }\n        }\n    )\n}\n\n@Composable\nfun MyClickableTextLogin(\n    onTextSelected: () -> Unit\n)\n{\n    val initText = \"Not a member? \"\n    val termText = \" Register Now\"\n\n    val frankenText = buildAnnotatedString {\n        withStyle(style = SpanStyle(color = TextColorDark, fontFamily = myFontSemiBold)) {\n            append(initText)\n        }\n        withStyle(style = SpanStyle(color = TextColor, fontFamily = myFont)) {\n            pushStringAnnotation(tag = termText, annotation = termText)\n            append(termText)\n        }\n    }\n    ClickableText(\n        text = frankenText,\n        onClick = { clickText ->\n            frankenText.getStringAnnotations(clickText, clickText)\n                .firstOrNull()?.also { span ->\n                    Log.i(\"TAG\", \"{$span} es el texto click\")\n\n                    if (span.item == termText) {\n                        onTextSelected()\n                    }\n                }\n        }\n    )\n}\n\n@Composable\nfun MyButton(onClicked : () -> Unit, isEnabled : Boolean, text : String) = Button(\n    onClick = {\n        onClicked.invoke()\n    },\n    shape = RoundedCornerShape(10.dp),\n    modifier = Modifier\n        .fillMaxWidth()\n        .heightIn(50.dp),\n    colors = ButtonDefaults.buttonColors(TextColor),\n    enabled = isEnabled\n) {\n    Text(\n        text = text,\n        color = Color.Black\n    )\n}\n\n@Composable\nfun MyCustomButton(text: String, heigh: Int, width : Float, colorText : Color, colorButton : Color, onSigIn: () -> Unit) = Button(\n    onClick = { onSigIn() },\n    shape = RoundedCornerShape(10.dp),\n    modifier = Modifier\n        .fillMaxWidth(width)\n        .heightIn(heigh.dp),\n    colors = ButtonDefaults.buttonColors(colorButton)\n) {\n    Text(\n        text = text,\n        color = colorText\n    )\n}\n\n@Composable\nfun MyCustomImage(image : Int, height : Int, width : Int) = Image(\n    painter = painterResource(id = image),\n    contentDescription = \"Send a Message image\",\n    modifier = Modifier\n        .height(height.dp)\n        .width(width.dp)\n        .background(Color.Transparent)\n)\n\n@Composable\nfun MyCustomImageIcon(image: ImageVector, height: Int, width: Int) = Image(\n    imageVector = image,\n    contentDescription = \"Send a Message image\",\n    modifier = Modifier\n        .height(height.dp)\n        .width(width.dp)\n        .background(Color.Transparent)\n)\n\n@Composable\nfun MyTextButton(onClick : () -> Unit, text: String, align: TextAlign) = TextButton(\n        onClick = onClick,\n    ) {\n        Text(\n            text,\n            textAlign = align\n        )\n    }
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt b/app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt
+---- a/app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt	(revision 67a4bf850df8d919fd1591da2535d43347737501)
+-+++ b/app/src/main/java/live/wellconnect/wellconnect/components/AppComponentsUI.kt	(date 1693655136001)
+-@@ -187,12 +187,12 @@
+- 
+-     val frankenText = buildAnnotatedString {
+-         append(initText)
+--        withStyle(style = SpanStyle(color = TextColor, fontFamily = myFont)) {
+-+        withStyle(style = SpanStyle(color = TextColorDark, fontFamily = myFont)) {
+-             pushStringAnnotation(tag = termText, annotation = termText)
+-             append(termText)
+-         }
+-         append(secondText)
+--        withStyle(style = SpanStyle(color = TextColor, fontFamily = myFont)) {
+-+        withStyle(style = SpanStyle(color = TextColorDark, fontFamily = myFont)) {
+-             pushStringAnnotation(tag = privacyText, annotation = privacyText)
+-             append(privacyText)
+-         }
+-@@ -202,8 +202,6 @@
+-         onClick = { clickText ->
+-             frankenText.getStringAnnotations(clickText, clickText)
+-                 .firstOrNull()?.also { span ->
+--                    Log.i("TAG", "{$span} es el texto click")
+--
+-                     if (span.item == termText || span.item == privacyText) {
+-                         onTextSelected(span.item)
+-                     }
+-@@ -234,8 +232,6 @@
+-         onClick = { clickText ->
+-             frankenText.getStringAnnotations(clickText, clickText)
+-                 .firstOrNull()?.also { span ->
+--                    Log.i("TAG", "{$span} es el texto click")
+--
+-                     if (span.item == termText) {
+-                         onTextSelected()
+-                     }

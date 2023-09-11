@@ -61,13 +61,13 @@ import live.wellconnect.wellconnect.presentation.SignInState
 
 @Composable
 fun OnBoardingFirst(
-    state: SignInState,
-    onSignInClick: () -> Unit
+    //state: SignInState,
+    onBoardingSecond : () -> Unit
 ) {
 
     var textValue by remember { mutableStateOf(TextFieldValue()) }
     val context = LocalContext.current
-    LaunchedEffect(key1 = state.signInError) {
+    /*LaunchedEffect(key1 = state.signInError) {
         state.signInError?.let { error ->
             Toast.makeText(
                 context,
@@ -75,7 +75,7 @@ fun OnBoardingFirst(
                 Toast.LENGTH_LONG
             ).show()
         }
-    }
+    }*/
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -167,7 +167,7 @@ fun OnBoardingFirst(
         contentAlignment = Alignment.BottomCenter
     ) {
         Button(
-            onClick = onSignInClick,
+            onClick = onBoardingSecond,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
@@ -186,8 +186,7 @@ fun OnBoardingFirst(
 @Preview(showBackground = true)
 @Composable
 fun OnBoardingFirst_Preview() {
-    OnBoardingFirst(SignInState(true,null)){}
-
+    OnBoardingFirst { }
 }
 @Composable
 fun EditTextField(
@@ -246,7 +245,9 @@ fun EditTextField(
                     Icon(
                         imageVector = Icons.Outlined.Edit,
                         contentDescription = null,
-                        modifier = Modifier.size(30.dp).padding(end=12.dp),
+                        modifier = Modifier
+                            .size(30.dp)
+                            .padding(end = 12.dp),
                         tint = colorResource(id = R.color.blueFontText)
                     )
                 }
@@ -316,7 +317,9 @@ fun DropDownTextField(
                     Icon(
                         painter = painterResource(id = R.drawable.caretdown),
                         contentDescription = null,
-                        modifier = Modifier.size(30.dp).padding(end=12.dp),
+                        modifier = Modifier
+                            .size(30.dp)
+                            .padding(end = 12.dp),
                         tint = colorResource(id = R.color.blueFontText),
                     )
                 }

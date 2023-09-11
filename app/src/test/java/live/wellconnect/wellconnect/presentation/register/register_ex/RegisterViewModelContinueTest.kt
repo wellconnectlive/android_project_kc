@@ -1,6 +1,7 @@
 package live.wellconnect.wellconnect.presentation.register.register_ex
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+//import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.arch.core.executor.DefaultTaskExecutor
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.firebase.firestore.util.Assert.fail

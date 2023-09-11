@@ -1,0 +1,14 @@
+Index: app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt b/app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt	
++++ b/app/src/main/java/live/wellconnect/wellconnect/domain/UserModel.kt	
+@@ -211,4 +211,4 @@
+     NICARAGUA("Nicaragua"),
+     PANAMA("Panamá")
+ 
+-}
++}*/

@@ -1,6 +1,7 @@
 package live.wellconnect.wellconnect
 
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.os.Bundle
 import android.util.Log
@@ -42,6 +43,9 @@ import live.wellconnect.wellconnect.presentation.register.RegisterScreen
 import live.wellconnect.wellconnect.presentation.register.RegisterViewModel
 import live.wellconnect.wellconnect.presentation.register.register_ex.RegisterFirst
 import live.wellconnect.wellconnect.presentation.register.register_ex.RegisterViewModelContinue
+import live.wellconnect.wellconnect.presentation.sign_in.OnBoardingCircle
+import live.wellconnect.wellconnect.presentation.sign_in.OnBoardingFirst
+import live.wellconnect.wellconnect.presentation.sign_in.OnBoardingSecond
 
 
 @AndroidEntryPoint
@@ -58,6 +62,7 @@ class MainActivity : ComponentActivity() {
         )
     }
 
+    @SuppressLint("ComposableDestinationInComposeScope")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -68,7 +73,27 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colorScheme.background
                     ) {
                         val navController = rememberNavController()
-                        NavHost(navController = navController, startDestination = "sign_in") {
+                       // NavHost(navController = navController, startDestination = "sign_in") {
+                        NavHost(navController = navController, startDestination = "onboarding_one") {
+
+
+                            composable("onboarding_one"){
+                                OnBoardingFirst(
+                                    onBoardingSecond = { navController.navigate("onboarding_two") }
+                                )
+                            }
+
+                            composable("onboarding_two"){
+                                OnBoardingSecond {
+                                    navController.navigate("onboarding_three")
+                                }
+                            }
+
+                            composable("onboarding_three"){
+                                OnBoardingCircle {
+                                    navController.navigate("sign_in")
+                                }
+                            }
 
                             composable("sign_in") {
                                 val viewModel = viewModel<SignInViewModel>()
@@ -106,6 +131,7 @@ class MainActivity : ComponentActivity() {
                                         navController.navigate("profile")
                                         viewModel.resetState()
                                     }
+
                                     if(state.registerState) {
                                         Toast.makeText(
                                             applicationContext,
@@ -117,6 +143,7 @@ class MainActivity : ComponentActivity() {
                                         viewModel.resetState()
                                     }
                                 }
+
 
                                 SignInScreen(
                                     state = state,
@@ -136,6 +163,9 @@ class MainActivity : ComponentActivity() {
                                     },
                                     viewModel,
                                 )
+
+
+
                             }
 
 

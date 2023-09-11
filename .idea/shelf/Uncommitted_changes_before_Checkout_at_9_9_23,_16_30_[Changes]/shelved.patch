@@ -1,0 +1,14 @@
+Index: app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterSecond.kt
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterSecond.kt b/app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterSecond.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterSecond.kt	
++++ b/app/src/main/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterSecond.kt	
+@@ -148,7 +148,7 @@
+     var isCheckedDeafness by remember { mutableStateOf(false) }
+     
+     var eTNewIllness by remember {  mutableStateOf<String?>(null) }
+-    var diseases by remember { mutableStateOf<List<CommomDisease?>>(emptyList()) }
++    //var diseases by remember { mutableStateOf<List<CommomDisease?>>(emptyList()) }
+     Box(
+         modifier = Modifier
+             .fillMaxSize()
