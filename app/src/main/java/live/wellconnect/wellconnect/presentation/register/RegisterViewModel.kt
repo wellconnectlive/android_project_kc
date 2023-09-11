@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import live.wellconnect.wellconnect.data.DataRepository
+import live.wellconnect.wellconnect.data.local.SharedPreferenceServiceImpl
 import live.wellconnect.wellconnect.domain.UserRegister
 import live.wellconnect.wellconnect.utils.Validator
 import javax.inject.Inject
@@ -26,6 +27,10 @@ class RegisterViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val TAGGER = RegisterViewModel::class.simpleName
+
+    private var USER_SAVED = ""
+
+    private lateinit var shared : SharedPreferenceServiceImpl
 
     private val auth : FirebaseAuth = Firebase.auth
     var isRegisterShow by mutableStateOf(false)
@@ -101,8 +106,6 @@ class RegisterViewModel @Inject constructor(
         isValidOK.value = nameResult && emailResult && passwordResult  && termsAndPolicyResult
     }
 
-
-    // todo, chequear porqué no puede ser una password menor a 6 , caso contrario da error
     private fun registerUser(userRegister: UserRegister) = viewModelScope.launch(Dispatchers.IO) {
         auth.createUserWithEmailAndPassword(
             userRegister.email,
@@ -112,6 +115,10 @@ class RegisterViewModel @Inject constructor(
                 Log.i("REGISTER", "Usuario autenticado con éxito")
                 auth.currentUser?.sendEmailVerification()
                 auth.currentUser?.let { repository.loadUser(userRegister, it.uid) }
+
+               // shared!!.putPrefString(userRegister.email, true)
+               // Log.i("shared", shared!!.getPrefString(userRegister.email, true).toString())
+
                 isRegisterShow = true
             } else {
                 Log.i("ERROR", "No se ha conseguido autenticar al usuario, intentelo nuevamente")
