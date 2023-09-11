@@ -47,6 +47,9 @@ import live.wellconnect.wellconnect.presentation.register.register_ex.RegisterVi
 import live.wellconnect.wellconnect.presentation.sign_in.OnBoardingCircle
 import live.wellconnect.wellconnect.presentation.sign_in.OnBoardingFirst
 import live.wellconnect.wellconnect.presentation.sign_in.OnBoardingSecond
+import live.wellconnect.wellconnect.presentation.sign_in.WelcomeFirst
+import live.wellconnect.wellconnect.presentation.sign_in.WelcomeSecond
+import live.wellconnect.wellconnect.presentation.sign_in.WelcomeThird
 
 
 @AndroidEntryPoint
@@ -81,19 +84,19 @@ class MainActivity : ComponentActivity() {
 
 
                             composable("onboarding_one"){
-                                OnBoardingFirst(
-                                    onBoardingSecond = { navController.navigate("onboarding_two") }
+                                WelcomeFirst(
+                                    welcomeSecond = { navController.navigate("onboarding_two") }
                                 )
                             }
 
                             composable("onboarding_two"){
-                                OnBoardingSecond {
+                                WelcomeSecond {
                                     navController.navigate("onboarding_three")
                                 }
                             }
 
                             composable("onboarding_three"){
-                                OnBoardingCircle {
+                                WelcomeThird{
                                     navController.navigate("sign_in")
                                 }
                             }

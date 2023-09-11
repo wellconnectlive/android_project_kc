@@ -61,12 +61,11 @@ import live.wellconnect.wellconnect.presentation.SignInState
 
 @Composable
 fun WelcomeThird(
-    state: SignInState,
-    onSignInClick: () -> Unit
+    welcomeThird : () -> Unit
 ) {
 
     val context = LocalContext.current
-    LaunchedEffect(key1 = state.signInError) {
+    /*LaunchedEffect(key1 = state.signInError) {
         state.signInError?.let { error ->
             Toast.makeText(
                 context,
@@ -74,7 +73,7 @@ fun WelcomeThird(
                 Toast.LENGTH_LONG
             ).show()
         }
-    }
+    }*/
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -153,7 +152,7 @@ fun WelcomeThird(
                 )
                 Spacer(modifier = Modifier.height(12.dp))
             Button(
-                onClick = onSignInClick,
+                onClick = welcomeThird,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
@@ -173,7 +172,7 @@ fun WelcomeThird(
 @Preview(showBackground = true)
 @Composable
 fun WelcomeThird_Preview() {
-    WelcomeThird(SignInState(true,null)){}
+    WelcomeThird(welcomeThird = {})
 
 }
 

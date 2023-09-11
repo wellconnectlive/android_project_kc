@@ -61,12 +61,11 @@ import live.wellconnect.wellconnect.presentation.SignInState
 
 @Composable
 fun WelcomeFirst(
-    state: SignInState,
-    onSignInClick: () -> Unit
+    welcomeSecond : () -> Unit
 ) {
 
     val context = LocalContext.current
-    LaunchedEffect(key1 = state.signInError) {
+    /*LaunchedEffect(key1 = state.signInError) {
         state.signInError?.let { error ->
             Toast.makeText(
                 context,
@@ -74,7 +73,7 @@ fun WelcomeFirst(
                 Toast.LENGTH_LONG
             ).show()
         }
-    }
+    }*/
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -153,7 +152,7 @@ fun WelcomeFirst(
                 )
                 Spacer(modifier = Modifier.height(12.dp))
             Button(
-                onClick = onSignInClick,
+                onClick = welcomeSecond,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
@@ -173,7 +172,7 @@ fun WelcomeFirst(
 @Preview(showBackground = true)
 @Composable
 fun WelcomeFirst_Preview() {
-    WelcomeFirst(SignInState(true,null)){}
+    WelcomeFirst(welcomeSecond = {})
 
 }
 @Composable
