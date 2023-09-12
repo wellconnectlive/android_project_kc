@@ -57,22 +57,17 @@ fun RegisterScreen(
             Space(20)
             MakeText(stringResource(id = R.string.name), 12, TextColorDark, TextAlign.Start)
             MakeTextField(stringResource(id = R.string.name), Icons.Outlined.Edit, onTextChange = { viewModel.onEvent(RegisterStates.NameTaking(it)) }, errorStatus = viewModel.registerUIStates.value.nameError)
-            //getAmessageToUser(context, viewModel.registerUIStates.value.nameError, stringResource(id = R.string.name_error))
-
             
             Space(15)
             MakeText(stringResource(id = R.string.email), 12, TextColorDark, TextAlign.Start)
             MakeTextField(stringResource(id = R.string.email_example), icon = null, onTextChange = { viewModel.onEvent(RegisterStates.EmailTaking(it)) }, errorStatus = viewModel.registerUIStates.value.emailError)
-            //getAmessageToUser(context, viewModel.registerUIStates.value.emailError, stringResource(id = R.string.email_error))
 
             Space(15)
             MakeText(stringResource(id = R.string.password), 12, TextColorDark, TextAlign.Start)
             MakeTextFieldPassword(stringResource(id = R.string.password_label),  onTextChange = { viewModel.onEvent(RegisterStates.PasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
-            //getAmessageToUser(context, viewModel.registerUIStates.value.passwordError, stringResource(id = R.string.password_error))
 
             Space(15)
             MakeTextFieldPassword(stringResource(id = R.string.confirm_password), onTextChange = { viewModel.onEvent(RegisterStates.RepasswordTaking(it)) }, errorStatus = viewModel.registerUIStates.value.passwordError)
-            //getAmessageToUser(context, viewModel.registerUIStates.value.repasswordError, stringResource(id = R.string.confirm_password_error))
             
             Space(15)
             MyCheckBox(text = stringResource(id = R.string.checkbox_text),
@@ -86,7 +81,6 @@ fun RegisterScreen(
                         }
                     }
                 )
-            //getAmessageToUser(context, viewModel.registerUIStates.value.termsAndPolicyError, stringResource(id = R.string.terms_and_conditions_error))
 
             when(true){
                 viewModel.isTermsShow -> {

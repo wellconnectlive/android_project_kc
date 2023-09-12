@@ -116,9 +116,6 @@ class RegisterViewModel @Inject constructor(
                 auth.currentUser?.sendEmailVerification()
                 auth.currentUser?.let { repository.loadUser(userRegister, it.uid) }
 
-               // shared!!.putPrefString(userRegister.email, true)
-               // Log.i("shared", shared!!.getPrefString(userRegister.email, true).toString())
-
                 isRegisterShow = true
             } else {
                 Log.i("ERROR", "No se ha conseguido autenticar al usuario, intentelo nuevamente")

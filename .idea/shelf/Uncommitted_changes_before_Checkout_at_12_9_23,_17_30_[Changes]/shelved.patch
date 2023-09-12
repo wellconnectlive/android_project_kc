@@ -1,0 +1,83 @@
+Index: app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt b/app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt	
++++ b/app/src/main/java/live/wellconnect/wellconnect/MainActivity.kt	
+@@ -35,11 +35,11 @@
+ import com.google.firebase.auth.ktx.auth
+ import com.google.firebase.ktx.Firebase
+ import dagger.hilt.android.AndroidEntryPoint
+-<<<<<<< Updated upstream
++
+ import live.wellconnect.wellconnect.data.local.SharedPreferenceServiceImpl
+-=======
++
+ import live.wellconnect.wellconnect.presentation.QR.QRScreen
+->>>>>>> Stashed changes
++
+ import live.wellconnect.wellconnect.presentation.SignInScreen
+ import live.wellconnect.wellconnect.presentation.home.HomeScreen
+ import live.wellconnect.wellconnect.presentation.location.MyLocationScreen
+@@ -64,6 +64,7 @@
+     private val registerViewModelEx : RegisterViewModelContinue by viewModels()
+     private val registerViewModel: RegisterViewModel by viewModels()
+     private val profileViewModel: ProfileScreenViewModel  by viewModels()
++    private val signInViewModel : SignInViewModel by viewModels()
+ 
+     private val googleAuthUiClient by lazy {
+         GoogleAuthUiClient(
+@@ -72,7 +73,7 @@
+         )
+     }
+ 
+-    @SuppressLint("ComposableDestinationInComposeScope")
++    @SuppressLint("ComposableDestinationInComposeScope", "StateFlowValueCalledInComposition")
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+ 
+@@ -85,9 +86,17 @@
+                         color = MaterialTheme.colorScheme.background
+                     ) {
+                         val navController = rememberNavController()
+-<<<<<<< Updated upstream
+-                       // NavHost(navController = navController, startDestination = "sign_in") {
+-                        NavHost(navController = navController, startDestination = "onboarding_one") {
++
++                       // val state by signInViewModel.state.collectAsStateWithLifecycle()
++                        var destinyInit = ""
++
++                        destinyInit = if (signInViewModel.state.value.isSignInSuccessful) {
++                            "onboarding_one"
++                        } else {
++                            "sign_in"
++                        }
++                        //NavHost(navController = navController, startDestination = "onboarding_one") {
++                        NavHost(navController = navController, startDestination = destinyInit) {
+ 
+ 
+                             composable("onboarding_one"){
+@@ -107,10 +116,10 @@
+                                     navController.navigate("sign_in")
+                                 }
+                             }
+-=======
++
+                         val userData = googleAuthUiClient.getSignedInUser()
+                         NavHost(navController = navController, startDestination = "sign_in") {
+->>>>>>> Stashed changes
++
+ 
+                             composable("sign_in") {
+                                 val viewModel = viewModel<SignInViewModel>()
+@@ -178,7 +187,7 @@
+                                         Log.i("PUSH_REG", "PRESIONA DESDE REG")
+                                         navController.navigate("register")
+                                     },
+-                                    viewModel,
++                                    viewModel
+                                 )
+ 
+ 

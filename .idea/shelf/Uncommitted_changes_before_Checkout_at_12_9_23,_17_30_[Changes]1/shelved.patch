@@ -1,0 +1,91 @@
+Index: app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeThird.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeThird.kt b/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeThird.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeThird.kt	
++++ b/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeThird.kt	
+@@ -65,15 +65,7 @@
+ ) {
+ 
+     val context = LocalContext.current
+-    /*LaunchedEffect(key1 = state.signInError) {
+-        state.signInError?.let { error ->
+-            Toast.makeText(
+-                context,
+-                error,
+-                Toast.LENGTH_LONG
+-            ).show()
+-        }
+-    }*/
++
+     Box(
+         modifier = Modifier
+             .fillMaxSize()
+Index: app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeSecond.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeSecond.kt b/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeSecond.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeSecond.kt	
++++ b/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeSecond.kt	
+@@ -65,15 +65,7 @@
+ ) {
+ 
+     val context = LocalContext.current
+-    /*LaunchedEffect(key1 = state.signInError) {
+-        state.signInError?.let { error ->
+-            Toast.makeText(
+-                context,
+-                error,
+-                Toast.LENGTH_LONG
+-            ).show()
+-        }
+-    }*/
++
+     Box(
+         modifier = Modifier
+             .fillMaxSize()
+Index: app/src/test/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterViewModelContinueTest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/test/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterViewModelContinueTest.kt b/app/src/test/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterViewModelContinueTest.kt
+--- a/app/src/test/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterViewModelContinueTest.kt	
++++ b/app/src/test/java/live/wellconnect/wellconnect/presentation/register/register_ex/RegisterViewModelContinueTest.kt	
+@@ -2,6 +2,7 @@
+ 
+ //import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+ import androidx.arch.core.executor.DefaultTaskExecutor
++import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+ import androidx.lifecycle.MutableLiveData
+ import androidx.lifecycle.Observer
+ import com.google.firebase.firestore.util.Assert.fail
+Index: app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeFirst.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeFirst.kt b/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeFirst.kt
+--- a/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeFirst.kt	
++++ b/app/src/main/java/live/wellconnect/wellconnect/presentation/welcome/WelcomeFirst.kt	
+@@ -65,15 +65,7 @@
+ ) {
+ 
+     val context = LocalContext.current
+-    /*LaunchedEffect(key1 = state.signInError) {
+-        state.signInError?.let { error ->
+-            Toast.makeText(
+-                context,
+-                error,
+-                Toast.LENGTH_LONG
+-            ).show()
+-        }
+-    }*/
++
+     Box(
+         modifier = Modifier
+             .fillMaxSize()
