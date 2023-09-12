@@ -24,6 +24,7 @@ class ProfileScreenViewModel @Inject constructor(
     //private val _dataUser : MutableLiveData<UserModelExample> = MutableLiveData<UserModelExample>()
     //val dataUser : LiveData<UserModelExample> get() = _dataUser
     val dataUser : LiveData<UserModelDTO> get() = _dataUser
+    val datoURL = "https://wellconnect.live/qr/?data="
 
     fun getUserValues(uID : String) = viewModelScope.launch(Dispatchers.IO) {
         try{

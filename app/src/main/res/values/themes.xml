@@ -4,4 +4,9 @@
     <style name="Theme.Wellconnect" parent="android:Theme.Material.Light.NoActionBar" >
     <item name="android:colorPrimary">@color/orange</item>
     </style>
+
+    <style name="Theme.Wellconnect.NoActionBar" parent="android:Theme.Material.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

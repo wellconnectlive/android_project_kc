@@ -123,7 +123,7 @@ fun OnBoardingSecond(
             EditTextField(
                 value = tValDesease,
                 onValueChange = { tValDesease = it },
-                hint = "Añade tu dolencia"
+                hint = "Enfermedad / Alergia"
             )
             Spacer(modifier = Modifier.height(30.dp))
 

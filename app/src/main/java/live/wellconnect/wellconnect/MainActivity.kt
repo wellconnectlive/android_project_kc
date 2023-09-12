@@ -35,8 +35,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+<<<<<<< Updated upstream
 import live.wellconnect.wellconnect.data.local.SharedPreferenceServiceImpl
+=======
+import live.wellconnect.wellconnect.presentation.QR.QRScreen
+>>>>>>> Stashed changes
 import live.wellconnect.wellconnect.presentation.SignInScreen
+import live.wellconnect.wellconnect.presentation.home.HomeScreen
+import live.wellconnect.wellconnect.presentation.location.MyLocationScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreen
 import live.wellconnect.wellconnect.presentation.profile.ProfileScreenViewModel
 import live.wellconnect.wellconnect.presentation.register.Register
@@ -79,6 +85,7 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colorScheme.background
                     ) {
                         val navController = rememberNavController()
+<<<<<<< Updated upstream
                        // NavHost(navController = navController, startDestination = "sign_in") {
                         NavHost(navController = navController, startDestination = "onboarding_one") {
 
@@ -100,6 +107,10 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("sign_in")
                                 }
                             }
+=======
+                        val userData = googleAuthUiClient.getSignedInUser()
+                        NavHost(navController = navController, startDestination = "sign_in") {
+>>>>>>> Stashed changes
 
                             composable("sign_in") {
                                 val viewModel = viewModel<SignInViewModel>()
@@ -107,7 +118,8 @@ class MainActivity : ComponentActivity() {
 
                                 LaunchedEffect(key1 = Unit) {
                                     if(googleAuthUiClient.getSignedInUser() != null) {
-                                        navController.navigate("profile")
+                                        //navController.navigate("profile")
+                                        navController.navigate("home")
                                     }
                                 }
 
@@ -125,7 +137,6 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
 
-
                                 LaunchedEffect(key1 = state.isSignInSuccessful, key2 = state.registerState) {
                                     if(state.isSignInSuccessful) {
                                         Toast.makeText(
@@ -133,8 +144,8 @@ class MainActivity : ComponentActivity() {
                                             "Sign in successful",
                                             Toast.LENGTH_LONG
                                         ).show()
-
-                                        navController.navigate("profile")
+                                        navController.navigate("home")
+                                        //navController.navigate("profile")
                                         viewModel.resetState()
                                     }
 
@@ -197,6 +208,18 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
 
+                            composable("home") {
+                                HomeScreen(
+                                    userData = googleAuthUiClient.getSignedInUser(),
+                                    onQRShow = {
+                                        navController.navigate("qr")
+                                    },
+                                    onMapClick = {
+                                        navController.navigate("mylocation")
+                                    }
+                                )
+                            }
+
                             composable("register") {
                                 RegisterScreen(registerViewModel)
                                // navController.popBackStack()
@@ -220,6 +243,21 @@ class MainActivity : ComponentActivity() {
                             }
 
 
+                            composable("qr") {
+                                if (userData != null) {
+                                    QRScreen(
+                                        uiID = userData.userId,
+                                    )
+                                }
+                            }
+
+                            composable("mylocation") {
+                                if (userData != null) {
+                                    MyLocationScreen(
+                                        uiID = userData.userId,
+                                    )
+                                }
+                            }
                         }
                     }
 
